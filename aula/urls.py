@@ -12,9 +12,20 @@ urlpatterns = [
     path('docs/', include_docs_urls(title="Aula API")),
     
     # List
+    path('estado-registro/', EstadoRegistroListAPIView.as_view(), name='estado-regitro-list'),
+    path('estudiante/', EstudianteListAPIView.as_view(), name='estudiante-list/'),
+    path('programa/', ProgramaListAPIView.as_view(), name='programa-list/'),
+    path('curso/', CursoListAPIView.as_view(), name='curso-list/'),
+    path('modulo/', ModuloListAPIView.as_view(), name='modulo-list/'),
+    path('examen/', ExamenListAPIView.as_view(), name='examen-list/'),
+    path('pregunta/', PreguntaListAPIView.as_view(), name='pregunta-list/'),
+    path('alternativa/', AlternativaListAPIView.as_view(), name='alternativa-list/'),
+    path('respuesta/', RespuestaListAPIView.as_view(), name='respuesta-list/'),
+    path('nota-curso/', NotaCursoListAPIView.as_view(), name='nota-curso-list/'),
+    path('nota-programa/', NotaProgramaListAPIView.as_view(), name='nota-programa-list/'),
     
     # Create
-    path('estreg/create/', EstadoRegistroCreateAPIView.as_view(), name='estado-registro-create'),
+    path('estado-registro/create/', EstadoRegistroCreateAPIView.as_view(), name='estado-registro-create'),
     path('estudiante/create/', EstudianteCreateAPIView.as_view(), name='estudiante-create'),
     path('programa/create/', ProgramaCreateAPIView.as_view(), name='programa-create'),
     path('curso/create/', CursoCreateAPIView.as_view(), name='curso-create'),
@@ -23,4 +34,6 @@ urlpatterns = [
     path('pregunta/create/', PreguntaCreateAPIView.as_view(), name='pregunta-create'),
     path('alternativa/create/', AlternativaCreateAPIView.as_view(), name='alternativa-create'),
     path('respuesta/create/', RespuestaCreateAPIView.as_view(), name='respuesta-create'),
+    path('nota-curso/create/', NotaCursoCreateAPIView.as_view(), name='nota-curso-create'),
+    path('nota-programa/create/', NotaProgramaCreateAPIView.as_view(), name='nota-programa-create'),
 ]
