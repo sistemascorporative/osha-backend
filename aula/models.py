@@ -27,7 +27,7 @@ class Estudiante(models.Model):
     estdir = models.CharField(db_column='EstDir', max_length=100, blank=True)
     #estfeccre = models.DateTimeField(db_column='EstFecCre', default=timezone.now, editable=False)
     #estfecmod = models.DateTimeField(db_column='EstFecMod', default=timezone.now)
-    estestRegcod= models.ForeignKey(EstadoRegistro, models.DO_NOTHING, db_column='EstEstReg')
+    estestregcod = models.ForeignKey(EstadoRegistro, models.DO_NOTHING, db_column='EstEstReg')
 
 
 class Programa(models.Model):
@@ -183,7 +183,7 @@ class NotaPrograma(models.Model):
     notprocod = models.AutoField(verbose_name="codigo", db_column='NotProCod', primary_key=True)
     notpropun = models.DecimalField(verbose_name="Puntuacion", db_column='NotProPun', max_digits=5, decimal_places=2)
     notproestcod = models.ForeignKey(Estudiante, models.DO_NOTHING, verbose_name="Codio Estudiante", db_column='NotProEstCod')
-    notprocurcod = models.ForeignKey(Curso, models.DO_NOTHING, verbose_name="Codigo Curso", db_column='NotProCurCod')
+    notproprocod = models.ForeignKey(Programa, models.DO_NOTHING, verbose_name="Codigo Programa", db_column='NotProProCod')
     notproestregcod = models.ForeignKey(EstadoRegistro, models.DO_NOTHING, verbose_name="Codigo EstReg", db_column='NotProEstRegCod')
     
     class Meta:
@@ -191,6 +191,7 @@ class NotaPrograma(models.Model):
         managed = True
         verbose_name = 'NotaPrograma'
         verbose_name_plural = 'NotaProgramas'
+        unique_together = ('notproestcod','notproprocod')
     
     def __str__(self):
         return self.notprocod
