@@ -6,56 +6,56 @@ from ..serializers import *
 
 # RetrieveAPIVIew
 
-class EstadoRegistroRetrieveAPIVIew(RetrieveAPIView):
+class EstadoRegistroRetrieveAPIView(RetrieveAPIView):
     queryset = EstadoRegistro.objects.all()
     serializer_class = EstadoRegistroSerializerList
 
 
-class EstudianteRetrieveAPIVIew(RetrieveAPIView):
+class EstudianteRetrieveAPIView(RetrieveAPIView):
     queryset = Estudiante.objects.all()
     serializer_class = EstudianteSerializerList
 
 
-class ProgramaRetrieveAPIVIew(RetrieveAPIView):
+class ProgramaRetrieveAPIView(RetrieveAPIView):
     queryset = Programa.objects.all()
     serializer_class = ProgramaSerializerList
 
 
-class CursoRetrieveAPIVIew(RetrieveAPIView):
+class CursoRetrieveAPIView(RetrieveAPIView):
     queryset = Curso.objects.all()
     serializer_class = CursoSerializerList
 
 
-class ModuloRetrieveAPIVIew(RetrieveAPIView):
+class ModuloRetrieveAPIView(RetrieveAPIView):
     queryset = Modulo.objects.all()
     serializer_class = ModuloSerializerList
 
 
-class ExamenRetrieveAPIVIew(RetrieveAPIView):
+class ExamenRetrieveAPIView(RetrieveAPIView):
     queryset = Examen.objects.all()
     serializer_class = ExamenSerializerList
 
 
-class PreguntaRetrieveAPIVIew(RetrieveAPIView):
+class PreguntaRetrieveAPIView(RetrieveAPIView):
     queryset = Pregunta.objects.all()
     serializer_class = PreguntaSerializerList
 
 
-class AlternativaRetrieveAPIVIew(RetrieveAPIView):
+class AlternativaRetrieveAPIView(RetrieveAPIView):
     queryset = Alternativa.objects.all()
     serializer_class = AlternativaSerializerList
 
 
-class RespuestaRetrieveAPIVIew(RetrieveAPIView):
+class RespuestaRetrieveAPIView(RetrieveAPIView):
     queryset = Respuesta.objects.all()
     serializer_class = RespuestaSerializerList
 
 
-class NotaCursoRetrieveAPIVIew(RetrieveAPIView):
+class NotaCursoRetrieveAPIView(RetrieveAPIView):
     queryset = NotaCurso.objects.all()
     serializer_class = NotaCursoSerializerList
 
 
-class NotaProgramaRetrieveAPIVIew(RetrieveAPIView):
+class NotaProgramaRetrieveAPIView(RetrieveAPIView):
     queryset = NotaPrograma.objects.all()
     serializer_class = NotaProgramaSerializerList

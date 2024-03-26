@@ -12,6 +12,7 @@ urlpatterns = [
     path('docs/', include_docs_urls(title="Aula API")),
     
     # List
+    
     path('estado-registro/', EstadoRegistroListAPIView.as_view(), name='estado-regitro-list'),
     path('estudiante/', EstudianteListAPIView.as_view(), name='estudiante-list/'),
     path('programa/', ProgramaListAPIView.as_view(), name='programa-list/'),
@@ -25,6 +26,7 @@ urlpatterns = [
     path('nota-programa/', NotaProgramaListAPIView.as_view(), name='nota-programa-list/'),
     
     # Create
+    
     path('estado-registro/create/', EstadoRegistroCreateAPIView.as_view(), name='estado-registro-create'),
     path('estudiante/create/', EstudianteCreateAPIView.as_view(), name='estudiante-create'),
     path('programa/create/', ProgramaCreateAPIView.as_view(), name='programa-create'),
@@ -36,4 +38,20 @@ urlpatterns = [
     path('respuesta/create/', RespuestaCreateAPIView.as_view(), name='respuesta-create'),
     path('nota-curso/create/', NotaCursoCreateAPIView.as_view(), name='nota-curso-create'),
     path('nota-programa/create/', NotaProgramaCreateAPIView.as_view(), name='nota-programa-create'),
+    
+    # Detail
+    
+    path('estado-registro/<int:pk>/', EstadoRegistroRetrieveAPIView.as_view(), name='estado-registro-detail'),
+    path('estudiante/<int:pk>/', EstudianteRetrieveAPIView.as_view(), name='estudiante-detail'),
+    path('programa/<int:pk>/', ProgramaRetrieveAPIView.as_view(), name='programa-detail'),
+    path('curso/<int:pk>/', CursoRetrieveAPIView.as_view(), name='curso-detail'),
+    path('modulo/<int:pk>/', ModuloRetrieveAPIView.as_view(), name='modulo-detail'),
+    path('examen/<int:pk>/', ExamenRetrieveAPIView.as_view(), name='examen-detail'),
+    path('pregunta/<int:pk>/', PreguntaRetrieveAPIView.as_view(), name='pregunta-detail'),
+    path('alternativa/<int:pk>/', AlternativaRetrieveAPIView.as_view(), name='alternativa-detail'),
+    path('respuesta/<int:pk>/', RespuestaRetrieveAPIView.as_view(), name='respuesta-detail'),
+    path('nota-curso/<int:pk>/', NotaCursoRetrieveAPIView.as_view(), name='nota-curso-detail'),
+    path('nota-programa/<int:pk>/', NotaProgramaRetrieveAPIView.as_view(), name='nota-programa-detail'),
+    
+    #
 ]
