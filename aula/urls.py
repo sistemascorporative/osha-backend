@@ -1,4 +1,5 @@
-from django.urls import path
+from django.urls import path, include
+from rest_framework.documentation import include_docs_urls
 from rest_framework.authtoken.views import obtain_auth_token
 
 from .views.views_create import *
@@ -8,7 +9,7 @@ from .views.views_update import *
 from .views.views_destroy import *
 
 urlpatterns = [
-    path('', ),
+    path('docs/', include_docs_urls(title="Aula API")),
     
     # List
     
