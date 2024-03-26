@@ -4,56 +4,61 @@ from rest_framework.generics import (
 from ..serializers import *
 
 
-class EstadoRegistroDestroyAPIVIew(RetrieveDestroyAPIView):
+class EstadoRegistroDestroyAPIView(RetrieveDestroyAPIView):
     queryset = EstadoRegistro.objects,all()
     serializer_class = EstadoRegistroSerializer
 
 
-class EstudianteDestroyAPIVIew(RetrieveDestroyAPIView):
+class EstudianteDestroyAPIView(RetrieveDestroyAPIView):
     queryset = Estudiante.objects.all()
     serializer_class = EstudianteSerializer
 
 
-class ProgramaDestroyAPIVIew(RetrieveDestroyAPIView):
+class ProgramaDestroyAPIView(RetrieveDestroyAPIView):
     queryset = Programa.objects.all()
     serializer_class = ProgramaSerializer
 
 
-class CursoDestroyAPIVIew(RetrieveDestroyAPIView):
+class CursoDestroyAPIView(RetrieveDestroyAPIView):
     queryset = Curso.objects.all()
     serializer_class = CursoSerializer
 
 
-class ModuloDestroyAPIVIew(RetrieveDestroyAPIView):
+class ModuloDestroyAPIView(RetrieveDestroyAPIView):
     queryset = Modulo.objects.all()
     serializer_class = ModuloSerializer
 
 
-class ExamenDestroyAPIVIew(RetrieveDestroyAPIView):
+class ExamenDestroyAPIView(RetrieveDestroyAPIView):
     queryset = Examen.objects.all()
     serializer_class = ExamenSerializer
 
 
-class PreguntaDestroyAPIVIew(RetrieveDestroyAPIView):
+class PreguntaDestroyAPIView(RetrieveDestroyAPIView):
     queryset = Pregunta.objects.all()
     serializer_class = PreguntaSerializer
 
 
-class AlternativaDestroyAPIVIew(RetrieveDestroyAPIView):
+class AlternativaDestroyAPIView(RetrieveDestroyAPIView):
     queryset = Alternativa.objects.all()
     serializer_class = AlternativaSerializer
 
 
-class RespuestaDestroyAPIVIew(RetrieveDestroyAPIView):
+class RespuestaDestroyAPIView(RetrieveDestroyAPIView):
     queryset = Respuesta.objects.all()
     serializer_class = RespuestaSerializer
 
 
-class NotaCursoDestroyAPIVIew(RetrieveDestroyAPIView):
+class MatriculaDestroyAPIView(RetrieveDestroyAPIView):
+    queryset = Matricula.objects.all()
+    serializer_class = MatriculaSerializer
+
+
+class NotaCursoDestroyAPIView(RetrieveDestroyAPIView):
     queryset = NotaCurso.objects.all()
     serializer_class = NotaCursoSerializer
 
 
-class NotaProgramaDestroyAPIVIew(RetrieveDestroyAPIView):
+class NotaProgramaDestroyAPIView(RetrieveDestroyAPIView):
     queryset = NotaPrograma.objects.all()
     serializer_class = NotaProgramaSerializer

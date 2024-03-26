@@ -5,7 +5,7 @@ from ..serializers import *
 
 # UpdateAPIView
 
-class EstadoRegistroUpdateAPIVIew(RetrieveUpdateAPIView):
+class EstadoRegistroUpdateAPIView(RetrieveUpdateAPIView):
     queryset = EstadoRegistro.objects.all()
     serializer_class = EstadoRegistroSerializer
 
@@ -48,6 +48,11 @@ class AlternativaUpdateAPIView(RetrieveUpdateAPIView):
 class RespuestaUpdateAPIView(RetrieveUpdateAPIView):
     queryset = Respuesta.objects.all()
     serializer_class = RespuestaSerializer
+
+
+class MatriculaUpdateAPIView(RetrieveUpdateAPIView):
+    queryset = Matricula.objects.all()
+    serializer_class = MatriculaSerializer
 
 
 class NotaCursoUpdateAPIView(RetrieveUpdateAPIView):
