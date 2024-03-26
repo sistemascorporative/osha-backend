@@ -2,11 +2,11 @@ from rest_framework.generics import (
     RetrieveAPIView
 )
 from ..serializers_list_retrieve import *
-from ..serializer import *
+from ..serializers import *
 
 # RetrieveAPIVIew
 
-class EStadoRegistroRetrieveAPIVIew(RetrieveAPIView):
+class EstadoRegistroRetrieveAPIVIew(RetrieveAPIView):
     queryset = EstadoRegistro.objects.all()
     serializer_class = EstadoRegistroSerializerList
 

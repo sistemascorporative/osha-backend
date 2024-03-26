@@ -2,7 +2,7 @@ from rest_framework.generics import (
     ListAPIView
 )
 from ..serializers_list_retrieve import *
-from ..serializer import *
+from ..serializers import *
 from rest_framework import permissions
 
 #ListAPIViews

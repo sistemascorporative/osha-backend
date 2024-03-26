@@ -1,7 +1,7 @@
 from rest_framework.generics import (
     CreateAPIView
 )
-from ..serializer import *
+from ..serializers import *
 from rest_framework import authentication
 
 

@@ -1,7 +1,7 @@
 from rest_framework.generics import (
     RetrieveUpdateAPIView
 )
-from ..serializer import *
+from ..serializers import *
 
 # UpdateAPIView
 
