@@ -5,7 +5,7 @@ from ..serializers import *
 
 
 class EstadoRegistroDestroyAPIView(RetrieveDestroyAPIView):
-    queryset = EstadoRegistro.objects,all()
+    queryset = EstadoRegistro.objects.all()
     serializer_class = EstadoRegistroSerializer
 
 
