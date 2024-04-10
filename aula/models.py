@@ -17,22 +17,33 @@ class EstadoRegistro(models.Model):
 
 
 class Estudiante(models.Model):
-    estcod = models.AutoField(db_column='EstCod', primary_key=True)
-    estnom = models.CharField(db_column='EstNom', max_length=60, blank=False)
-    estape = models.CharField(db_column='EstApe', max_length=60, blank=False)
-    estdocide = models.CharField(db_column='EstDcIde', max_length=50, blank=False)
-    estema = models.EmailField(db_column='EstEma', max_length=50, blank=False)
-    estpai = models.CharField(db_column='EstPai', max_length=50, blank=True)
-    estciu = models.CharField(db_column='EstCiu', max_length=50, blank=True)
-    estdir = models.CharField(db_column='EstDir', max_length=100, blank=True)
+    estcod = models.AutoField(verbose_name="Codigo", db_column='EstCod', primary_key=True)
+    estnom = models.CharField(verbose_name="Nombre", db_column='EstNom', max_length=60, blank=False)
+    estape = models.CharField(verbose_name="Apellidos", db_column='EstApe', max_length=60, blank=False)
+    estdocide = models.CharField(verbose_name="Documento de identidad", db_column='EstDcIde', max_length=50, blank=False)
+    estema = models.EmailField(verbose_name="Email", db_column='EstEma', max_length=50, blank=False)
+    estcon = models.CharField(verbose_name="Contraseña", db_column='EstCon', max_length=50, blank=True)
+    estpai = models.CharField(verbose_name="Pais", db_column='EstPai', max_length=50, blank=True)
+    estciu = models.CharField(verbose_name="Ciudad", db_column='EstCiu', max_length=50, blank=True)
+    estdir = models.CharField(verbose_name="Direccion", db_column='EstDir', max_length=100, blank=True)
     #estfeccre = models.DateTimeField(db_column='EstFecCre', default=timezone.now, editable=False)
     #estfecmod = models.DateTimeField(db_column='EstFecMod', default=timezone.now)
     estestregcod = models.ForeignKey(EstadoRegistro, models.DO_NOTHING, db_column='EstEstReg')
+    
+    class Meta:
+        db_table = 'estudiante'
+        managed = True
+        verbose_name = 'Estudiante'
+        verbose_name_plural = 'Estudiantes'
+    
+    def __str__(self):
+        return self.estnom + " " + self.estape + " - " + self.estdocide
 
 
 class Programa(models.Model):
     procod = models.AutoField(verbose_name="Codigo", db_column='ProCod', primary_key=True)
     pronom = models.CharField(verbose_name="Nombre", db_column='ProNom', max_length=100, blank=False)
+    procodosh = models.CharField(verbose_name="Codigo osha", db_column='ProCodOsh', max_length=30)
     proestregcod = models.ForeignKey(EstadoRegistro, models.DO_NOTHING, verbose_name="Codigo EstReg", db_column='ProEstRegCod')
     
     class Meta:
@@ -149,7 +160,7 @@ class Respuesta(models.Model):
 class Matricula(models.Model):
     matcod = models.AutoField(verbose_name="Codigo", db_column='MatCod', primary_key=True)
     matestcod = models.ForeignKey(Estudiante, models.DO_NOTHING, verbose_name="Codigo Estudiante", db_column='MatEstCod')
-    matcurcod = models.ForeignKey(Curso, models.DO_NOTHING, verbose_name="Codigo Curso", db_column='MatCurCod')
+    matprocod = models.ForeignKey(Programa, models.DO_NOTHING, verbose_name="Codigo Programa", db_column='MatProCod')
     matestregcod = models.ForeignKey(EstadoRegistro, models.DO_NOTHING, verbose_name="Codigo EstReg", db_column='MatEstRegCod')
     
     class Meta:
@@ -167,13 +178,12 @@ class NotaCurso(models.Model):
     notcurpun = models.DecimalField(verbose_name="Puntuacion", db_column='NotCurPun', max_digits=5, decimal_places=2)
     notcurestcod = models.ForeignKey(Estudiante, models.DO_NOTHING, verbose_name="Codio Estudiante", db_column='NotCurEstCod')
     notcurcurcod = models.ForeignKey(Curso, models.DO_NOTHING, verbose_name="Codigo Curso", db_column='NotCurCurCod')
-    notcurestregcod = models.ForeignKey(EstadoRegistro, models.DO_NOTHING, verbose_name="Codigo EstReg", db_column='NotCurEstRegCod')
     
     class Meta:
         db_table = 'nota_curso'
         managed = True
         verbose_name = 'NotaCurso'
-        verbose_name_plural = 'NOtaCursos'
+        verbose_name_plural = 'NotaCursos'
     
     def __str__(self):
         return self.notcurcod
@@ -184,7 +194,6 @@ class NotaPrograma(models.Model):
     notpropun = models.DecimalField(verbose_name="Puntuacion", db_column='NotProPun', max_digits=5, decimal_places=2)
     notproestcod = models.ForeignKey(Estudiante, models.DO_NOTHING, verbose_name="Codio Estudiante", db_column='NotProEstCod')
     notproprocod = models.ForeignKey(Programa, models.DO_NOTHING, verbose_name="Codigo Programa", db_column='NotProProCod')
-    notproestregcod = models.ForeignKey(EstadoRegistro, models.DO_NOTHING, verbose_name="Codigo EstReg", db_column='NotProEstRegCod')
     
     class Meta:
         db_table = 'nota_programa'

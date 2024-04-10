@@ -2,6 +2,7 @@ from django.urls import path, include
 from rest_framework.documentation import include_docs_urls
 from rest_framework.authtoken.views import obtain_auth_token
 
+from .views.views import login
 from .views.views_create import *
 from .views.views_list import *
 from .views.views_retrieve import *
@@ -10,6 +11,10 @@ from .views.views_destroy import *
 
 urlpatterns = [
     path('docs/', include_docs_urls(title="Aula API")),
+    
+    # Login
+    
+    path('login/', login, name='login'),
     
     # List
     

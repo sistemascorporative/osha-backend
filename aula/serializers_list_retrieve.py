@@ -22,6 +22,7 @@ class EstudianteSerializerList(serializers.ModelSerializer):
             "estape",
             "estdocide",
             "estema",
+            "estcon",
             "estpai",
             "estciu",
             "estdir",
@@ -126,14 +127,14 @@ class RespuestaSerializerList(serializers.ModelSerializer):
 
 class MatriculaSerializerList(serializers.ModelSerializer):
     matestcod = EstudianteSerializerList()
-    matcurcod = CursoSerializerList()
+    matprocod = ProgramaSerializerList()
     matestregcod = EstadoRegistroSerializerList()    
     class Meta:
         model = Matricula
         fields = [
             "matcod",
             "matestcod",
-            "matcurcod",
+            "matprocod",
             "matestregcod",
         ]
 
