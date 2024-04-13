@@ -1,7 +1,14 @@
 from rest_framework import serializers
 from .models import *
 from datetime import datetime
+from djoser.serializers import UserCreateSerializer
+from django.contrib.auth import get_user_model
+User = get_user_model()
 
+class UserCreateSerializer(UserCreateSerializer):
+    class Meta(UserCreateSerializer.Meta):
+        model = User
+        fields = '__al__'
 
 class EstadoRegistroSerializer(serializers.ModelSerializer):
     class Meta:

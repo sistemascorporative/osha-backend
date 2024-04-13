@@ -14,6 +14,6 @@ def login(request):
         if estudiante.estcon == estcon:
             return Response({'message': 'Inicio de sesión exitoso'})
         else:
-            return Response({'message': 'Credebciales invalidas'}, status=400)
+            return Response({'message': 'Credenciales invalidas'}, status=400)
     except Estudiante.DoesNotExist:
         return Response({'message': 'Usuario no encontrado'}, status=400)

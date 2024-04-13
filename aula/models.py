@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
 
 # Create your models here.
 
@@ -16,25 +17,63 @@ class EstadoRegistro(models.Model):
         return self.estregnom
 
 
-class Estudiante(models.Model):
+class UserAccountManager(BaseUserManager):
+    def create_user(self, email, password=None, **extra_fields):
+        if not email:
+            raise ValueError('Users must have an email address')
+
+        email = self.normalize_email(email)
+        user = self.model(email=email, **extra_fields)
+
+        user.set_password(password)
+        user.save()
+
+        return user
+    
+    def create_superuser(self, email, password=None, **extra_fields):
+        if not email:
+            raise ValueError('Users must have an email address')
+
+        email = self.normalize_email(email)
+        user = self.model(email=email, **extra_fields)
+
+        user.set_password(password)
+        user.save()
+
+        return user
+
+
+class Estudiante(AbstractBaseUser, PermissionsMixin):
     estcod = models.AutoField(verbose_name="Codigo", db_column='EstCod', primary_key=True)
     estnom = models.CharField(verbose_name="Nombre", db_column='EstNom', max_length=60, blank=False)
     estape = models.CharField(verbose_name="Apellidos", db_column='EstApe', max_length=60, blank=False)
-    estdocide = models.CharField(verbose_name="Documento de identidad", db_column='EstDcIde', max_length=50, blank=False)
-    estema = models.EmailField(verbose_name="Email", db_column='EstEma', max_length=50, blank=False)
-    estcon = models.CharField(verbose_name="Contraseña", db_column='EstCon', max_length=50, blank=True)
+    estdocide = models.CharField(verbose_name="Documento de identidad", db_column='EstDocIde', max_length=50, blank=False)
+    email = models.EmailField(verbose_name="Email", db_column='EstEma', max_length=255, unique=True)
     estpai = models.CharField(verbose_name="Pais", db_column='EstPai', max_length=50, blank=True)
     estciu = models.CharField(verbose_name="Ciudad", db_column='EstCiu', max_length=50, blank=True)
     estdir = models.CharField(verbose_name="Direccion", db_column='EstDir', max_length=100, blank=True)
     #estfeccre = models.DateTimeField(db_column='EstFecCre', default=timezone.now, editable=False)
     #estfecmod = models.DateTimeField(db_column='EstFecMod', default=timezone.now)
     estestregcod = models.ForeignKey(EstadoRegistro, models.DO_NOTHING, db_column='EstEstReg')
+    is_active = models.BooleanField(default=True)
+    is_staff = models.BooleanField(default=False)
+    
+    objects = UserAccountManager()
+    
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = ['estnom', 'estape']
     
     class Meta:
         db_table = 'estudiante'
         managed = True
         verbose_name = 'Estudiante'
         verbose_name_plural = 'Estudiantes'
+    
+    def get_full_name(self):
+        return self.estnom + " " + self.estape
+
+    def get_short_name(self):
+        return self.estnom
     
     def __str__(self):
         return self.estnom + " " + self.estape + " - " + self.estdocide
