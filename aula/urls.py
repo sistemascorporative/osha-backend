@@ -3,7 +3,7 @@ from django.views.generic import TemplateView
 from rest_framework.documentation import include_docs_urls
 from rest_framework.authtoken.views import obtain_auth_token
 
-from .views.views import login
+#from .views.views import login
 from .views.views_create import *
 from .views.views_list import *
 from .views.views_retrieve import *
@@ -15,10 +15,10 @@ urlpatterns = [
     
     # Login
     
-    path("auth/", include('djoser.urls')),
-    path("auth/", include('djoser.urls.jwt')),
+    #path("auth/", include('djoser.urls')),
+    #path("auth/", include('djoser.urls.jwt')),
     
-    path('login/', login, name='login'),
+    #path('login/', login, name='login'),
     
     # List
     

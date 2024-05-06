@@ -17,33 +17,33 @@ class EstadoRegistro(models.Model):
         return self.estregnom
 
 
-class UserAccountManager(BaseUserManager):
-    def create_user(self, email, password=None, **extra_fields):
-        if not email:
-            raise ValueError('Users must have an email address')
+#class UserAccountManager(BaseUserManager):
+#    def create_user(self, email, password=None, **extra_fields):
+#        if not email:
+#            raise ValueError('Users must have an email address')
 
-        email = self.normalize_email(email)
-        user = self.model(email=email, **extra_fields)
+#        email = self.normalize_email(email)
+#        user = self.model(email=email, **extra_fields)
 
-        user.set_password(password)
-        user.save()
+#        user.set_password(password)
+#        user.save()
 
-        return user
+#        return user
     
-    def create_superuser(self, email, password=None, **extra_fields):
-        if not email:
-            raise ValueError('Users must have an email address')
+#    def create_superuser(self, email, password=None, **extra_fields):
+#        if not email:
+#            raise ValueError('Users must have an email address')
 
-        email = self.normalize_email(email)
-        user = self.model(email=email, **extra_fields)
+#        email = self.normalize_email(email)
+#        user = self.model(email=email, **extra_fields)
 
-        user.set_password(password)
-        user.save()
+#        user.set_password(password)
+#        user.save()
 
-        return user
+#        return user
 
 
-class Estudiante(AbstractBaseUser, PermissionsMixin):
+class Estudiante(models.Model):
     estcod = models.AutoField(verbose_name="Codigo", db_column='EstCod', primary_key=True)
     estnom = models.CharField(verbose_name="Nombre", db_column='EstNom', max_length=60, blank=False)
     estape = models.CharField(verbose_name="Apellidos", db_column='EstApe', max_length=60, blank=False)
@@ -55,13 +55,13 @@ class Estudiante(AbstractBaseUser, PermissionsMixin):
     #estfeccre = models.DateTimeField(db_column='EstFecCre', default=timezone.now, editable=False)
     #estfecmod = models.DateTimeField(db_column='EstFecMod', default=timezone.now)
     estestregcod = models.ForeignKey(EstadoRegistro, models.DO_NOTHING, db_column='EstEstReg')
-    is_active = models.BooleanField(default=True)
-    is_staff = models.BooleanField(default=False)
+    #is_active = models.BooleanField(default=True)
+    #is_staff = models.BooleanField(default=False)
     
-    objects = UserAccountManager()
+    #objects = UserAccountManager()
     
-    USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['estnom', 'estape']
+    #USERNAME_FIELD = 'email'
+    #REQUIRED_FIELDS = ['estnom', 'estape']
     
     class Meta:
         db_table = 'estudiante'
@@ -69,11 +69,11 @@ class Estudiante(AbstractBaseUser, PermissionsMixin):
         verbose_name = 'Estudiante'
         verbose_name_plural = 'Estudiantes'
     
-    def get_full_name(self):
-        return self.estnom + " " + self.estape
+    #def get_full_name(self):
+    #    return self.estnom + " " + self.estape
 
-    def get_short_name(self):
-        return self.estnom
+    #def get_short_name(self):
+    #    return self.estnom
     
     def __str__(self):
         return self.estnom + " " + self.estape + " - " + self.estdocide
