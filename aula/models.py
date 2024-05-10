@@ -1,4 +1,6 @@
 from django.db import models
+from django.db.models.signals import post_save, post_delete
+from django.dispatch import receiver
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
 
 # Create your models here.
@@ -83,6 +85,7 @@ class Programa(models.Model):
     procod = models.AutoField(verbose_name="Codigo", db_column='ProCod', primary_key=True)
     pronom = models.CharField(verbose_name="Nombre", db_column='ProNom', max_length=100, blank=False)
     procodosh = models.CharField(verbose_name="Codigo osha", db_column='ProCodOsh', max_length=30)
+    pronumcur = models.IntegerField( verbose_name="Numero de cursos", db_column='ProNumCur', default=0)
     proestregcod = models.ForeignKey(EstadoRegistro, models.DO_NOTHING, verbose_name="Codigo EstReg", db_column='ProEstRegCod')
     
     class Meta:
@@ -96,8 +99,9 @@ class Programa(models.Model):
 
 
 class Curso(models.Model):
-    curcod = models.AutoField(verbose_name="Codigo", db_column='CurCod', primary_key=True)
+    curcod = models.AutoField(verbose_name="Código", db_column='CurCod', primary_key=True)
     curnom = models.CharField(verbose_name="Nombre", db_column='CurNom', max_length=80, blank=False)
+    curnummod = models.IntegerField( verbose_name="Numero de módulos", db_column='CurNumMod', default=0)
     curprocod = models.ForeignKey(Programa, models.DO_NOTHING, verbose_name="Codigo Programa", db_column='CurProCod')
     curestregcod = models.ForeignKey(EstadoRegistro, models.DO_NOTHING, verbose_name="Codigo EStReg", db_column='CurEstRegCod')
     
@@ -109,6 +113,13 @@ class Curso(models.Model):
     
     def __str__(self):
         return self.curnom
+
+@receiver(post_save, sender=Curso)
+@receiver(post_delete, sender=Curso)
+def actualizar_numero_cursos(sender, instance, **kwargs):
+    programa = instance.programa
+    programa.pronumcur = programa.curso_set.count()
+    programa.save()
 
 
 class Modulo(models.Model):
@@ -125,6 +136,13 @@ class Modulo(models.Model):
     
     def __str__(self):
         return self.modnom
+
+@receiver(post_save, sender=Modulo)
+@receiver(post_delete, sender=Modulo)
+def actualizar_numero_modulo(sender, instance, **kwargs):
+    curso = instance.curso
+    curso.curnummod = curso.modulo_set.count()
+    curso.save()
 
 
 class Examen(models.Model):
@@ -183,6 +201,7 @@ class Respuesta(models.Model):
     resexacod = models.ForeignKey(Examen, models.DO_NOTHING, verbose_name="Codigo Examen", db_column='ResExaCod')
     resprecod = models.ForeignKey(Pregunta, models.DO_NOTHING, verbose_name="Codigo Pregunta", db_column='ResPreCod')
     resaltcod = models.ForeignKey(Alternativa, models.DO_NOTHING, verbose_name="Codigo Alternativa", db_column='ResAltCod')
+    resprocod = models.ForeignKey(Programa, models.DO_NOTHING, verbose_name="Codigo Programa", db_column='ResProCod')
     resestregcod = models.ForeignKey(EstadoRegistro, models.DO_NOTHING, verbose_name="Codigo EstReg", db_column='AltEstRegCod')
     
     class Meta:
@@ -190,10 +209,10 @@ class Respuesta(models.Model):
         managed = True
         verbose_name = 'Respuesta'
         verbose_name_plural = 'Respuestas'
-        unique_together = ('resestcod','resexacod', 'resprecod')
+        unique_together = ('resestcod','resprocod', 'resexacod', 'resprecod')
     
     def __str__(self):
-        return self.rese
+        return self.rescod
 
 
 class Matricula(models.Model):
@@ -207,26 +226,47 @@ class Matricula(models.Model):
         managed = True
         verbose_name = 'Matricula'
         verbose_name_plural = 'Matriculas'
+        unique_together = ('matestcod','matprocod')
     
     def __str__(self):
         return self.matcod
 
 
-class NotaCurso(models.Model):
-    notcurcod = models.AutoField(verbose_name="codigo", db_column='NotCurCod', primary_key=True)
-    notcurpun = models.DecimalField(verbose_name="Puntuacion", db_column='NotCurPun', max_digits=5, decimal_places=2)
-    notcurestcod = models.ForeignKey(Estudiante, models.DO_NOTHING, verbose_name="Codio Estudiante", db_column='NotCurEstCod')
-    notcurcurcod = models.ForeignKey(Curso, models.DO_NOTHING, verbose_name="Codigo Curso", db_column='NotCurCurCod')
+class RegistroExamen(models.Model):
+    regexacod = models.AutoField(verbose_name="Codigo", db_column='RegExaCod', primary_key=True)
+    regexapun = models.DecimalField(verbose_name="Puntuacion", db_column='RegExaPun', max_digits=5, decimal_places=2)
+    regexaint = models.IntegerField( verbose_name="Número de intentos", db_column='RegExaInt', default=0)
+    regexaest = models.CharField(verbose_name="Estado", db_column='RegExaEst', max_length=100)
+    regexaestcod = models.ForeignKey(Estudiante, models.DO_NOTHING, verbose_name="Codio Estudiante", db_column='RegExaEstCod')
+    regexacurcod = models.ForeignKey(Curso, models.DO_NOTHING, verbose_name="Codigo Curso", db_column='RegExaCurCod')
     
     class Meta:
-        db_table = 'nota_curso'
+        db_table = 'registro_examen'
         managed = True
-        verbose_name = 'NotaCurso'
-        verbose_name_plural = 'NotaCursos'
+        verbose_name = 'RegistroExamen'
+        verbose_name_plural = 'RegistroExamenes'
+        unique_together = ('regexaestcod','regexarcurcod')
     
     def __str__(self):
-        return self.notcurcod
+        return self.regexaest
 
+
+class RegistroCurso(models.Model):
+    regcurcod = models.AutoField(verbose_name="Codigo", db_column='RegCurCod', primary_key=True)
+    regcurest = models.CharField(verbose_name="Estado", db_column='RegCurEst', max_length=50)
+    regcurpro = models.DecimalField(verbose_name="Progeso", db_column='RegCurPro', max_digits=5, decimal_places=2)
+    regcurestcod = models.ForeignKey(Estudiante, models.DO_NOTHING, verbose_name="Codio Estudiante", db_column='RegCurEstCod')
+    regcurrcurcod = models.ForeignKey(Curso, models.DO_NOTHING, verbose_name="Codigo Curso", db_column='RegCurCurCod')
+    
+    class Meta:
+        db_table = 'registro_curso'
+        managed = True
+        verbose_name = 'RegistroCurso'
+        verbose_name_plural = 'RegistroCursos'
+        unique_together = ('regcurestcod','regexarcurcod')
+    
+    def __str__(self):
+        return self.regcurest
 
 class NotaPrograma(models.Model):
     notprocod = models.AutoField(verbose_name="codigo", db_column='NotProCod', primary_key=True)
