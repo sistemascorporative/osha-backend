@@ -139,18 +139,18 @@ class MatriculaSerializerList(serializers.ModelSerializer):
         ]
 
 
-class NotaCursoSerializerList(serializers.ModelSerializer):
-    notcurestcod = EstudianteSerializerList()
-    notcurcurcod = CursoSerializerList()
-    notcurestregcod = EstadoRegistroSerializerList()
+class RegistroCursoSerializerList(serializers.ModelSerializer):
+    regcurestcod = EstudianteSerializerList()
+    regcurcurcod = CursoSerializerList()
+    regcurestregcod = EstadoRegistroSerializerList()
     class Meta:
-        model = NotaCurso
+        model = RegistroCurso
         fields = [
-            "notcurcod",
-            "notcurpun",
-            "notcurestcod",
-            "notcurcurcod",
-            "notcurestregcod"
+            "regcurcod",
+            "regcurpun",
+            "regcurestcod",
+            "regcurcurcod",
+            "regcurestregcod"
         ]
 
 

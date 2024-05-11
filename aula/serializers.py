@@ -70,9 +70,9 @@ class MatriculaSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class NotaCursoSerializer(serializers.ModelSerializer):
+class RegistroCursoSerializer(serializers.ModelSerializer):
     class Meta:
-        model = NotaCurso
+        model = RegistroCurso
         fields = '__all__'
 
 

@@ -55,9 +55,9 @@ class MatriculaUpdateAPIView(RetrieveUpdateAPIView):
     serializer_class = MatriculaSerializer
 
 
-class NotaCursoUpdateAPIView(RetrieveUpdateAPIView):
-    queryset = NotaCurso.objects.all()
-    serializer_class = NotaCursoSerializer
+class RegistroCursoUpdateAPIView(RetrieveUpdateAPIView):
+    queryset = RegistroCurso.objects.all()
+    serializer_class = RegistroCursoSerializer
 
 
 class NotaProgramaUpdateAPIView(RetrieveUpdateAPIView):

@@ -54,9 +54,9 @@ class MatriculaDestroyAPIView(RetrieveDestroyAPIView):
     serializer_class = MatriculaSerializer
 
 
-class NotaCursoDestroyAPIView(RetrieveDestroyAPIView):
-    queryset = NotaCurso.objects.all()
-    serializer_class = NotaCursoSerializer
+class RegistroCursoDestroyAPIView(RetrieveDestroyAPIView):
+    queryset = RegistroCurso.objects.all()
+    serializer_class = RegistroCursoSerializer
 
 
 class NotaProgramaDestroyAPIView(RetrieveDestroyAPIView):

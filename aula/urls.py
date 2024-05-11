@@ -32,7 +32,7 @@ urlpatterns = [
     path('alternativa/', AlternativaListAPIView.as_view(), name='alternativa-list'),
     path('respuesta/', RespuestaListAPIView.as_view(), name='respuesta-list'),
     path('matricula/', MatriculaListAPIView.as_view(), name='matricula-list'),
-    path('nota-curso/', NotaCursoListAPIView.as_view(), name='nota-curso-list'),
+    path('nota-curso/',RegistroCursoListAPIView.as_view(), name='nota-curso-list'),
     path('nota-programa/', NotaProgramaListAPIView.as_view(), name='nota-programa-list'),
     
     # Create
@@ -47,7 +47,7 @@ urlpatterns = [
     path('alternativa/create/', AlternativaCreateAPIView.as_view(), name='alternativa-create'),
     path('respuesta/create/', RespuestaCreateAPIView.as_view(), name='respuesta-create'),
     path('matricula/create/', MatriculaCreateAPIView.as_view(), name='matricula-create'),
-    path('nota-curso/create/', NotaCursoCreateAPIView.as_view(), name='nota-curso-create'),
+    path('nota-curso/create/', RegistroCursoCreateAPIView.as_view(), name='nota-curso-create'),
     path('nota-programa/create/', NotaProgramaCreateAPIView.as_view(), name='nota-programa-create'),
     
     # Detail
@@ -62,7 +62,7 @@ urlpatterns = [
     path('alternativa/<int:pk>/', AlternativaRetrieveAPIView.as_view(), name='alternativa-detail'),
     path('respuesta/<int:pk>/', RespuestaRetrieveAPIView.as_view(), name='respuesta-detail'),
     path('matricula/<int:pk>/', MatriculaRetrieveAPIView.as_view(), name='matricula-detail'),
-    path('nota-curso/<int:pk>/', NotaCursoRetrieveAPIView.as_view(), name='nota-curso-detail'),
+    path('nota-curso/<int:pk>/', RegistroCursoRetrieveAPIView.as_view(), name='nota-curso-detail'),
     path('nota-programa/<int:pk>/', NotaProgramaRetrieveAPIView.as_view(), name='nota-programa-detail'),
     
     # Update
@@ -77,7 +77,7 @@ urlpatterns = [
     path('alternativa/<int:pk>/update/', AlternativaUpdateAPIView.as_view(), name='alternativa-update'),
     path('respuesta/<int:pk>/update/', RespuestaUpdateAPIView.as_view(), name='respuesta-update'),
     path('matricula/<int:pk>/update/', MatriculaUpdateAPIView.as_view(), name='matricula-update'),
-    path('nota-curso/<int:pk>/update/', NotaCursoUpdateAPIView.as_view(), name='nota-curso-update'),
+    path('nota-curso/<int:pk>/update/', RegistroCursoUpdateAPIView.as_view(), name='nota-curso-update'),
     path('nota-programa/<int:pk>/update/', NotaProgramaUpdateAPIView.as_view(), name='nota-programa-update'),
     
     # Delete
@@ -92,6 +92,6 @@ urlpatterns = [
     path('alternativa/<int:pk>/delete/', AlternativaDestroyAPIView.as_view(), name='alternativa-delete'),
     path('respuesta/<int:pk>/delete/', RespuestaDestroyAPIView.as_view(), name='respuesta-delete'),
     path('matricula/<int:pk>/delete/', MatriculaDestroyAPIView.as_view(), name='matricula-delete'),
-    path('nota-curso/<int:pk>/delete/', NotaCursoDestroyAPIView.as_view(), name='nota-curso-delete'),
+    path('nota-curso/<int:pk>/delete/', RegistroCursoDestroyAPIView.as_view(), name='nota-curso-delete'),
     path('nota-programa/<int:pk>/delete/', NotaProgramaDestroyAPIView.as_view(), name='nota-programa-delete'),
 ]

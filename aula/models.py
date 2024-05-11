@@ -238,14 +238,14 @@ class RegistroExamen(models.Model):
     regexaint = models.IntegerField( verbose_name="Número de intentos", db_column='RegExaInt', default=0)
     regexaest = models.CharField(verbose_name="Estado", db_column='RegExaEst', max_length=100)
     regexaestcod = models.ForeignKey(Estudiante, models.DO_NOTHING, verbose_name="Codio Estudiante", db_column='RegExaEstCod')
-    regexacurcod = models.ForeignKey(Curso, models.DO_NOTHING, verbose_name="Codigo Curso", db_column='RegExaCurCod')
+    regexaexacod = models.ForeignKey(Examen, models.DO_NOTHING, verbose_name="Codigo Examen", db_column='RegExaExaCod')
     
     class Meta:
         db_table = 'registro_examen'
         managed = True
         verbose_name = 'RegistroExamen'
         verbose_name_plural = 'RegistroExamenes'
-        unique_together = ('regexaestcod','regexarcurcod')
+        unique_together = ('regexaestcod','regexaexacod')
     
     def __str__(self):
         return self.regexaest
@@ -255,18 +255,20 @@ class RegistroCurso(models.Model):
     regcurcod = models.AutoField(verbose_name="Codigo", db_column='RegCurCod', primary_key=True)
     regcurest = models.CharField(verbose_name="Estado", db_column='RegCurEst', max_length=50)
     regcurpro = models.DecimalField(verbose_name="Progeso", db_column='RegCurPro', max_digits=5, decimal_places=2)
-    regcurestcod = models.ForeignKey(Estudiante, models.DO_NOTHING, verbose_name="Codio Estudiante", db_column='RegCurEstCod')
-    regcurrcurcod = models.ForeignKey(Curso, models.DO_NOTHING, verbose_name="Codigo Curso", db_column='RegCurCurCod')
+    regcurprocod = models.ForeignKey(Programa, models.DO_NOTHING, verbose_name="Codiogo Programa", db_column='RegCurProCod')
+    regcurestcod = models.ForeignKey(Estudiante, models.DO_NOTHING, verbose_name="Codigo Estudiante", db_column='RegCurEstCod')
+    regcurcurcod = models.ForeignKey(Curso, models.DO_NOTHING, verbose_name="Codigo Curso", db_column='RegCurCurCod')
     
     class Meta:
         db_table = 'registro_curso'
         managed = True
         verbose_name = 'RegistroCurso'
         verbose_name_plural = 'RegistroCursos'
-        unique_together = ('regcurestcod','regexarcurcod')
+        unique_together = ('regcurprocod','regcurestcod','regcurcurcod')
     
     def __str__(self):
         return self.regcurest
+
 
 class NotaPrograma(models.Model):
     notprocod = models.AutoField(verbose_name="codigo", db_column='NotProCod', primary_key=True)
