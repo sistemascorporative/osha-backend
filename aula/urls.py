@@ -11,6 +11,8 @@ from .views.views_update import *
 from .views.views_destroy import *
 
 urlpatterns = [
+    path('', include('djoser.urls')),
+    path('', include('djoser.urls.jwt')),
     path('docs/', include_docs_urls(title="Aula API")),
     
     # Login

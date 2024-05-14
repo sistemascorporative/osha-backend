@@ -1,14 +1,27 @@
 from rest_framework import serializers
+from djoser.serializers import UserCreateSerializer as BaseUserCreateSerializer, UserSerializer as BaseUserSerializer
 from .models import *
 from datetime import datetime
 from djoser.serializers import UserCreateSerializer
-from django.contrib.auth import get_user_model
-User = get_user_model()
+#from django.contrib.auth import get_user_model
+#User = get_user_model()
+from django.contrib.auth.password_validation import validate_password
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+from rest_framework import serializers
+from rest_framework.validators import UniqueValidator
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 
-class UserCreateSerializer(UserCreateSerializer):
-    class Meta(UserCreateSerializer.Meta):
-        model = User
-        fields = '__al__'
+
+class UserCreateSerializer(BaseUserCreateSerializer):
+    class Meta(BaseUserCreateSerializer.Meta):
+        model = CustomUser
+        fields = ('id', 'email', 'first_name', 'last_name', 'password', 'country', 'city', 'address')
+
+class UserSerializer(BaseUserSerializer):
+    class Meta(BaseUserSerializer.Meta):
+        model = CustomUser
+        fields = ('id', 'email', 'first_name', 'last_name', 'country', 'city', 'address')
+
 
 class EstadoRegistroSerializer(serializers.ModelSerializer):
     class Meta:
