@@ -40,14 +40,14 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'corsheaders',
     'rest_framework',
-    'djoser',
+    #'djoser',
     'coreapi',
     'aula',
     'credenciales',
     'users',
     'brochure',
-    'rest_framework_simplejwt',
-    'rest_framework_simplejwt.token_blacklist',
+    #'rest_framework_simplejwt',
+    #'rest_framework_simplejwt.token_blacklist',
 ]
 
 MIDDLEWARE = [
@@ -93,12 +93,12 @@ DATABASES = {
 }
 
 # Email
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+"""EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'maricarmencoaquiracuevas@gmail.com'
 EMAIL_HOST_PASSWORD = '1qwertyui'
-EMAIL_USE_TLS = True
+EMAIL_USE_TLS = True"""
 
 
 
@@ -150,10 +150,10 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # cors autheization
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:5173',
-    'http://127.0.0.1:3000',
+    'http://127.0.0.1:5173',
 ]
 
-REST_FRAMEWORK = {
+"""REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.IsAuthenticated',
     ],
@@ -161,9 +161,9 @@ REST_FRAMEWORK = {
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
     'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema',
-}
+}"""
 
-SIMPLE_JWT = {
+"""SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=5),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=50),
     'ROTATE_REFRESH_TOKENS': True,
@@ -193,9 +193,9 @@ SIMPLE_JWT = {
     'SLIDING_TOKEN_REFRESH_EXP_CLAIM': 'refresh_exp',
     'SLIDING_TOKEN_LIFETIME': timedelta(minutes=5),
     'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=1),
-}
+}"""
 
-DJOSER = {
+"""DJOSER = {
     'LOGIN_FIELD': 'email',
     'USER_CREATE_PASSWORD_RETYPE': True,
     'USERNAME_CHANGED_EMAIL_CONFIRMATION': True,
@@ -213,6 +213,6 @@ DJOSER = {
         'current_user': 'aula.serializers.UserCreateSerializer',
         'user_delete': 'djoser.serializers.UserDeleteSerializer',
     }
-}
+}"""
 
-AUTH_USER_MODEL = 'aula.CustomUser'
+"""AUTH_USER_MODEL = 'aula.CustomUser'"""

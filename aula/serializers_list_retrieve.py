@@ -37,19 +37,20 @@ class ProgramaSerializerList(serializers.ModelSerializer):
         fields = [
             "procod",
             "pronom",
+            "pronumcur",
+            "procodosh",
             "proestregcod"
         ]
 
 
 class CursoSerializerList(serializers.ModelSerializer):
-    curprocod = ProgramaSerializerList()
+    #curprocod = ProgramaSerializerList()
     curestregcod = EstadoRegistroSerializerList()
     class Meta:
         model = Curso
         fields = [
             "curcod",
             "curnom",
-            "curprocod",
             "curestregcod"
         ]
 

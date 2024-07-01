@@ -1,7 +1,7 @@
 from django.db import models
 from django.db.models.signals import post_save, post_delete
 from django.dispatch import receiver
-from django.contrib.auth.models import AbstractUser, AbstractBaseUser, PermissionsMixin, BaseUserManager
+#from django.contrib.auth.models import AbstractUser, AbstractBaseUser, PermissionsMixin, BaseUserManager
 
 # Create your models here.
 
@@ -44,7 +44,7 @@ class EstadoRegistro(models.Model):
 
 #        return user
 
-
+"""
 class CustomUserManager(BaseUserManager):
     def create_user(self, email, first_name, last_name, password=None, **extra_fields):
         if not email:
@@ -82,7 +82,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     REQUIRED_FIELDS = ['first_name', 'last_name', 'country', 'city', 'address']
 
     def __str__(self):
-        return self.email
+        return self.email"""
 
 #class EstudianteUser(AbstractBaseUser, PermissionsMixin):
     #user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -148,29 +148,12 @@ class Estudiante(models.Model):
     
     def __str__(self):
         return self.estnom + " " + self.estape + " - " + self.estdocide
-    
-class Programa(models.Model):
-    procod = models.AutoField(verbose_name="Codigo", db_column='ProCod', primary_key=True)
-    pronom = models.CharField(verbose_name="Nombre", db_column='ProNom', max_length=100, blank=False)
-    procodosh = models.CharField(verbose_name="Codigo osha", db_column='ProCodOsh', max_length=30)
-    pronumcur = models.IntegerField( verbose_name="Numero de cursos", db_column='ProNumCur', default=0)
-    proestregcod = models.ForeignKey(EstadoRegistro, models.DO_NOTHING, verbose_name="Codigo EstReg", db_column='ProEstRegCod')
-    
-    class Meta:
-        db_table = 'programa'
-        managed = True
-        verbose_name = 'Programa'
-        verbose_name_plural = 'Programas'
-    
-    def __str__(self):
-        return self.pronom
 
 
 class Curso(models.Model):
-    curcod = models.AutoField(verbose_name="Código", db_column='CurCod', primary_key=True)
+    curcod = models.IntegerField(verbose_name="Código", db_column='CurCod', primary_key=True)
     curnom = models.CharField(verbose_name="Nombre", db_column='CurNom', max_length=80, blank=False)
     curnummod = models.IntegerField( verbose_name="Numero de módulos", db_column='CurNumMod', default=0)
-    curprocod = models.ForeignKey(Programa, models.DO_NOTHING, verbose_name="Codigo Programa", db_column='CurProCod')
     curestregcod = models.ForeignKey(EstadoRegistro, models.DO_NOTHING, verbose_name="Codigo EStReg", db_column='CurEstRegCod')
     
     class Meta:
@@ -182,19 +165,30 @@ class Curso(models.Model):
     def __str__(self):
         return self.curnom
 
-@receiver(post_save, sender=Curso)
-@receiver(post_delete, sender=Curso)
-def actualizar_numero_cursos(sender, instance, **kwargs):
-    programa = instance.programa
-    programa.pronumcur = programa.curso_set.count()
-    programa.save()
+
+class Programa(models.Model):
+    procod = models.IntegerField(verbose_name="Codigo", db_column='ProCod', primary_key=True)
+    pronom = models.CharField(verbose_name="Nombre", db_column='ProNom', max_length=100, blank=False)
+    procodosh = models.CharField(verbose_name="Codigo osha", db_column='ProCodOsh', max_length=30)
+    pronumcur = models.IntegerField( verbose_name="Numero de cursos", db_column='ProNumCur', default=0)
+    proestregcod = models.ForeignKey(EstadoRegistro, models.DO_NOTHING, verbose_name="Codigo EstReg", db_column='ProEstRegCod')
+    cursos = models.ManyToManyField(Curso, related_name='programas', verbose_name="Cursos", blank=True)
+    
+    class Meta:
+        db_table = 'programa'
+        managed = True
+        verbose_name = 'Programa'
+        verbose_name_plural = 'Programas'
+    
+    def __str__(self):
+        return self.pronom
 
 
 class Modulo(models.Model):
     modcod = models.AutoField(verbose_name="Codigo", db_column='ModCod', primary_key=True)
     modnom = models.CharField(verbose_name="Nombre", db_column='ModNom', max_length=100, blank=False)
     modcurcod = models.ForeignKey(Curso, models.DO_NOTHING, verbose_name="Codigo Curso", db_column='ModCurCod')
-    modestregcod = models.ForeignKey(EstadoRegistro, models.DO_NOTHING, verbose_name="Codigo EStReg", db_column='ModEstRegCod')
+    modestregcod = models.ForeignKey(EstadoRegistro, models.DO_NOTHING, verbose_name="Codigo EstReg", db_column='ModEstRegCod')
     
     class Meta:
         db_table = 'modulo'
@@ -204,13 +198,6 @@ class Modulo(models.Model):
     
     def __str__(self):
         return self.modnom
-
-@receiver(post_save, sender=Modulo)
-@receiver(post_delete, sender=Modulo)
-def actualizar_numero_modulo(sender, instance, **kwargs):
-    curso = instance.curso
-    curso.curnummod = curso.modulo_set.count()
-    curso.save()
 
 
 class Examen(models.Model):
