@@ -235,7 +235,7 @@ class Pregunta(models.Model):
 class Alternativa(models.Model):
     altcod = models.AutoField(verbose_name="Codigo", db_column='AltCod', primary_key=True)
     alttex = models.CharField(verbose_name="Texto", db_column='AltTex', max_length=500)
-    altCor = models.BooleanField(verbose_name="Correcto", db_column='AltCor')
+    altcor = models.BooleanField(verbose_name="Correcto", db_column='AltCor')
     altprecod = models.ForeignKey(Pregunta, models.DO_NOTHING, verbose_name="Codigo Pregunta", db_column='AltPreCod')
     altestregcod = models.ForeignKey(EstadoRegistro, models.DO_NOTHING, verbose_name="Codigo EstReg", db_column='AltEstRegCod')
     
