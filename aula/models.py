@@ -170,6 +170,7 @@ class Programa(models.Model):
     procod = models.IntegerField(verbose_name="Codigo", db_column='ProCod', primary_key=True)
     pronom = models.CharField(verbose_name="Nombre", db_column='ProNom', max_length=100, blank=False)
     procodosh = models.CharField(verbose_name="Codigo osha", db_column='ProCodOsh', max_length=30)
+    pronumhor = models.IntegerField( verbose_name="Numero de horas", db_column='ProNumHor', default=0)
     pronumcur = models.IntegerField( verbose_name="Numero de cursos", db_column='ProNumCur', default=0)
     proestregcod = models.ForeignKey(EstadoRegistro, models.DO_NOTHING, verbose_name="Codigo EstReg", db_column='ProEstRegCod')
     cursos = models.ManyToManyField(Curso, related_name='programas', verbose_name="Cursos", blank=True)

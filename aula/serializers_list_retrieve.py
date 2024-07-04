@@ -37,6 +37,7 @@ class ProgramaSerializerList(serializers.ModelSerializer):
         fields = [
             "procod",
             "pronom",
+            "pronumhor",
             "pronumcur",
             "procodosh",
             "proestregcod"
