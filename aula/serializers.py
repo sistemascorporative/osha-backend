@@ -23,6 +23,23 @@ class UserSerializer(BaseUserSerializer):
         model = CustomUser
         fields = ('id', 'email', 'first_name', 'last_name', 'country', 'city', 'address')
 """
+class EstudianteUserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = EstudianteUser
+        fields = ('email', 'password', 'is_staff', 'is_active')
+        extra_kwargs = {
+            'password': {'write_only': True},
+            'is_staff': {'read_only': True},
+            'is_active': {'read_only': True}
+        }
+
+    def create(self, validated_data):
+        user = EstudianteUser.objects.create_user(
+            email=validated_data['email'],
+            password=validated_data['password'],
+        )
+        return user
+
 
 class EstadoRegistroSerializer(serializers.ModelSerializer):
     class Meta:

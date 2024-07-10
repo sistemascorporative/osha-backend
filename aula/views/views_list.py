@@ -4,9 +4,9 @@ from rest_framework.generics import (
 from ..serializers_list_retrieve import *
 from ..serializers import *
 from ..models import Curso, Programa
-from rest_framework import permissions
 from rest_framework.response import Response
 from rest_framework import status
+from rest_framework.permissions import IsAuthenticated
 
 
 #ListAPIViews
@@ -54,6 +54,15 @@ class ModulosPorCursoListAPIView(ListAPIView):
             return Response({"detail": "Modulos not found."}, status=status.HTTP_404_NOT_FOUND)
         serializer = self.get_serializer(queryset, many=True)
         return Response(serializer.data)
+
+
+class EstudianteUserListAPIView(ListAPIView):
+    queryset = EstudianteUser.objects.all()
+    serializer_class = EstudianteUserSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        return super().get_queryset()
 
 
 class EstadoRegistroListAPIView(ListAPIView):

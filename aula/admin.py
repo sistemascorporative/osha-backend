@@ -5,6 +5,14 @@ from .models import *
     
 admin.site.register(EstadoRegistro)
 
+# Registro del modelo EstudianteUser
+admin.site.register(EstudianteUser)
+class CursoAdmin(admin.ModelAdmin):
+    list_display = ('email', 'is_active', 'is_staff', 'is_superuser')
+    search_fields = ('email',)
+
+
+admin.site.register(Estudiante)
 
 # Registro del modelo Curso
 @admin.register(Curso)

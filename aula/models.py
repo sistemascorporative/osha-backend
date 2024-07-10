@@ -1,7 +1,8 @@
 from django.db import models
 from django.db.models.signals import post_save, post_delete
 from django.dispatch import receiver
-#from django.contrib.auth.models import AbstractUser, AbstractBaseUser, PermissionsMixin, BaseUserManager
+from django.contrib.auth.models import AbstractUser, AbstractBaseUser, PermissionsMixin, BaseUserManager
+
 
 # Create your models here.
 
@@ -19,107 +20,63 @@ class EstadoRegistro(models.Model):
         return self.estregnom
 
 
-#class UserAccountManager(BaseUserManager):
-#    def create_user(self, email, password=None, **extra_fields):
-#        if not email:
-#            raise ValueError('Users must have an email address')
-
-#        email = self.normalize_email(email)
-#        user = self.model(email=email, **extra_fields)
-
-#        user.set_password(password)
-#        user.save()
-
-#        return user
-    
-#    def create_superuser(self, email, password=None, **extra_fields):
-#        if not email:
-#            raise ValueError('Users must have an email address')
-
-#        email = self.normalize_email(email)
-#        user = self.model(email=email, **extra_fields)
-
-#        user.set_password(password)
-#        user.save()
-
-#        return user
-
-"""
-class CustomUserManager(BaseUserManager):
-    def create_user(self, email, first_name, last_name, password=None, **extra_fields):
+class UserAccountManager(BaseUserManager):
+    def create_user(self, email, password=None, **extra_fields):
         if not email:
-            raise ValueError('The Email field must be set')
+            raise ValueError('El email debe ser proporcionado')
         email = self.normalize_email(email)
-        user = self.model(email=email, first_name=first_name, last_name=last_name, **extra_fields)
+        user = self.model(email=email, **extra_fields)
         user.set_password(password)
         user.save(using=self._db)
         return user
-
-    def create_superuser(self, email, first_name, last_name, password=None, **extra_fields):
+    
+    def create_superuser(self, email, password=None, **extra_fields):
         extra_fields.setdefault('is_staff', True)
         extra_fields.setdefault('is_superuser', True)
+        return self.create_user(email, password, **extra_fields)
 
-        if extra_fields.get('is_staff') is not True:
-            raise ValueError('Superuser must have is_staff=True.')
-        if extra_fields.get('is_superuser') is not True:
-            raise ValueError('Superuser must have is_superuser=True.')
 
-        return self.create_user(email, first_name, last_name, password, **extra_fields)
-
-class CustomUser(AbstractBaseUser, PermissionsMixin):
+class EstudianteUser(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(unique=True)
-    first_name = models.CharField(max_length=30)
-    last_name = models.CharField(max_length=30)
-    country = models.CharField(max_length=50)
-    city = models.CharField(max_length=50)
-    address = models.CharField(max_length=255)
+    estusernom = models.CharField(verbose_name="Nombre", db_column='EstUserNom', max_length=60, blank=False)
+    estuserape = models.CharField(verbose_name="Apellidos", db_column='EstUserApe', max_length=60, blank=False)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
-
-    objects = CustomUserManager()
-
+    is_superuser = models.BooleanField(default=False)
+    
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['first_name', 'last_name', 'country', 'city', 'address']
-
+    REQUIRED_FIELDS = []
+    
+    objects = UserAccountManager()
+    
     def __str__(self):
-        return self.email"""
+        return self.email
 
-#class EstudianteUser(AbstractBaseUser, PermissionsMixin):
+
+"""class EstudianteUser(AbstractBaseUser, PermissionsMixin):
     #user = models.OneToOneField(User, on_delete=models.CASCADE)
     #estcod = models.AutoField(verbose_name="Codigo", db_column='EstCod', primary_key=True)
-#    estnom = models.CharField(verbose_name="Nombre", db_column='EstNom', max_length=60, blank=False)
-#    estape = models.CharField(verbose_name="Apellidos", db_column='EstApe', max_length=60, blank=False)
-#    estdocide = models.CharField(verbose_name="Documento de identidad", db_column='EstDocIde', max_length=50, blank=False)
-#    estema = models.EmailField(verbose_name="Email", db_column='EstEma', max_length=255, unique=True)
-#    estpai = models.CharField(verbose_name="Pais", db_column='EstPai', max_length=50, blank=True)
-#    estciu = models.CharField(verbose_name="Ciudad", db_column='EstCiu', max_length=50, blank=True)
-#    estdir = models.CharField(verbose_name="Direccion", db_column='EstDir', max_length=100, blank=True)
+    
+    #estdocide = models.CharField(verbose_name="Documento de identidad", db_column='EstDocIde', max_length=50, blank=False)
+    email = models.EmailField(verbose_name="Email", db_column='EstEma', max_length=255, unique=True)
+    #estpai = models.CharField(verbose_name="Pais", db_column='EstPai', max_length=50, blank=True)
+    #estciu = models.CharField(verbose_name="Ciudad", db_column='EstCiu', max_length=50, blank=True)
+    #estdir = models.CharField(verbose_name="Direccion", db_column='EstDir', max_length=100, blank=True)
     #estfeccre = models.DateTimeField(db_column='EstFecCre', default=timezone.now, editable=False)
     #estfecmod = models.DateTimeField(db_column='EstFecMod', default=timezone.now)
-#    estestregcod = models.ForeignKey(EstadoRegistro, models.DO_NOTHING, db_column='EstEstReg', default=1)
-    #is_active = models.BooleanField(default=True)
-    #is_staff = models.BooleanField(default=False)
+    #estestregcod = models.ForeignKey(EstadoRegistro, models.DO_NOTHING, db_column='EstEstReg', default=1)
+    is_active = models.BooleanField(default=True)
+    is_staff = models.BooleanField(default=False)
+    is_superuser = models.BooleanField(default=False)
     
-    #objects = EstudianteUserManager()
-    
-    #USERNAME_FIELD = 'estema'
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = []
     #REQUIRED_FIELDS = ['estnom', 'estape']
-
-    #class Meta:
-##        db_table = 'estudiante_user'
-#        managed = True
-#        verbose_name = 'EstudianteUser'
-#        verbose_name_plural = 'EstudiantesUsers'
-#    
-#    def get_full_name(self):
-#        return self.estnom + " " + self.estape
-
-#    def get_short_name(self):
-#        return self.estnom
     
-#    def __str__(self):
-#        return self.estnom + " " + self.estape + " - " + self.estdocide
-
+    objects = UserAccountManager()
+    
+    def __str__(self):
+        return self.email"""
 
 class Estudiante(models.Model):
     estcod = models.AutoField(verbose_name="Codigo", db_column='EstCod', primary_key=True)

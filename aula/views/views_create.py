@@ -2,12 +2,17 @@ from rest_framework.generics import (
     CreateAPIView
 )
 from ..serializers import *
-from rest_framework import authentication
+from ..models import *
 
 
 class EstadoRegistroCreateAPIView(CreateAPIView):
     queryset = EstadoRegistro.objects.all()
     serializer_class = EstadoRegistroSerializer
+
+
+class EstudianteUserCreateView(CreateAPIView):
+    queryset = EstudianteUser.objects.all()
+    serializer_class = EstudianteUserSerializer
 
 
 class EstudianteCreateAPIView(CreateAPIView):

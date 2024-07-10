@@ -22,6 +22,9 @@ urlpatterns = [
     
     #path('login/', login, name='login'),
     
+    path('register/', EstudianteUserCreateView.as_view(), name='estudiante-user-create'),
+    path('estudiantes/', EstudianteListAPIView.as_view(), name='estudiante-user-list'),
+    
     # Custom Views
     
     path('programa/<int:programa_id>/cursos/', CursosPorProgramaListAPIView.as_view(), name='cursos-por-programa'),
