@@ -2,50 +2,132 @@ from django.contrib import admin
 from .models import *
 
 # Register your models here.
-    
+
 admin.site.register(EstadoRegistro)
 
-# Registro del modelo EstudianteUser
-admin.site.register(EstudianteUser)
-class CursoAdmin(admin.ModelAdmin):
-    list_display = ('email', 'is_active', 'is_staff', 'is_superuser')
-    search_fields = ('email',)
+
+# Registro del modelo EStudiante usuario personalizado
+@admin.register(EstudianteUser)
+class EstudianteAdmin(admin.ModelAdmin):
+    list_display = (
+        'email',
+        'estusernom',
+        'estuserape',
+        'estuserdocide',
+        'is_active',
+        'is_staff',
+        'is_superuser'
+    )
+    search_fields = ('estusernom', 'estuserape','email','estuserdocide',)
 
 
-admin.site.register(Estudiante)
+# Registro del modelo Matricula
+@admin.register(Matricula)
+class MatriculaAdmin(admin.ModelAdmin):
+    list_display = (
+        'matcod',
+        'matestcod',
+        'matprocod',
+        'matestregcod'
+    )
+    search_fields = ('matcod',)
+    list_filter = ('matprocod',)
+
 
 # Registro del modelo Curso
 @admin.register(Curso)
 class CursoAdmin(admin.ModelAdmin):
-    list_display = ('curcod', 'curnom', 'curnummod', 'curestregcod')
-    search_fields = ('curnom',)
-    list_filter = ('curestregcod',)  # Puedes añadir filtros basados en los campos del modelo
-    ordering = ('curnom',)  # Ordena por nombre del curso
+    list_display = (
+        'curcod',
+        'curnom',
+        'curnummod',
+        'curestregcod'
+    )
+    search_fields = ('curcod', 'curnom')
+    list_filter = ('curestregcod',)
+    ordering = ('curcod',)
 
 
 # Registro del modelo Programa
 @admin.register(Programa)
 class ProgramaAdmin(admin.ModelAdmin):
-    list_display = ('procod', 'pronom', 'procodosh', 'pronumcur', 'proestregcod')
+    list_display = (
+        'procod',
+        'pronom',
+        'procodosh',
+        'pronumcur',
+        'pronumhor',
+        'proestregcod'
+    )
     search_fields = ('pronom',)
-    filter_horizontal = ('cursos',)  # Esto habilita la interfaz para gestionar la relación muchos a muchos
-    list_filter = ('proestregcod',)  # Añade filtros basados en los campos del modelo
-    ordering = ('pronom',)  # Ordena por nombre del programa
+    filter_horizontal = ('cursos',)
+    list_filter = ('proestregcod',)
+    ordering = ('pronom',)
 
 
+# Registro del modelo Modulo
 @admin.register(Modulo)
 class ModuloAdmin(admin.ModelAdmin):
-    list_display = ('modcod', 'modnom', 'modcurcod', 'modestregcod')
+    list_display = (
+        'modcod',
+        'modnom',
+        'modcurcod',
+        'modestregcod'
+    )
     search_fields = ('modnom',)
-    list_filter = ('modestregcod',)
-    ordering = ('modcod',)
+    list_filter = ('modestregcod','modcurcod',)
 
 
-admin.site.register(Examen)
-admin.site.register(Pregunta)
-admin.site.register(Alternativa)
+# Registro del modelo Examen
+@admin.register(Examen)
+class ExamenAdmin(admin.ModelAdmin):
+    list_display = (
+        'exacod',
+        'exacurcod',
+        'exaestregcod',
+    )
+    list_filter = ('exaestregcod',)
+
+
+# Registro del modelo Pregunta
+@admin.register(Pregunta)
+class PreguntaAdmin(admin.ModelAdmin):
+    list_display = (
+        'precod',
+        'pretex',
+        'preexacod',
+        'preestregcod',
+    )
+    search_fields = ('pretex',)
+    list_filter = ('preestregcod',)
+
+
+# Registro del modelo Alternativa
+@admin.register(Alternativa)
+class AlternativaAdmin(admin.ModelAdmin):
+    list_display = (
+        'altcod',
+        'alttex',
+        'altcor',
+        'altprecod',
+        'altestregcod',
+    )
+    search_fields = ('alttex',)
+    list_filter = ('altestregcod',)
+
+
+# Registro del modelo Respuesta
 admin.site.register(Respuesta)
-admin.site.register(Matricula)
+
+
+# Registro del modelo Pregunta
 admin.site.register(RegistroCurso)
+
+
+# Registro del modelo Pregunta
 admin.site.register(RegistroExamen)
+
+
+# Registro del modelo Pregunta
 admin.site.register(NotaPrograma)
+

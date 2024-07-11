@@ -37,9 +37,13 @@ class UserAccountManager(BaseUserManager):
 
 
 class EstudianteUser(AbstractBaseUser, PermissionsMixin):
-    email = models.EmailField(unique=True)
+    email = models.EmailField(verbose_name="Email", unique=True)
     estusernom = models.CharField(verbose_name="Nombre", db_column='EstUserNom', max_length=60, blank=False)
     estuserape = models.CharField(verbose_name="Apellidos", db_column='EstUserApe', max_length=60, blank=False)
+    estuserdocide = models.CharField(verbose_name="Documento de identidad", db_column='EstUserDocIde', max_length=50, blank=False)
+    estuserpai = models.CharField(verbose_name="Pais", db_column='EstUserPai', max_length=50, blank=True)
+    estuserciu = models.CharField(verbose_name="Ciudad", db_column='EstUserCiu', max_length=50, blank=True)
+    estuserdir = models.CharField(verbose_name="Direccion", db_column='EstUserDir', max_length=100, blank=True)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)
@@ -50,33 +54,8 @@ class EstudianteUser(AbstractBaseUser, PermissionsMixin):
     objects = UserAccountManager()
     
     def __str__(self):
-        return self.email
+        return self.estusernom + " " + self.estuserape + " - " + self.estuserdocide
 
-
-"""class EstudianteUser(AbstractBaseUser, PermissionsMixin):
-    #user = models.OneToOneField(User, on_delete=models.CASCADE)
-    #estcod = models.AutoField(verbose_name="Codigo", db_column='EstCod', primary_key=True)
-    
-    #estdocide = models.CharField(verbose_name="Documento de identidad", db_column='EstDocIde', max_length=50, blank=False)
-    email = models.EmailField(verbose_name="Email", db_column='EstEma', max_length=255, unique=True)
-    #estpai = models.CharField(verbose_name="Pais", db_column='EstPai', max_length=50, blank=True)
-    #estciu = models.CharField(verbose_name="Ciudad", db_column='EstCiu', max_length=50, blank=True)
-    #estdir = models.CharField(verbose_name="Direccion", db_column='EstDir', max_length=100, blank=True)
-    #estfeccre = models.DateTimeField(db_column='EstFecCre', default=timezone.now, editable=False)
-    #estfecmod = models.DateTimeField(db_column='EstFecMod', default=timezone.now)
-    #estestregcod = models.ForeignKey(EstadoRegistro, models.DO_NOTHING, db_column='EstEstReg', default=1)
-    is_active = models.BooleanField(default=True)
-    is_staff = models.BooleanField(default=False)
-    is_superuser = models.BooleanField(default=False)
-    
-    USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = []
-    #REQUIRED_FIELDS = ['estnom', 'estape']
-    
-    objects = UserAccountManager()
-    
-    def __str__(self):
-        return self.email"""
 
 class Estudiante(models.Model):
     estcod = models.AutoField(verbose_name="Codigo", db_column='EstCod', primary_key=True)
@@ -111,7 +90,7 @@ class Curso(models.Model):
     curcod = models.IntegerField(verbose_name="Código", db_column='CurCod', primary_key=True)
     curnom = models.CharField(verbose_name="Nombre", db_column='CurNom', max_length=80, blank=False)
     curnummod = models.IntegerField( verbose_name="Numero de módulos", db_column='CurNumMod', default=0)
-    curestregcod = models.ForeignKey(EstadoRegistro, models.DO_NOTHING, verbose_name="Codigo EStReg", db_column='CurEstRegCod')
+    curestregcod = models.ForeignKey(EstadoRegistro, models.DO_NOTHING, verbose_name="Codigo EstReg", db_column='CurEstRegCod')
     
     class Meta:
         db_table = 'curso'
@@ -170,7 +149,7 @@ class Examen(models.Model):
         verbose_name_plural = 'Examenes'
     
     def __str__(self):
-        return self.exacurcod.curnom
+        return f"{self.exacurcod.curnom}"
 
 
 class Pregunta(models.Model):
@@ -186,7 +165,7 @@ class Pregunta(models.Model):
         verbose_name_plural = 'Pregunta'
     
     def __str__(self):
-        return self.pretex
+        return f"{self.precod} - {self.pretex}"
     
 
 
@@ -230,7 +209,7 @@ class Respuesta(models.Model):
 
 class Matricula(models.Model):
     matcod = models.AutoField(verbose_name="Codigo", db_column='MatCod', primary_key=True)
-    matestcod = models.ForeignKey(Estudiante, models.DO_NOTHING, verbose_name="Codigo Estudiante", db_column='MatEstCod')
+    matestcod = models.ForeignKey(EstudianteUser, models.DO_NOTHING, verbose_name="Codigo Estudiante", db_column='MatEstCod')
     matprocod = models.ForeignKey(Programa, models.DO_NOTHING, verbose_name="Codigo Programa", db_column='MatProCod')
     matestregcod = models.ForeignKey(EstadoRegistro, models.DO_NOTHING, verbose_name="Codigo EstReg", db_column='MatEstRegCod')
     
@@ -242,7 +221,7 @@ class Matricula(models.Model):
         unique_together = ('matestcod','matprocod')
     
     def __str__(self):
-        return self.matcod
+        return f"{self.matestcod.estusernom} - {self.matprocod.pronom}"
 
 
 class RegistroExamen(models.Model):

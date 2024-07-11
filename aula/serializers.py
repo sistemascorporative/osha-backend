@@ -3,8 +3,8 @@ from djoser.serializers import UserCreateSerializer as BaseUserCreateSerializer,
 from .models import *
 from datetime import datetime
 from djoser.serializers import UserCreateSerializer
-#from django.contrib.auth import get_user_model
-#User = get_user_model()
+from django.contrib.auth import get_user_model
+User = get_user_model()
 from django.contrib.auth.password_validation import validate_password
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework import serializers
@@ -13,11 +13,6 @@ from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 
 
 """
-class UserCreateSerializer(BaseUserCreateSerializer):
-    class Meta(BaseUserCreateSerializer.Meta):
-        model = CustomUser
-        fields = ('id', 'email', 'first_name', 'last_name', 'password', 'country', 'city', 'address')
-
 class UserSerializer(BaseUserSerializer):
     class Meta(BaseUserSerializer.Meta):
         model = CustomUser
@@ -26,7 +21,16 @@ class UserSerializer(BaseUserSerializer):
 class EstudianteUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = EstudianteUser
-        fields = ('email', 'password', 'is_staff', 'is_active')
+        fields = (
+            'email',
+            'password',
+            'estusernom',
+            'estuserape',
+            'estuserdocide',
+            'estuserpai',
+            'estuserciu',
+            'estuserdir'
+        )
         extra_kwargs = {
             'password': {'write_only': True},
             'is_staff': {'read_only': True},
@@ -37,6 +41,12 @@ class EstudianteUserSerializer(serializers.ModelSerializer):
         user = EstudianteUser.objects.create_user(
             email=validated_data['email'],
             password=validated_data['password'],
+            estusernom=validated_data['estusernom'],
+            estuserape=validated_data['estuserape'],
+            estuserdocide=validated_data['estuserdocide'],
+            estuserpai=validated_data.get('estuserpai', ''),
+            estuserciu=validated_data.get('estuserciu', ''),
+            estuserdir=validated_data.get('estuserdir', '')
         )
         return user
 
