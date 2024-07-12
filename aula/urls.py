@@ -22,7 +22,7 @@ urlpatterns = [
     
     #path('login/', login, name='login'),
     
-    path('register/', EstudianteUserCreateView.as_view(), name='estudiante-user-create'),
+    path('register/', EstudianteUserCreateView.as_view(), name='register'),
     path('estudiantes/', EstudianteListAPIView.as_view(), name='estudiante-user-list'),
     
     # Custom Views
