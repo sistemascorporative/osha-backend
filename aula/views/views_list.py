@@ -11,6 +11,33 @@ from rest_framework.permissions import IsAuthenticated
 
 #ListAPIViews
 
+
+# Devuelve todos los programas por X estudiante matriculado
+class ProgramasPorEstudianteListAPIView(ListAPIView):
+    serializer_class = ProgramaSerializer
+    
+    def get_queryset(self):
+        estudiante_id = self.kwargs.get('estudiante_id')
+        if estudiante_id is not None:
+            try:
+                estudiante = EstudianteUser.objects.get(pk=estudiante_id)
+                matriculas = Matricula.objects.filter(matestcod=estudiante)
+                programas = [matricula.matprocod for matricula in matriculas]
+                return programas
+            except EstudianteUser.DoesNotExist:
+                return Programa.objects.none()
+        else:
+            return Programa.objects.none()
+
+    def list(self, request, *args, **kwargs):
+        queryset = self.get_queryset()
+        if not queryset:
+            return Response({"detail": "Estudiante not found or no programs enrolled."}, status=status.HTTP_404_NOT_FOUND)
+        serializer = self.get_serializer(queryset, many=True)
+        return Response(serializer.data)
+
+
+# Devuelve todos los cursos por X programa
 class CursosPorProgramaListAPIView(ListAPIView):
     serializer_class = CursoSerializer
 
@@ -33,6 +60,7 @@ class CursosPorProgramaListAPIView(ListAPIView):
         return Response(serializer.data)
 
 
+# Devuelve todos los módulos por X curso
 class ModulosPorCursoListAPIView(ListAPIView):
     serializer_class = ModuloSerializer
 

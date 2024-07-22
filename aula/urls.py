@@ -17,16 +17,12 @@ urlpatterns = [
     
     # Login
     
-    #path("auth/", include('djoser.urls')),
-    #path("auth/", include('djoser.urls.jwt')),
-    
-    #path('login/', login, name='login'),
-    
     path('register/', EstudianteUserCreateView.as_view(), name='register'),
     path('estudiantes/', EstudianteListAPIView.as_view(), name='estudiante-user-list'),
     
     # Custom Views
     
+    path('estudiante/<int:estudiante_id>/programas/', ProgramasPorEstudianteListAPIView.as_view(), name='programas-por-estudiante'),
     path('programa/<int:programa_id>/cursos/', CursosPorProgramaListAPIView.as_view(), name='cursos-por-programa'),
     path('curso/<int:curso_id>/modulos/', ModulosPorCursoListAPIView.as_view(), name='modulos-por-curso'),
     
