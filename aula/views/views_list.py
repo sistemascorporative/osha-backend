@@ -17,24 +17,35 @@ class ProgramasPorEstudianteListAPIView(ListAPIView):
     serializer_class = ProgramaSerializer
     
     def get_queryset(self):
-        estudiante_id = self.kwargs.get('estudiante_id')
-        if estudiante_id is not None:
+        estudiante_email = self.kwargs.get('estudiante_email')
+        if estudiante_email is not None:
             try:
-                estudiante = EstudianteUser.objects.get(pk=estudiante_id)
+                estudiante = EstudianteUser.objects.get(email=estudiante_email)
                 matriculas = Matricula.objects.filter(matestcod=estudiante)
+                if not matriculas:
+                    raise Matricula.DoesNotExist("Usted aún no se matriculado a ningún programa")
                 programas = [matricula.matprocod for matricula in matriculas]
                 return programas
             except EstudianteUser.DoesNotExist:
-                return Programa.objects.none()
+                raise EstudianteUser.DoesNotExist("Estudiante no encontrado.")
+            except Matricula.DoesNotExist:
+                raise Matricula.DoesNotExist("Usted aún no se matriculado a ningún programa.")
         else:
             return Programa.objects.none()
 
     def list(self, request, *args, **kwargs):
-        queryset = self.get_queryset()
-        if not queryset:
-            return Response({"detail": "Estudiante not found or no programs enrolled."}, status=status.HTTP_404_NOT_FOUND)
-        serializer = self.get_serializer(queryset, many=True)
-        return Response(serializer.data)
+        try:
+            queryset = self.get_queryset()
+            if not queryset:
+                return Response({"detail": "Estudiante  no encontrado o no hay programas inscritos."}, status=status.HTTP_404_NOT_FOUND)
+            serializer = self.get_serializer(queryset, many=True)
+            return Response(serializer.data)
+        except EstudianteUser.DoesNotExist as e:
+            return Response({"detail": str(e)}, status=status.HTTP_404_NOT_FOUND)
+        except Matricula.DoesNotExist as e:
+            return Response({"detail": str(e)}, status=status.HTTP_404_NOT_FOUND)
+        except Exception as e:
+            return Response({"detail": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
 # Devuelve todos los cursos por X programa
@@ -84,6 +95,32 @@ class ModulosPorCursoListAPIView(ListAPIView):
         return Response(serializer.data)
 
 
+# Devuelve todos los examenes de X estudiante matriculado y de X programa
+class ExamenesPorProgramaListAPIView(ListAPIView):
+    serializer_class = ExamenSerializer
+    
+    def get_queryset(self):
+        programa_id = self.kwargs.get('programa_id')
+        if programa_id is not None:
+            try:
+                programa = Programa.objects.get(procod=programa_id)
+                cursos = programa.cursos.all()
+                examenes = Examen.objects.filter(exacurcod__in=cursos)
+                return examenes
+            except Programa.DoesNotExist:
+                return Examen.objects.none()
+        else:
+            return Examen.objects.none()
+
+    def list(self, request, *args, **kwargs):
+        queryset = self.get_queryset()
+        if not queryset:
+            return Response({"detail": "No se encontraron exámenes para este programa."}, status=status.HTTP_404_NOT_FOUND)
+        serializer = self.get_serializer(queryset, many=True)
+        return Response(serializer.data)
+
+
+# Estudiante
 class EstudianteUserListAPIView(ListAPIView):
     queryset = EstudianteUser.objects.all()
     serializer_class = EstudianteUserSerializer
