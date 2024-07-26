@@ -18,7 +18,7 @@ urlpatterns = [
     # Login
     
     path('register/', EstudianteUserCreateView.as_view(), name='register'),
-    path('estudiantes/', EstudianteListAPIView.as_view(), name='estudiante-user-list'),
+    path('estudiantes/', EstudianteUserListAPIView.as_view(), name='estudiante-user-list'),
     
     # Custom Views
     
@@ -30,7 +30,7 @@ urlpatterns = [
     # List
     
     path('estado-registro/', EstadoRegistroListAPIView.as_view(), name='estado-regitro-list'),
-    path('estudiante/', EstudianteListAPIView.as_view(), name='estudiante-list'),
+    path('estudiante/', EstudianteUserListAPIView.as_view(), name='estudiante-list'),
     path('programa/', ProgramaListAPIView.as_view(), name='programa-list'),
     path('curso/', CursoListAPIView.as_view(), name='curso-list'),
     path('modulo/', ModuloListAPIView.as_view(), name='modulo-list'),
@@ -45,7 +45,7 @@ urlpatterns = [
     # Create
     
     path('estado-registro/create/', EstadoRegistroCreateAPIView.as_view(), name='estado-registro-create'),
-    path('estudiante/create/', EstudianteCreateAPIView.as_view(), name='estudiante-create'),
+    path('estudiante/create/', EstudianteUserCreateAPIView.as_view(), name='estudiante-create'),
     path('programa/create/', ProgramaCreateAPIView.as_view(), name='programa-create'),
     path('curso/create/', CursoCreateAPIView.as_view(), name='curso-create'),
     path('modulo/create/', ModuloCreateAPIView.as_view(), name='modulo-create'),
@@ -60,7 +60,7 @@ urlpatterns = [
     # Detail
     
     path('estado-registro/<int:pk>/', EstadoRegistroRetrieveAPIView.as_view(), name='estado-registro-detail'),
-    path('estudiante/<int:pk>/', EstudianteRetrieveAPIView.as_view(), name='estudiante-detail'),
+    path('estudiante/<str:email>/', EstudianteUserRetrieveAPIView.as_view(), name='estudiante-detail'),
     path('programa/<int:pk>/', ProgramaRetrieveAPIView.as_view(), name='programa-detail'),
     path('curso/<int:pk>/', CursoRetrieveAPIView.as_view(), name='curso-detail'),
     path('modulo/<int:pk>/', ModuloRetrieveAPIView.as_view(), name='modulo-detail'),
@@ -75,7 +75,7 @@ urlpatterns = [
     # Update
     
     path('estado-registro/<int:pk>/update/', EstadoRegistroUpdateAPIView.as_view(), name='estado-registro-update'),
-    path('estudiante/<int:pk>/update/', EstudianteUpdateAPIView.as_view(), name='estudiante-update'),
+    path('estudiante/<int:pk>/update/', EstudianteUserUpdateAPIView.as_view(), name='estudiante-update'),
     path('programa/<int:pk>/update/', ProgramaUpdateAPIView.as_view(), name='programa-update'),
     path('curso/<int:pk>/update/', CursoUpdateAPIView.as_view(), name='curso-update'),
     path('modulo/<int:pk>/update/', ModuloUpdateAPIView.as_view(), name='modulo-update'),
@@ -90,7 +90,7 @@ urlpatterns = [
     # Delete
     
     path('estado-registro/<int:pk>/delete/', EstadoRegistroDestroyAPIView.as_view(), name='estado-registro-delete'),
-    path('estudiante/<int:pk>/delete/', EstudianteDestroyAPIView.as_view(), name='estudiante-delete'),
+    path('estudiante/<int:pk>/delete/', EstudianteUserDestroyAPIView.as_view(), name='estudiante-delete'),
     path('programa/<int:pk>/delete/', ProgramaDestroyAPIView.as_view(), name='programa-delete'),
     path('curso/<int:pk>/delete/', CursoDestroyAPIView.as_view(), name='curso-delete'),
     path('modulo/<int:pk>/delete/', ModuloDestroyAPIView.as_view(), name='modulo-delete'),

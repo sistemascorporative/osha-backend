@@ -9,9 +9,9 @@ class EstadoRegistroDestroyAPIView(RetrieveDestroyAPIView):
     serializer_class = EstadoRegistroSerializer
 
 
-class EstudianteDestroyAPIView(RetrieveDestroyAPIView):
-    queryset = Estudiante.objects.all()
-    serializer_class = EstudianteSerializer
+class EstudianteUserDestroyAPIView(RetrieveDestroyAPIView):
+    queryset = EstudianteUser.objects.all()
+    serializer_class = EstudianteUserSerializer
 
 
 class ProgramaDestroyAPIView(RetrieveDestroyAPIView):

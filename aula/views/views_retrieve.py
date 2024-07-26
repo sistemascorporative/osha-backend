@@ -11,9 +11,10 @@ class EstadoRegistroRetrieveAPIView(RetrieveAPIView):
     serializer_class = EstadoRegistroSerializerList
 
 
-class EstudianteRetrieveAPIView(RetrieveAPIView):
-    queryset = Estudiante.objects.all()
-    serializer_class = EstudianteSerializerList
+class EstudianteUserRetrieveAPIView(RetrieveAPIView):
+    queryset = EstudianteUser.objects.all()
+    serializer_class = EstudianteUserSerializerList
+    lookup_field = 'email'
 
 
 class ProgramaRetrieveAPIView(RetrieveAPIView):

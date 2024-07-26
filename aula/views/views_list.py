@@ -95,7 +95,7 @@ class ModulosPorCursoListAPIView(ListAPIView):
         return Response(serializer.data)
 
 
-# Devuelve todos los examenes de X estudiante matriculado y de X programa
+# Devuelve todos los examenes de X programa
 class ExamenesPorProgramaListAPIView(ListAPIView):
     serializer_class = ExamenSerializer
     
@@ -136,8 +136,8 @@ class EstadoRegistroListAPIView(ListAPIView):
 
 
 class EstudianteListAPIView(ListAPIView):
-    queryset = Estudiante.objects.all()
-    serializer_class = EstudianteSerializerList
+    queryset = EstudianteUser.objects.all()
+    serializer_class = EstudianteUserSerializerList
 
 
 class ProgramaListAPIView(ListAPIView):

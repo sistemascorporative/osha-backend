@@ -12,21 +12,17 @@ class EstadoRegistroSerializerList(serializers.ModelSerializer):
         ]
 
 
-class EstudianteSerializerList(serializers.ModelSerializer):
-    estestregcod = EstadoRegistroSerializerList()
+class EstudianteUserSerializerList(serializers.ModelSerializer):
     class Meta:
-        model = Estudiante
+        model = EstudianteUser
         fields = [
-            "estcod",
-            "estnom",
-            "estape",
-            "estdocide",
-            "estema",
-            "estcon",
-            "estpai",
-            "estciu",
-            "estdir",
-            "estestregcod"
+            "email",
+            "estusernom",
+            "estuserape",
+            "estuserdocide",
+            "estuserpai",
+            "estuserciu",
+            "estuserdir",
         ]
 
 
@@ -109,7 +105,7 @@ class AlternativaSerializerList(serializers.ModelSerializer):
 
 
 class RespuestaSerializerList(serializers.ModelSerializer):
-    resestcod = EstudianteSerializerList()
+    resestcod = EstudianteUserSerializerList()
     resexacod = ExamenSerializerList()
     resprecod = PreguntaSerializerList()
     resaltcod = AlternativaSerializerList()
@@ -128,7 +124,7 @@ class RespuestaSerializerList(serializers.ModelSerializer):
 
 
 class MatriculaSerializerList(serializers.ModelSerializer):
-    matestcod = EstudianteSerializerList()
+    matestcod = EstudianteUserSerializerList()
     matprocod = ProgramaSerializerList()
     matestregcod = EstadoRegistroSerializerList()    
     class Meta:
@@ -142,7 +138,7 @@ class MatriculaSerializerList(serializers.ModelSerializer):
 
 
 class RegistroCursoSerializerList(serializers.ModelSerializer):
-    regcurestcod = EstudianteSerializerList()
+    regcurestcod = EstudianteUserSerializerList()
     regcurcurcod = CursoSerializerList()
     regcurestregcod = EstadoRegistroSerializerList()
     class Meta:
@@ -157,7 +153,7 @@ class RegistroCursoSerializerList(serializers.ModelSerializer):
 
 
 class NotaProgramaSerializerList(serializers.ModelSerializer):
-    notproestcod = EstudianteSerializerList()
+    notproestcod = EstudianteUserSerializerList()
     notproprocod = ProgramaSerializerList()
     notproestregcod = EstadoRegistroSerializerList()
     class Meta:

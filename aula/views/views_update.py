@@ -10,9 +10,9 @@ class EstadoRegistroUpdateAPIView(RetrieveUpdateAPIView):
     serializer_class = EstadoRegistroSerializer
 
 
-class EstudianteUpdateAPIView(RetrieveUpdateAPIView):
-    queryset = Estudiante.objects.all()
-    serializer_class = EstudianteSerializer
+class EstudianteUserUpdateAPIView(RetrieveUpdateAPIView):
+    queryset = EstudianteUser.objects.all()
+    serializer_class = EstudianteUserSerializer
 
 
 class ProgramaUpdateAPIView(RetrieveUpdateAPIView):

@@ -15,9 +15,9 @@ class EstudianteUserCreateView(CreateAPIView):
     serializer_class = EstudianteUserSerializer
 
 
-class EstudianteCreateAPIView(CreateAPIView):
-    queryset = Estudiante.objects.all()
-    serializer_class = EstudianteSerializer
+class EstudianteUserCreateAPIView(CreateAPIView):
+    queryset = EstudianteUser.objects.all()
+    serializer_class = EstudianteUserSerializer
 
 
 class ProgramaCreateAPIView(CreateAPIView):
