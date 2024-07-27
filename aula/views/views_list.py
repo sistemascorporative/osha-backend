@@ -95,6 +95,35 @@ class ModulosPorCursoListAPIView(ListAPIView):
         return Response(serializer.data)
 
 
+
+# Devuelve todos los registros de examenes de X programa
+class RegistrosExamenesPorProgramaListAPIView(ListAPIView):
+    serializer_class = RegistroExamenSerializer
+    
+    def get_queryset(self):
+        programa_id = self.kwargs.get('programa_id')
+        if programa_id is not None:
+            try:
+                programa = Programa.objects.get(procod=programa_id)
+                cursos = programa.cursos.all()
+                # Obtener los exámenes asociados a los cursos del programa
+                examenes = Examen.objects.filter(exacurcod__in=cursos)
+                # Obtener los registros de examen asociados a los exámenes
+                registros_examen = RegistroExamen.objects.filter(regexaexacod__in=examenes)
+                return registros_examen
+            except Programa.DoesNotExist:
+                return RegistroExamen.objects.none()
+        else:
+            return RegistroExamen.objects.none()
+
+    def list(self, request, *args, **kwargs):
+        queryset = self.get_queryset()
+        if not queryset:
+            return Response({"detail": "No se encontraron registros de exámenes para este programa."}, status=status.HTTP_404_NOT_FOUND)
+        serializer = self.get_serializer(queryset, many=True)
+        return Response(serializer.data)
+
+
 # Devuelve todos los examenes de X programa
 class ExamenesPorProgramaListAPIView(ListAPIView):
     serializer_class = ExamenSerializer

@@ -3,7 +3,23 @@ from .models import *
 
 # Register your models here.
 
-admin.site.register(EstadoRegistro)
+
+# Registro del modelo Estado de Registro
+@admin.register(EstadoRegistro)
+class EstadoRegistroAdmin(admin.ModelAdmin):
+    list_display = (
+        'estregcod',
+        'estregnom'
+    )
+
+
+# Registro del modelo Estado de Registro
+@admin.register(EstadoExamen)
+class EstadoExamenAdmin(admin.ModelAdmin):
+    list_display = (
+        'estexacod',
+        'estexanom'
+    )
 
 
 # Registro del modelo EStudiante usuario personalizado

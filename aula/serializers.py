@@ -105,6 +105,12 @@ class RegistroCursoSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class RegistroExamenSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = RegistroExamen
+        fields = '__all__'
+
+
 class NotaProgramaSerializer(serializers.ModelSerializer):
     class Meta:
         model = NotaPrograma

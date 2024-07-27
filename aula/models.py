@@ -20,6 +20,20 @@ class EstadoRegistro(models.Model):
         return self.estregnom
 
 
+class EstadoExamen(models.Model):
+    estexacod = models.AutoField(verbose_name="Código", db_column='EstExaCod', primary_key=True)
+    estexanom = models.CharField(verbose_name="Nombre de Estado", db_column='EstExaNom', max_length=40, blank=False, unique=True)
+
+    class Meta:
+        db_table = 'estado_examen'
+        managed = True
+        verbose_name = 'EstadoExamen'
+        verbose_name_plural = 'EstadosExamenes'
+
+    def __str__(self):
+        return self.estexanom
+
+
 class UserAccountManager(BaseUserManager):
     def create_user(self, email, password=None, **extra_fields):
         if not email:
@@ -198,8 +212,8 @@ class RegistroExamen(models.Model):
     regexacod = models.AutoField(verbose_name="Codigo", db_column='RegExaCod', primary_key=True)
     regexapun = models.DecimalField(verbose_name="Puntuacion", db_column='RegExaPun', max_digits=5, decimal_places=2)
     regexaint = models.IntegerField( verbose_name="Número de intentos", db_column='RegExaInt', default=0)
-    regexaest = models.CharField(verbose_name="Estado", db_column='RegExaEst', max_length=100)
-    regexaestcod = models.ForeignKey(EstudianteUser, models.DO_NOTHING, verbose_name="Codio Estudiante", db_column='RegExaEstCod')
+    regexaestexacod = models.ForeignKey(EstadoExamen, models.DO_NOTHING, verbose_name="Codigo Examen", db_column='RegExaEstExaCod', null=True, blank=True)
+    regexaestcod = models.ForeignKey(EstudianteUser, models.DO_NOTHING, verbose_name="Codigo Estudiante", db_column='RegExaEstCod')
     regexaexacod = models.ForeignKey(Examen, models.DO_NOTHING, verbose_name="Codigo Examen", db_column='RegExaExaCod')
     
     class Meta:
@@ -210,7 +224,7 @@ class RegistroExamen(models.Model):
         unique_together = ('regexaestcod','regexaexacod')
     
     def __str__(self):
-        return self.regexaest
+        return f"{self.regexaestcod} - {self.regexaexacod} - {self.regexaestexacod.estexanom}"
 
 
 class RegistroCurso(models.Model):

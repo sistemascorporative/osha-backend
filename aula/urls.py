@@ -25,6 +25,7 @@ urlpatterns = [
     path('estudiante/<str:estudiante_email>/programas/', ProgramasPorEstudianteListAPIView.as_view(), name='programas-por-estudiante'),
     path('programa/<int:programa_id>/cursos/', CursosPorProgramaListAPIView.as_view(), name='cursos-por-programa'),
     path('curso/<int:curso_id>/modulos/', ModulosPorCursoListAPIView.as_view(), name='modulos-por-curso'),
+    path('programa/<int:programa_id>/registrosexamenes/', RegistrosExamenesPorProgramaListAPIView.as_view(), name='registros-de-examenes-por-programa'),
     path('programa/<int:programa_id>/examenes/', ExamenesPorProgramaListAPIView.as_view(), name='examenes-por-programa'),
     
     # List
