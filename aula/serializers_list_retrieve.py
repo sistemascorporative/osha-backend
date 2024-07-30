@@ -12,6 +12,15 @@ class EstadoRegistroSerializerList(serializers.ModelSerializer):
         ]
 
 
+class EstadoExamenSerializerList(serializers.ModelSerializer):
+    class Meta:
+        model = EstadoExamen
+        fields = [
+            "estexacod",
+            "estexanom"
+        ]
+
+
 class EstudianteUserSerializerList(serializers.ModelSerializer):
     class Meta:
         model = EstudianteUser
@@ -137,6 +146,22 @@ class MatriculaSerializerList(serializers.ModelSerializer):
         ]
 
 
+class RegistroExamenSerializerList(serializers.ModelSerializer):
+    regexaestexacod = EstadoExamenSerializerList()
+    regexaestcod = EstudianteUserSerializerList()
+    regexaexacod = ExamenSerializerList()
+    class Meta:
+        model = RegistroExamen
+        fields = [
+            "regexacod",
+            "regexapun",
+            "regexaint",
+            "regexaestexacod",
+            "regexaestcod",
+            "regexaexacod"
+        ]
+
+
 class RegistroCursoSerializerList(serializers.ModelSerializer):
     regcurestcod = EstudianteUserSerializerList()
     regcurcurcod = CursoSerializerList()
@@ -155,13 +180,11 @@ class RegistroCursoSerializerList(serializers.ModelSerializer):
 class NotaProgramaSerializerList(serializers.ModelSerializer):
     notproestcod = EstudianteUserSerializerList()
     notproprocod = ProgramaSerializerList()
-    notproestregcod = EstadoRegistroSerializerList()
     class Meta:
         model = NotaPrograma
         fields = [
             "notprocod",
             "notpropun",
             "notproestcod",
-            "notproprocod",
-            "notproestregcod"
+            "notproprocod"
         ]

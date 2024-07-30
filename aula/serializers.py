@@ -51,6 +51,12 @@ class EstadoRegistroSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class EstadoExamenSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = EstadoExamen
+        fields = '__all__'
+
+
 class ProgramaSerializer(serializers.ModelSerializer):
     class Meta:
         model = Programa

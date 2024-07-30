@@ -144,7 +144,7 @@ class Pregunta(models.Model):
     preestregcod = models.ForeignKey(EstadoRegistro, models.DO_NOTHING, verbose_name="Codigo EStReg", db_column='PreEstRegCod')
     
     class Meta:
-        db_table = 'Pregunta'
+        db_table = 'Pregunta' #PREGUNTA
         managed = True
         verbose_name = 'Pregunta'
         verbose_name_plural = 'Pregunta'
@@ -220,8 +220,7 @@ class RegistroExamen(models.Model):
         db_table = 'registro_examen'
         managed = True
         verbose_name = 'RegistroExamen'
-        verbose_name_plural = 'RegistroExamenes'
-        unique_together = ('regexaestcod','regexaexacod')
+        verbose_name_plural = 'RegistroExamenes' #delete de unique key problems
     
     def __str__(self):
         return f"{self.regexaestcod} - {self.regexaexacod} - {self.regexaestexacod.estexanom}"
@@ -260,4 +259,4 @@ class NotaPrograma(models.Model):
         unique_together = ('notproestcod','notproprocod')
     
     def __str__(self):
-        return self.notprocod
+        return f"{self.notprocod} - {self.notproestcod}"

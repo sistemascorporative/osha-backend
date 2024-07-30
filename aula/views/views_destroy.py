@@ -9,6 +9,11 @@ class EstadoRegistroDestroyAPIView(RetrieveDestroyAPIView):
     serializer_class = EstadoRegistroSerializer
 
 
+class EstadoExamenDestroyAPIView(RetrieveDestroyAPIView):
+    queryset = EstadoExamen.objects.all()
+    serializer_class = EstadoExamenSerializer
+
+
 class EstudianteUserDestroyAPIView(RetrieveDestroyAPIView):
     queryset = EstudianteUser.objects.all()
     serializer_class = EstudianteUserSerializer
@@ -52,6 +57,11 @@ class RespuestaDestroyAPIView(RetrieveDestroyAPIView):
 class MatriculaDestroyAPIView(RetrieveDestroyAPIView):
     queryset = Matricula.objects.all()
     serializer_class = MatriculaSerializer
+
+
+class RegistroExamenDestroyAPIView(RetrieveDestroyAPIView):
+    queryset = RegistroExamen.objects.all()
+    serializer_class = RegistroExamenSerializer
 
 
 class RegistroCursoDestroyAPIView(RetrieveDestroyAPIView):

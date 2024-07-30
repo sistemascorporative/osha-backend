@@ -17,7 +17,7 @@ urlpatterns = [
     
     # Login
     
-    path('register/', EstudianteUserCreateView.as_view(), name='register'),
+    path('register/', EstudianteUserCreateAPIView.as_view(), name='register'),
     path('estudiantes/', EstudianteUserListAPIView.as_view(), name='estudiante-user-list'),
     
     # Custom Views
@@ -25,8 +25,9 @@ urlpatterns = [
     path('estudiante/<str:estudiante_email>/programas/', ProgramasPorEstudianteListAPIView.as_view(), name='programas-por-estudiante'),
     path('programa/<int:programa_id>/cursos/', CursosPorProgramaListAPIView.as_view(), name='cursos-por-programa'),
     path('curso/<int:curso_id>/modulos/', ModulosPorCursoListAPIView.as_view(), name='modulos-por-curso'),
-    path('programa/<int:programa_id>/registrosexamenes/', RegistrosExamenesPorProgramaListAPIView.as_view(), name='registros-de-examenes-por-programa'),
+    path('programa/<int:programa_id>/estudiante/<str:estudiante_id>/registrosexamenes/', RegistrosExamenesPorProgramaPorEstudianteListAPIView.as_view(), name='registros-de-examenes-por-programa-y-estudiante'),
     path('programa/<int:programa_id>/examenes/', ExamenesPorProgramaListAPIView.as_view(), name='examenes-por-programa'),
+    path('estudiante/<str:estudiante_email>/notasprogramas/', NotaProgramaPorEstudianteListAPIView.as_view(), name='notas-programa-por-estudiante'),
     
     # List
     

@@ -96,30 +96,45 @@ class ModulosPorCursoListAPIView(ListAPIView):
 
 
 
-# Devuelve todos los registros de examenes de X programa
-class RegistrosExamenesPorProgramaListAPIView(ListAPIView):
-    serializer_class = RegistroExamenSerializer
+# Devuelve todos los registros de examenes de X programa y X estudiante
+class RegistrosExamenesPorProgramaPorEstudianteListAPIView(ListAPIView):
+    serializer_class = RegistroExamenSerializerList
     
     def get_queryset(self):
         programa_id = self.kwargs.get('programa_id')
-        if programa_id is not None:
+        estudiante_id = self.kwargs.get('estudiante_id')
+        if programa_id is not None and estudiante_id is not None:
             try:
+                # Obtener el programa por su ID
                 programa = Programa.objects.get(procod=programa_id)
+                # Obtener el estudiante por su ID
+                estudiante = EstudianteUser.objects.get(email=estudiante_id)
+                
+                # Obtener los cursos del programa
                 cursos = programa.cursos.all()
                 # Obtener los exámenes asociados a los cursos del programa
                 examenes = Examen.objects.filter(exacurcod__in=cursos)
-                # Obtener los registros de examen asociados a los exámenes
-                registros_examen = RegistroExamen.objects.filter(regexaexacod__in=examenes)
+                
+                # Obtener los registros de examen asociados a los exámenes y al estudiante
+                registros_examen = RegistroExamen.objects.filter(
+                    regexaexacod__in=examenes, 
+                    regexaestcod=estudiante
+                )
                 return registros_examen
             except Programa.DoesNotExist:
+                return RegistroExamen.objects.none()
+            except EstudianteUser.DoesNotExist:
                 return RegistroExamen.objects.none()
         else:
             return RegistroExamen.objects.none()
 
     def list(self, request, *args, **kwargs):
         queryset = self.get_queryset()
-        if not queryset:
-            return Response({"detail": "No se encontraron registros de exámenes para este programa."}, status=status.HTTP_404_NOT_FOUND)
+        if not queryset.exists():
+            return Response(
+                {"detail": "No se encontraron registros de exámenes para este programa y estudiante."},
+                status=status.HTTP_404_NOT_FOUND
+            )
         serializer = self.get_serializer(queryset, many=True)
         return Response(serializer.data)
 
@@ -149,11 +164,38 @@ class ExamenesPorProgramaListAPIView(ListAPIView):
         return Response(serializer.data)
 
 
+# Devuelve todas las notas promedio de los programas por X estudiante
+class NotaProgramaPorEstudianteListAPIView(ListAPIView):
+    serializer_class = NotaProgramaSerializerList
+    
+    def get_queryset(self):
+        estudiante_email = self.kwargs.get('estudiante_email')
+        if estudiante_email is not None:
+            try:
+                estudiante = EstudianteUser.objects.get(email=estudiante_email)
+                notasDeProgramas = NotaPrograma.objects.filter(notproestcod=estudiante)
+                return notasDeProgramas
+            except EstudianteUser.DoesNotExist:
+                return NotaPrograma.objects.none()
+        else:
+            return NotaPrograma.objects.none()
+    
+    def list(self, request, *args, **kwargs):
+        queryset = self.get_queryset()
+        if not queryset:
+            return Response({"detail": "No se encontraron Notas de programas para este estudiante."}, status=status.HTTP_404_NOT_FOUND)
+        serializer = self.get_serializer(queryset, many=True)
+        return Response(serializer.data)
+    
+
+# Devuelve todas las notas de los cursos de x programa
+
+
 # Estudiante
 class EstudianteUserListAPIView(ListAPIView):
     queryset = EstudianteUser.objects.all()
-    serializer_class = EstudianteUserSerializer
-    permission_classes = [IsAuthenticated]
+    serializer_class = EstudianteUserSerializerList
+    #permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
         return super().get_queryset()
@@ -207,6 +249,11 @@ class RespuestaListAPIView(ListAPIView):
 class MatriculaListAPIView(ListAPIView):
     queryset = Matricula.objects.all()
     serializer_class = MatriculaSerializerList
+
+
+class RegistroExamenListAPIView(ListAPIView):
+    queryset = RegistroExamen.objects.all()
+    serializer_class = RegistroExamenSerializerList
 
 
 class RegistroCursoListAPIView(ListAPIView):

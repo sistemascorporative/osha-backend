@@ -145,5 +145,12 @@ admin.site.register(RegistroExamen)
 
 
 # Registro del modelo Pregunta
-admin.site.register(NotaPrograma)
+@admin.register(NotaPrograma)
+class NotaProgramaAdmin(admin.ModelAdmin):
+    list_display = (
+        'notprocod',
+        'notpropun',
+        'notproestcod',
+        'notproprocod',
+    )
 

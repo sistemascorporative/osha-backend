@@ -11,6 +11,11 @@ class EstadoRegistroRetrieveAPIView(RetrieveAPIView):
     serializer_class = EstadoRegistroSerializerList
 
 
+class EstadoExamenRetrieveAPIView(RetrieveAPIView):
+    queryset = EstadoExamen.objects.all()
+    serializer_class = EstadoExamenSerializerList
+
+
 class EstudianteUserRetrieveAPIView(RetrieveAPIView):
     queryset = EstudianteUser.objects.all()
     serializer_class = EstudianteUserSerializerList
@@ -55,6 +60,11 @@ class RespuestaRetrieveAPIView(RetrieveAPIView):
 class MatriculaRetrieveAPIView(RetrieveAPIView):
     queryset = Matricula.objects.all()
     serializer_class = MatriculaSerializerList
+
+
+class RegistroExamenRetrieveAPIView(RetrieveAPIView):
+    queryset = RegistroExamen.objects.all()
+    serializer_class = RegistroExamenSerializerList
 
 
 class RegistroCursoRetrieveAPIView(RetrieveAPIView):

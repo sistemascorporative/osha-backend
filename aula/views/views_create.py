@@ -10,9 +10,9 @@ class EstadoRegistroCreateAPIView(CreateAPIView):
     serializer_class = EstadoRegistroSerializer
 
 
-class EstudianteUserCreateView(CreateAPIView):
-    queryset = EstudianteUser.objects.all()
-    serializer_class = EstudianteUserSerializer
+class EstadoExamenCreateAPIView(CreateAPIView):
+    queryset = EstadoExamen.objects.all()
+    serializer_class = EstadoExamenSerializer
 
 
 class EstudianteUserCreateAPIView(CreateAPIView):
@@ -58,6 +58,11 @@ class RespuestaCreateAPIView(CreateAPIView):
 class MatriculaCreateAPIView(CreateAPIView):
     queryset = Matricula.objects.all()
     serializer_class = MatriculaSerializer
+
+
+class RegistroExamenCreateAPIView(CreateAPIView):
+    queryset = RegistroExamen.objects.all()
+    serializer_class = RegistroExamenSerializer
 
 
 class RegistroCursoCreateAPIView(CreateAPIView):
