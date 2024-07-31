@@ -124,7 +124,8 @@ class Modulo(models.Model):
 
 class Examen(models.Model):
     exacod = models.AutoField(verbose_name="Codigo", db_column='ExaCod', primary_key=True)
-    exacurcod = models.ForeignKey(Curso, models.DO_NOTHING, verbose_name="Codigo Curso", db_column='ExaCurCod')
+    exanumpre = models.IntegerField( verbose_name="Numero de preguntas", db_column='ExaNumPre', default=0)
+    exacurcod = models.OneToOneField(Curso, models.DO_NOTHING, verbose_name="Codigo Curso", db_column='ExaCurCod')
     exaestregcod = models.ForeignKey(EstadoRegistro, models.DO_NOTHING, verbose_name="Codigo EStReg", db_column='ExaEstRegCod')
     
     class Meta:
@@ -213,6 +214,7 @@ class RegistroExamen(models.Model):
     regexapun = models.DecimalField(verbose_name="Puntuacion", db_column='RegExaPun', max_digits=5, decimal_places=2)
     regexaint = models.IntegerField( verbose_name="Número de intentos", db_column='RegExaInt', default=0)
     regexaestexacod = models.ForeignKey(EstadoExamen, models.DO_NOTHING, verbose_name="Codigo Examen", db_column='RegExaEstExaCod', null=True, blank=True)
+    regexaestprocod = models.ForeignKey(Programa, models.DO_NOTHING, verbose_name="Codigo Programa", db_column='RegExaEstProCod', null=True, blank=True)
     regexaestcod = models.ForeignKey(EstudianteUser, models.DO_NOTHING, verbose_name="Codigo Estudiante", db_column='RegExaEstCod')
     regexaexacod = models.ForeignKey(Examen, models.DO_NOTHING, verbose_name="Codigo Examen", db_column='RegExaExaCod')
     
@@ -220,7 +222,8 @@ class RegistroExamen(models.Model):
         db_table = 'registro_examen'
         managed = True
         verbose_name = 'RegistroExamen'
-        verbose_name_plural = 'RegistroExamenes' #delete de unique key problems
+        verbose_name_plural = 'RegistroExamenes'
+        unique_together = ('regexaestprocod','regexaestcod','regexaexacod') #Estudiante-Programa-Examen
     
     def __str__(self):
         return f"{self.regexaestcod} - {self.regexaexacod} - {self.regexaestexacod.estexanom}"

@@ -99,6 +99,7 @@ class ModuloAdmin(admin.ModelAdmin):
 class ExamenAdmin(admin.ModelAdmin):
     list_display = (
         'exacod',
+        'exanumpre',
         'exacurcod',
         'exaestregcod',
     )
@@ -141,7 +142,17 @@ admin.site.register(RegistroCurso)
 
 
 # Registro del modelo Pregunta
-admin.site.register(RegistroExamen)
+@admin.register(RegistroExamen)
+class RegistroExamenAdmin(admin.ModelAdmin):
+    list_display = (
+        'regexacod',
+        'regexapun',
+        'regexaint',
+        'regexaestexacod',
+        'regexaestprocod',
+        'regexaestcod',
+        'regexaexacod',
+    )
 
 
 # Registro del modelo Pregunta
