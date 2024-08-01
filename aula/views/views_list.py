@@ -103,28 +103,29 @@ class RegistrosExamenesPorProgramaPorEstudianteListAPIView(ListAPIView):
     def get_queryset(self):
         programa_id = self.kwargs.get('programa_id')
         estudiante_id = self.kwargs.get('estudiante_id')
+        print(f"Programa ID: {programa_id}, Estudiante ID: {estudiante_id}")
+        
         if programa_id is not None and estudiante_id is not None:
             try:
                 # Obtener el programa por su ID
                 programa = Programa.objects.get(procod=programa_id)
+                
                 # Obtener el estudiante por su ID
                 estudiante = EstudianteUser.objects.get(email=estudiante_id)
                 
-                # Obtener los cursos del programa
-                cursos = programa.cursos.all()
-                # Obtener los exámenes asociados a los cursos del programa
-                examenes = Examen.objects.filter(exacurcod__in=cursos)
-                
-                # Obtener los registros de examen asociados a los exámenes y al estudiante
+                # Obtener los registros de examen asociados al programa y al estudiante
                 registros_examen = RegistroExamen.objects.filter(
-                    regexaexacod__in=examenes, 
-                    regexaestcod=estudiante
+                    regexaestprocod=programa,  # Filtrar por programa
+                    regexaestcod=estudiante    # Filtrar por estudiante
                 )
                 return registros_examen
+            
             except Programa.DoesNotExist:
                 return RegistroExamen.objects.none()
+            
             except EstudianteUser.DoesNotExist:
                 return RegistroExamen.objects.none()
+            
         else:
             return RegistroExamen.objects.none()
 
