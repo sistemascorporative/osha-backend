@@ -42,6 +42,11 @@ class ExamenRetrieveAPIView(RetrieveAPIView):
     serializer_class = ExamenSerializerList
 
 
+class XExamenRetrieveAPIView(RetrieveAPIView):
+    queryset = Examen.objects.all()
+    serializer_class = XExamenSerializerList
+
+
 class PreguntaRetrieveAPIView(RetrieveAPIView):
     queryset = Pregunta.objects.all()
     serializer_class = PreguntaSerializerList

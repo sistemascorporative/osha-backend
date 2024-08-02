@@ -67,6 +67,7 @@ urlpatterns = [
     path('curso/<int:pk>/', CursoRetrieveAPIView.as_view(), name='curso-detail'),
     path('modulo/<int:pk>/', ModuloRetrieveAPIView.as_view(), name='modulo-detail'),
     path('examen/<int:pk>/', ExamenRetrieveAPIView.as_view(), name='examen-detail'),
+    path('xexamen/<int:pk>/', XExamenRetrieveAPIView.as_view(), name='Xexamen-detail'),
     path('pregunta/<int:pk>/', PreguntaRetrieveAPIView.as_view(), name='pregunta-detail'),
     path('alternativa/<int:pk>/', AlternativaRetrieveAPIView.as_view(), name='alternativa-detail'),
     path('respuesta/<int:pk>/', RespuestaRetrieveAPIView.as_view(), name='respuesta-detail'),

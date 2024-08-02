@@ -188,3 +188,43 @@ class NotaProgramaSerializerList(serializers.ModelSerializer):
             "notproestcod",
             "notproprocod"
         ]
+
+class XAlternativaSerializerList(serializers.ModelSerializer):
+    class Meta:
+        model = Alternativa
+        fields = [
+            "altcod",
+            "alttex",
+            "altcor",
+            "altprecod",
+            "altestregcod"
+        ]
+
+
+class XPreguntaSerializerList(serializers.ModelSerializer):
+    alternativas = XAlternativaSerializerList(many=True, source='alternativa_set')
+    
+    class Meta:
+        model = Pregunta
+        fields = [
+            "precod",
+            "pretex",
+            "preexacod",
+            "preestregcod",
+            "alternativas"
+        ]
+
+
+class XExamenSerializerList(serializers.ModelSerializer):
+    preguntas = XPreguntaSerializerList(many=True, source='pregunta_set')
+    exacurcod = CursoSerializerList()
+    exaestregcod = EstadoRegistroSerializerList()
+    
+    class Meta:
+        model = Examen
+        fields = [
+            "exacod",
+            "exacurcod",
+            "exaestregcod",
+            "preguntas"
+        ]
