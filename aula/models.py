@@ -141,6 +141,8 @@ class Examen(models.Model):
 class Pregunta(models.Model):
     precod = models.AutoField(verbose_name="Codigo", db_column='preCod', primary_key=True)
     pretex = models.CharField(verbose_name="Texto",db_column="PreTex", max_length=300)
+    prenummod = models.IntegerField(verbose_name="Número de modulo al que pertenece", db_column="PreNumMod", default=0)
+    prenumsec = models.IntegerField(verbose_name="Número de sección al que pertenece", db_column="PreNumSec", default=0)
     preexacod = models.ForeignKey(Examen, models.DO_NOTHING, verbose_name="Codigo EXamen", db_column='PreExaCod')
     preestregcod = models.ForeignKey(EstadoRegistro, models.DO_NOTHING, verbose_name="Codigo EStReg", db_column='PreEstRegCod')
     
