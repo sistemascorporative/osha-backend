@@ -123,10 +123,9 @@ class Modulo(models.Model):
 
 
 class Examen(models.Model):
-    exacod = models.AutoField(verbose_name="Codigo", db_column='ExaCod', primary_key=True)
+    exacurcod = models.OneToOneField(Curso, models.DO_NOTHING, verbose_name="Codigo Curso", db_column='ExaCurCod', primary_key=True)
     exanumpre = models.IntegerField( verbose_name="Numero de preguntas", db_column='ExaNumPre', default=0)
-    exacurcod = models.OneToOneField(Curso, models.DO_NOTHING, verbose_name="Codigo Curso", db_column='ExaCurCod')
-    exaestregcod = models.ForeignKey(EstadoRegistro, models.DO_NOTHING, verbose_name="Codigo EStReg", db_column='ExaEstRegCod')
+    exaestregcod = models.ForeignKey(EstadoRegistro, models.DO_NOTHING, verbose_name="Codigo EStReg", db_column='ExaEstRegCod', null=True)
     
     class Meta:
         db_table = 'examen'
@@ -143,7 +142,7 @@ class Pregunta(models.Model):
     pretex = models.CharField(verbose_name="Texto",db_column="PreTex", max_length=300)
     prenummod = models.IntegerField(verbose_name="Número de modulo al que pertenece", db_column="PreNumMod", default=0)
     prenumsec = models.IntegerField(verbose_name="Número de sección al que pertenece", db_column="PreNumSec", default=0)
-    preexacod = models.ForeignKey(Examen, models.DO_NOTHING, verbose_name="Codigo EXamen", db_column='PreExaCod')
+    preexacod = models.ForeignKey(Examen, models.SET_NULL, verbose_name="Codigo EXamen", db_column='PreExaCod', null=True)
     preestregcod = models.ForeignKey(EstadoRegistro, models.DO_NOTHING, verbose_name="Codigo EStReg", db_column='PreEstRegCod')
     
     class Meta:
@@ -176,12 +175,12 @@ class Alternativa(models.Model):
 class Respuesta(models.Model):
     rescod = models.AutoField(verbose_name="Codigo", db_column='ResCod', primary_key=True)
     respun = models.DecimalField(verbose_name="Puntuacion", db_column='ResPun', max_digits=5, decimal_places=2)
-    resestcod = models.ForeignKey(EstudianteUser, models.DO_NOTHING, verbose_name="Codigo Estudiante", db_column='ResEstCod')
-    resexacod = models.ForeignKey(Examen, models.DO_NOTHING, verbose_name="Codigo Examen", db_column='ResExaCod')
-    resprecod = models.ForeignKey(Pregunta, models.DO_NOTHING, verbose_name="Codigo Pregunta", db_column='ResPreCod')
-    resaltcod = models.ForeignKey(Alternativa, models.DO_NOTHING, verbose_name="Codigo Alternativa", db_column='ResAltCod')
-    resprocod = models.ForeignKey(Programa, models.DO_NOTHING, verbose_name="Codigo Programa", db_column='ResProCod')
-    resestregcod = models.ForeignKey(EstadoRegistro, models.DO_NOTHING, verbose_name="Codigo EstReg", db_column='AltEstRegCod')
+    resestcod = models.ForeignKey(EstudianteUser, models.DO_NOTHING, verbose_name="Codigo Estudiante", db_column='ResEstCod', null=True)
+    resprocod = models.ForeignKey(Programa, models.DO_NOTHING, verbose_name="Codigo Programa", db_column='ResProCod', null=True)
+    resexacod = models.ForeignKey(Examen, on_delete=models.SET_NULL, verbose_name="Codigo Examen", db_column='ResExaCod', null=True)
+    resprecod = models.ForeignKey(Pregunta, models.DO_NOTHING, verbose_name="Codigo Pregunta", db_column='ResPreCod', null=True)
+    resaltcod = models.ForeignKey(Alternativa, models.DO_NOTHING, verbose_name="Codigo Alternativa", db_column='ResAltCod', null=True)
+    #resestregcod = models.ForeignKey(EstadoRegistro, models.DO_NOTHING, verbose_name="Codigo EstReg", db_column='AltEstRegCod')
     
     class Meta:
         db_table = 'respuesta'
@@ -191,7 +190,7 @@ class Respuesta(models.Model):
         unique_together = ('resestcod','resprocod', 'resexacod', 'resprecod')
     
     def __str__(self):
-        return self.rescod
+        return f"{self.rescod}"
 
 
 class Matricula(models.Model):
@@ -218,7 +217,7 @@ class RegistroExamen(models.Model):
     regexaestexacod = models.ForeignKey(EstadoExamen, models.DO_NOTHING, verbose_name="Codigo Examen", db_column='RegExaEstExaCod', null=True, blank=True)
     regexaestprocod = models.ForeignKey(Programa, models.DO_NOTHING, verbose_name="Codigo Programa", db_column='RegExaEstProCod', null=True, blank=True)
     regexaestcod = models.ForeignKey(EstudianteUser, models.DO_NOTHING, verbose_name="Codigo Estudiante", db_column='RegExaEstCod')
-    regexaexacod = models.ForeignKey(Examen, models.DO_NOTHING, verbose_name="Codigo Examen", db_column='RegExaExaCod')
+    regexaexacod = models.ForeignKey(Examen, models.SET_NULL, verbose_name="Codigo Examen", db_column='RegExaExaCod', null=True)
     
     class Meta:
         db_table = 'registro_examen'

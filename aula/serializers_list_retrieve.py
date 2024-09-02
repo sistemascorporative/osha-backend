@@ -80,7 +80,6 @@ class ExamenSerializerList(serializers.ModelSerializer):
     class Meta:
         model = Examen
         fields = [
-            "exacod",
             "exacurcod",
             "exaestregcod"
         ]
@@ -118,7 +117,6 @@ class RespuestaSerializerList(serializers.ModelSerializer):
     resexacod = ExamenSerializerList()
     resprecod = PreguntaSerializerList()
     resaltcod = AlternativaSerializerList()
-    resestregcod = EstadoRegistroSerializerList()
     class Meta:
         model = Respuesta
         fields = [
@@ -128,7 +126,7 @@ class RespuestaSerializerList(serializers.ModelSerializer):
             "resexacod",
             "resprecod",
             "resaltcod",
-            "resestregcod"
+            "resprocod",
         ]
 
 
@@ -223,7 +221,6 @@ class XExamenSerializerList(serializers.ModelSerializer):
     class Meta:
         model = Examen
         fields = [
-            "exacod",
             "exacurcod",
             "exaestregcod",
             "preguntas"
