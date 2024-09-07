@@ -56,16 +56,30 @@ class GuardarRespuestasAPIView(APIView):
             # Calcular la puntuación según la lógica del negocio
             puntuacion = puntuacion_por_respuesta_correcta if alternativa.altcor else 0.0
             
-            # Crear la respuesta
-            respuesta = Respuesta(
-                respun=puntuacion,
+            # Verificar si ya existe un registro de respuesta para esta pregunta
+            respuesta_existente = Respuesta.objects.filter(
                 resestcod=estudiante,
                 resexacod=examen,
                 resprecod=pregunta,
-                resaltcod=alternativa,
                 resprocod=programa,
-            )
-            respuesta.save()
-        
-        return Response({"message": "Respuestas guardadas con éxito."}, status=status.HTTP_201_CREATED)
+            ).first()
+
+            if respuesta_existente:
+                # Actualizar la respuesta existente
+                respuesta_existente.resaltcod = alternativa
+                respuesta_existente.respun = puntuacion
+                respuesta_existente.save()
+            else:
+                # Crear una nueva respuesta si no existe
+                nueva_respuesta = Respuesta(
+                    respun=puntuacion,
+                    resestcod=estudiante,
+                    resexacod=examen,
+                    resprecod=pregunta,
+                    resaltcod=alternativa,
+                    resprocod=programa,
+                )
+                nueva_respuesta.save()
+                
+        return Response({"message": "Respuestas guardadas o actualizadas con éxito."}, status=status.HTTP_200_OK)
 
