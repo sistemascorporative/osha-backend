@@ -1,8 +1,9 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
+from django.db.models import Avg
 from ..serializers_list_retrieve import RespuestaSerializerList
-from ..models import Examen, Programa, EstudianteUser, Pregunta, Alternativa, Respuesta
+from ..models import Examen, Programa, EstudianteUser, Pregunta, Alternativa, Respuesta, RegistroExamen, EstadoExamen, NotaPrograma
 
 
 class GuardarRespuestasAPIView(APIView):
@@ -42,6 +43,8 @@ class GuardarRespuestasAPIView(APIView):
         # Calcular la puntuación por cada respuesta correcta
         puntuacion_por_respuesta_correcta = 100.00 / total_preguntas if total_preguntas > 0 else 0.0
         
+        puntuacion_total = 0.0
+        
         for pregunta_id, alternativa_id in respuestas_data.items():
             try:
                 pregunta = Pregunta.objects.get(pk=pregunta_id)
@@ -55,6 +58,7 @@ class GuardarRespuestasAPIView(APIView):
             
             # Calcular la puntuación según la lógica del negocio
             puntuacion = puntuacion_por_respuesta_correcta if alternativa.altcor else 0.0
+            puntuacion_total += puntuacion
             
             # Verificar si ya existe un registro de respuesta para esta pregunta
             respuesta_existente = Respuesta.objects.filter(
@@ -80,6 +84,39 @@ class GuardarRespuestasAPIView(APIView):
                     resprocod=programa,
                 )
                 nueva_respuesta.save()
-                
+        
+        # Obtener el registro del examen para el estudiante y el curso
+        registro_examen, created = RegistroExamen.objects.get_or_create(
+            regexaestcod=estudiante,
+            regexaexacod=examen,
+            regexaestprocod=programa,
+        )
+        
+        # Actualizar la puntuación total y el número de intentos
+        registro_examen.regexapun = puntuacion_total
+        registro_examen.regexaint += 1
+        
+        # Actualizar el estado del examen según la puntuación obtenida
+        estado_aprobado = EstadoExamen.objects.get(estexanom="Aprobado")
+        estado_desaprobado = EstadoExamen.objects.get(estexanom="Reprobado")
+        if puntuacion_total >= 75.0:
+            registro_examen.regexaestexacod = estado_aprobado
+        else:
+            registro_examen.regexaestexacod = estado_desaprobado
+
+        registro_examen.save()
+        
+        # Calcular el promedio de todas las puntuaciones de exámenes del estudiante en el programa
+        registros_examen = RegistroExamen.objects.filter(
+            regexaestcod=estudiante,
+            regexaestprocod=programa
+        )
+        promedio_puntuacion = registros_examen.aggregate(promedio=Avg('regexapun'))['promedio']
+        
+        # Actualizar el campo notpropun en el modelo NotaPrograma
+        nota_programa = NotaPrograma.objects.get(notproestcod=estudiante, notproprocod=programa)
+        nota_programa.notpropun = promedio_puntuacion
+        nota_programa.save()
+        
         return Response({"message": "Respuestas guardadas o actualizadas con éxito."}, status=status.HTTP_200_OK)
 
