@@ -99,7 +99,7 @@ class GuardarRespuestasAPIView(APIView):
         # Actualizar el estado del examen según la puntuación obtenida
         estado_aprobado = EstadoExamen.objects.get(estexanom="Aprobado")
         estado_desaprobado = EstadoExamen.objects.get(estexanom="Reprobado")
-        if puntuacion_total >= 75.0:
+        if puntuacion_total >= 85.0:
             registro_examen.regexaestexacod = estado_aprobado
         else:
             registro_examen.regexaestexacod = estado_desaprobado
