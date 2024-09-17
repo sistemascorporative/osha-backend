@@ -1,38 +1,3 @@
--- Insertar datos en la tabla Estado de registro
-INSERT INTO estado_registro(EstRegCod, EstRegNom)
-VALUES
-    (1, 'Activo'),
-    (0, 'Inactivo');
-
-
--- Insertar datos en la tabla Estado de registro
-INSERT INTO estado_examen(EstExaCod, EstExaNom)
-VALUES
-    (1, 'Aprobado'),
-    (0, 'Reprobado'),
-    (2, 'Pendiente');
-
-
--- Insertar datos en la tabla Programa
-INSERT INTO programa (ProCod, ProNom, ProCodOsh, ProNumCur, ProEstRegCod)
-VALUES
-    (1001, 'Train The Trainer Osha', 'TT-OSHA', 0, 1),
-    (1002, 'Trainer de Trabajos Críticos', 'TTC-OSHA', 0, 1),
-    (1010, 'Trainer Hazmat Osha', 'TH-OSHA', 0, 1),
-    (1015, 'Trainer de Espacios Confinados Osha', 'TEC-OSHA', 0, 1),
-    (1016, 'Trainer de Seguridad y Salud Ocupacional Osha', 'TSSO-OSHA', 0, 1),
-    (1019, 'Trainer de Trabajos en Altura Osha', 'TTA-OSHA', 0, 1),
-    (1060, "Trainer de Seguridad y Salud en el Trabajo en la Industria de la Construcción", "TSSTIC-OSHA", 0, 1),
-    (1051, "Gerente de Seguridad y Salud Laboral Osha", "GSSL-OSHA", 0, 1),
-    (1052, 'Gerencia de la Seguridad en la Industria de la Construcción', 'GSIC-OSHA', 0, 1),
-    (1071, 'Director de Prevención de Riesgos Laborales Osha', 'DPRL-OSHA', 0, 1),
-    (2010, 'Especialista en Seguridad y Salud en el Trabajo Osha', 'ESST-OSHA', 0, 1),
-    (2020, 'Especialista en Seguridad y Salud Ocupacional Osha', 'ESSO-OSHA', 0, 1),
-    (2030, 'Especialista en Prevención de Riesgos Laborales Osha', 'EPRL-OSHA', 0, 1),
-    (2040, 'Técnico de Seguridad y Salud Laboral en la Industria de la Construcción Osha', 'TSSLIC-OSHA', 0, 1),
-    (2056, 'Especialista Hazmat Nivel IV Osha', 'EHIV-OSHA', 0, 1),
-
-
 -- Insertar datos en la tabla Curso
 INSERT INTO curso (CurCod, CurNom, CurNumMod, CurEstRegCod)
 VALUES
@@ -176,22 +141,3 @@ VALUES
     (907, 'Introducción a SEMS II: 30 CFR 250.1900-1933', 0, 1),
     (908, 'Seguridad del petróleo y el gas costa afuera I', 0, 1),
     (909, 'Seguridad del petróleo y el gas costa afuera I', 0, 1);
-
-
--- EL ID DEL EXAMEN TIENE QUE SER IGUAL QUE EL CURSO
-INSERT INTO examen(ExaCod, ExaCurCod, ExaEStRegCod)
-VALUES
-    (100, 100, 1),
-    (105, 105, 1);
-
-INSERT INTO pregunta(PreCod, PreTex, PreExaCod, PreEstRegCod)
-VALUES
-    (, 'Texto pre', ,1),
-    ();
-
-INSERT INTO alternativa(AltCod, AltTex, AltCor, AltEstRegCod)
-VALUES
-    (, 'Pregunta...', True, 1),
-    (, 'Pregunta...', False, 1),
-    (, 'Pregunta...', False, 1),
-    (, 'Pregunta...', False, 1);

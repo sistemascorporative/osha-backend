@@ -1,65 +1,63 @@
--- Insertar datos en la tabla puente programa_cursos
-INSERT INTO programa_cursos (programa_id, curso_id) VALUES
-(1, 1),
-(1, 2),
-(2, 1);
-
 -- Insertar datos en la tabla Modulo
+-- Para el Id del ModCod primero va el
+-- id del curso XXXX
+-- y el numero del modulo Y
+-- FOMATO: XXXY
 INSERT INTO modulo (ModCod, ModNom, ModCurCod, ModEstRegCod)
 VALUES
-    (1, 'Capacitación de la academia OSHA', 100, 1),
-    (2, 'Cursos de formación', 100, 1),
-    (3, 'Panel de estudiantes', 100, 1),
-    (4, 'Documentos oficiales', 100, 1),
+    (1001, 'Capacitación de la academia OSHA', 100, 1),
+    (1002, 'Cursos de formación', 100, 1),
+    (1003, 'Panel de estudiantes', 100, 1),
+    (1004, 'Documentos oficiales', 100, 1),
 
-    (5, 'Controles y etiquetado', 105, 1),
-    (6, 'Hojas de datos de seguridad (SDS)', 105, 1),
+    (1051, 'Controles y etiquetado', 105, 1),
+    (1052, 'Hojas de datos de seguridad (SDS)', 105, 1),
 
-    (7, 'Introducción a OSHA', 107, 1),
-    (8, 'Conciencia de peligros', 107, 1),
+    (1071, 'Introducción a OSHA', 107, 1),
+    (1072, 'Conciencia de peligros', 107, 1),
 
-    (9, 'Requisitos generales de PPE y tipos de PPE', 108, 1),
-    (10, 'Tipos de EPP (continuación)', 108, 1),
+    (1081, 'Requisitos generales de PPE y tipos de PPE', 108, 1),
+    (1082, 'Tipos de EPP (continuación)', 108, 1),
     
-    (11, 'La primera responsabilidad "STAR"', 112, 1),
-    (12, 'Más responsabilidades "STAR"', 112, 1),
+    (1121, 'La primera responsabilidad "STAR"', 112, 1),
+    (1122, 'Más responsabilidades "STAR"', 112, 1),
 
-    (13, '¿Qué es el liderazgo?', 113, 1),
-    (14, 'Liderazgo en acción', 113, 1),
+    (1131, '¿Qué es el liderazgo?', 113, 1),
+    (1132, 'Liderazgo en acción', 113, 1),
 
-    (15, 'Peligros en la superficie que causan caídas', 114, 1),
-    (16, 'Protección contra caídas', 114, 1),
+    (1141, 'Peligros en la superficie que causan caídas', 114, 1),
+    (1142, 'Protección contra caídas', 114, 1),
 
-    (17, 'Peligros electricos', 115, 1),
-    (18, 'Medidas de protección', 115, 1),
+    (1151, 'Peligros electricos', 115, 1),
+    (1152, 'Medidas de protección', 115, 1),
 
-    (19, 'Estándares, recursos y medición', 116, 1),
-    (20, 'Consecuencias y evaluación', 116, 1),
+    (1161, 'Estándares, recursos y medición', 116, 1),
+    (1162, 'Consecuencias y evaluación', 116, 1),
 
-    (21, '¿Qué es el reconocimiento efectivo?', 117, 1),
-    (22, 'Reglas e ideas', 117, 1),
+    (1171, '¿Qué es el reconocimiento efectivo?', 117, 1),
+    (1172, 'Reglas e ideas', 117, 1),
 
-    (23, '¿Qué es la educación en seguridad?', 121, 1),
-    (24, 'Cualificaciones del formador y desarrollo de cursos', 121, 1),
+    (1211, '¿Qué es la educación en seguridad?', 121, 1),
+    (1212, 'Cualificaciones del formador y desarrollo de cursos', 121, 1),
 
-    (25, 'Identificación de peligros', 122, 1),
-    (26, 'Controlar los peligros', 122, 1),
+    (1221, 'Identificación de peligros', 122, 1),
+    (1222, 'Controlar los peligros', 122, 1),
 
-    (27, 'Pasos de escritura: determinación de peligros', 123, 1),
-    (28, 'Medidas preventivas-Procedimiento de trabajo seguro', 123, 1),
+    (1231, 'Pasos de escritura: determinación de peligros', 123, 1),
+    (1232, 'Medidas preventivas-Procedimiento de trabajo seguro', 123, 1),
 
-    (29, 'Higiene y limpieza', 138, 1),
-    (30, 'Enfermedades contagiosas', 138, 1),
-    (31, 'La prevención de enfermedades', 138, 1),
+    (1381, 'Higiene y limpieza', 138, 1),
+    (1382, 'Enfermedades contagiosas', 138, 1),
+    (1383, 'La prevención de enfermedades', 138, 1),
 
-    (32, 'Acerca de OSHA', 144, 1),
-    (33, 'Derechos y responsabilidades', 144, 1),
+    (1441, 'Acerca de OSHA', 144, 1),
+    (1442, 'Derechos y responsabilidades', 144, 1),
 
-    (34, 'Factores de riesgo y peligros', 150, 1),
-    (35, 'Peligros ambientales y ergonómicos', 150, 1),
+    (1501, 'Factores de riesgo y peligros', 150, 1),
+    (1502, 'Peligros ambientales y ergonómicos', 150, 1),
 
-    (36, 'Factores de riesgo biológico', 151, 1),
-    (37, 'Animales e insectos infecciosos', 151, 1),
+    (1511, 'Factores de riesgo biológico', 151, 1),
+    (1512, 'Animales e insectos infecciosos', 151, 1),
 
     (38, 'Factores de riesgo ergonómicos', 152, 1),
     (39, 'Soluciones a los riesgos ergonómicos', 152, 1),

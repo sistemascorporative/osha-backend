@@ -75,7 +75,7 @@ class ProgramaAdmin(admin.ModelAdmin):
         'pronumhor',
         'proestregcod'
     )
-    search_fields = ('pronom',)
+    search_fields = ('pronom','procodosh',)
     filter_horizontal = ('cursos',)
     list_filter = ('proestregcod',)
     ordering = ('pronom',)
