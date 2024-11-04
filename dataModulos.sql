@@ -1,3 +1,8 @@
+--Eliminar los registros de la tabla
+--DELETE FROM modulo;
+--DELETE FROM programa_cursos;
+--DELETE FROM curso;
+
 -- Insertar datos en la tabla Modulo
 -- Para el Id del ModCod primero va el
 -- id del curso XXXX
@@ -37,6 +42,12 @@ VALUES
     (11701, '¿Qué es el reconocimiento efectivo?', 117, 1),
     (11702, 'Reglas e ideas', 117, 1),
 
+    (11901, 'Peligros de la conducción', 119, 1),
+    (11902, 'Prácticas de conducción segura', 119, 1),
+
+    (12001, 'Peligros', 120, 1),
+    (12002, 'Soluciones', 120, 1),
+
     (12101, '¿Qué es la educación en seguridad?', 121, 1),
     (12102, 'Cualificaciones del formador y desarrollo de cursos', 121, 1),
 
@@ -49,6 +60,8 @@ VALUES
     (13801, 'Higiene y limpieza', 138, 1),
     (13802, 'Enfermedades contagiosas', 138, 1),
     (13803, 'La prevención de enfermedades', 138, 1),
+
+    (13901, 'Procedimientos de limpieza y desinfección', 139, 1),
 
     (14401, 'Acerca de OSHA', 144, 1),
     (14402, 'Derechos y responsabilidades', 144, 1),
@@ -825,4 +838,16 @@ VALUES
     (90904, 'Cualificaciones y buenas prácticas del operador de grúa', 909, 1),
     (90905, 'Control de sustancias y productos químicos peligrosos', 909, 1),
     (90906, 'Seguridad en la manipulación, el aparejo y la elevación de materiales', 909, 1),
-    (90907, 'Buenas prácticas varias', 909, 1);
+    (90907, 'Buenas prácticas varias', 909, 1),
+
+    (111001, 'Gestión y Reconocimiento del Sistema Globalmente Armonizado SGA', 1110, 1),
+    (111002, 'Clasificación de un producto con base en los criterios de clasificación SGA', 1110, 1),
+
+    (120001, 'Química general en la industria 1', 1200, 1),
+
+    (120101, 'Química básica 2', 1201, 1),
+
+    (120301, 'Introducción a la Toxicología', 1203, 1),
+    (120302, 'Toxicología general I', 1203, 1),
+    (120303, 'Toxicología complementaria intoxicaciones', 1203, 1),
+    (120304, 'Toxicología rutinaria metales y plaguicidas', 1203, 1);

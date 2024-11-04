@@ -138,6 +138,8 @@ class MatriculaSerializerList(serializers.ModelSerializer):
         model = Matricula
         fields = [
             "matcod",
+            'matfecini',
+            'matfecfin',
             "matestcod",
             "matprocod",
             "matestregcod",

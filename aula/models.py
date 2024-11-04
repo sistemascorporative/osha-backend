@@ -50,8 +50,14 @@ class UserAccountManager(BaseUserManager):
         return self.create_user(email, password, **extra_fields)
 
 
-class EstudianteUser(AbstractBaseUser, PermissionsMixin):
+class EstudianteUser(AbstractBaseUser, PermissionsMixin): #UserAccount
+    USER_TYPES = [
+        ('ADMIN', 'Administrador'),
+        ('PROF', 'Profesor'),
+        ('STUD', 'Estudiante'),
+    ]
     email = models.EmailField(verbose_name="Email", unique=True)
+    
     estusernom = models.CharField(verbose_name="Nombre", db_column='EstUserNom', max_length=60, blank=False)
     estuserape = models.CharField(verbose_name="Apellidos", db_column='EstUserApe', max_length=60, blank=False)
     estuserdocide = models.CharField(verbose_name="Documento de identidad", db_column='EstUserDocIde', max_length=50, blank=False, unique=True)
@@ -195,6 +201,9 @@ class Respuesta(models.Model):
 
 class Matricula(models.Model):
     matcod = models.AutoField(verbose_name="Codigo", db_column='MatCod', primary_key=True)
+    matfecini = models.DateField(verbose_name="Fecha de inicio", db_column='MatFecIni', blank=True, null=True)
+    matfecfin = models.DateField(verbose_name="Fecha de finalización", db_column='MatFecFin', blank=True, null=True)
+    matter = models.BooleanField(verbose_name="Programa terminado", db_column='MatTer', blank=False, null=False, default=False)
     matestcod = models.ForeignKey(EstudianteUser, models.PROTECT, verbose_name="Codigo Estudiante", db_column='MatEstCod')
     matprocod = models.ForeignKey(Programa, models.PROTECT, verbose_name="Codigo Programa", db_column='MatProCod')
     matestregcod = models.ForeignKey(EstadoRegistro, models.PROTECT, verbose_name="Codigo EstReg", db_column='MatEstRegCod')
@@ -252,6 +261,7 @@ class RegistroCurso(models.Model):
 class NotaPrograma(models.Model):
     notprocod = models.AutoField(verbose_name="Código", db_column='NotProCod', primary_key=True)
     notpropun = models.DecimalField(verbose_name="Puntuación", db_column='NotProPun', max_digits=5, decimal_places=2)
+    notpropor = models.DecimalField(verbose_name="Porcentaje de avance", db_column='NotProPor', max_digits=5, decimal_places=2, default=0.00)
     notproestcod = models.ForeignKey(EstudianteUser, models.PROTECT, verbose_name="Codio Estudiante", db_column='NotProEstCod')
     notproprocod = models.ForeignKey(Programa, models.PROTECT, verbose_name="Codigo Programa", db_column='NotProProCod')
     

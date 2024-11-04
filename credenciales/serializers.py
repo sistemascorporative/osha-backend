@@ -3,6 +3,12 @@ from .models import *
 from datetime import datetime
 
 
+class CredencialSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Credencial
+        fields = '__all__'
+
+
 class CertificadoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Certificado

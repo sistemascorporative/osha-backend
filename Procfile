@@ -1,0 +1,1 @@
+web: gunicorn osha_api.wsgi

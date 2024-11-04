@@ -1,3 +1,6 @@
+--Eliminar los registros de la tabla
+DELETE FROM curso;
+
 -- Insertar datos en la tabla Curso
 INSERT INTO curso (CurCod, CurNom, CurNumMod, CurEstRegCod)
 VALUES
@@ -11,10 +14,13 @@ VALUES
     (115, 'Seguridad Eléctrica para Empleados: Básica', 0, 1),
     (116, 'Introducción a la responsabilidad en materia de seguridad', 0, 1),
     (117, 'Introducción al reconocimiento de seguridad', 0, 1),
+    (119, 'Seguridad del conductor', 0, 1),
+    (120, 'Seguridad en los almacenes', 0, 1),
     (121, 'Introducción a la Formación en Seguridad', 0, 1),
     (122, 'Introducción a los controles de peligros', 0, 1),
     (123, 'Introducción al análisis de riesgos laborales', 0, 1),
     (138, 'Higiene del Trabajo y Prevención de Enfermedades', 0, 1),
+    (139, 'Orientaciones para la limpieza y la desinfección', 0, 1),
     (144, 'Introducción a OSHA', 0, 1),
     (150, 'Peligros para la salud física en la construcción', 0, 1),
     (151, 'Peligros biológicos para la salud en la construcción', 0, 1),
@@ -25,7 +31,7 @@ VALUES
     (156, 'Seguridad en montacargas: Básico', 0, 1),
     (157, 'Seguridad en la excavación: Básico', 0, 1),
     (158, 'Seguridad en grúas: básica', 0, 1),
-    (159, 'Protección Auditiva: Básica', 0, 1),
+    (159, 'Protección Auditiva: Básico', 0, 1),
     (160, 'Seguridad de herramientas: básica', 0, 1),
     (161, 'Higiene Industrial: Básica', 0, 1),
     (162, 'Investigación de Accidentes: Básico', 0, 1),
@@ -140,4 +146,8 @@ VALUES
     (906, 'Limpieza de derrames de petróleo', 0, 1),
     (907, 'Introducción a SEMS II: 30 CFR 250.1900-1933', 0, 1),
     (908, 'Seguridad del petróleo y el gas costa afuera I', 0, 1),
-    (909, 'Seguridad del petróleo y el gas costa afuera I', 0, 1);
+    (909, 'Seguridad del petróleo y el gas costa afuera I', 0, 1),
+    (1110, 'Sistema Globalmente Armonizado SGA', 0, 1),
+    (1200, '', 0, 1),
+    (1201, 'Química básica 2', 0, 1),
+    (1203, 'Toxicología', 0, 1);

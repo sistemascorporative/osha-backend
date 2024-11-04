@@ -13,7 +13,7 @@ class EstadoRegistroAdmin(admin.ModelAdmin):
     )
 
 
-# Registro del modelo Estado de Registro
+# Registro del modelo Estado de Examen
 @admin.register(EstadoExamen)
 class EstadoExamenAdmin(admin.ModelAdmin):
     list_display = (
@@ -42,6 +42,8 @@ class EstudianteAdmin(admin.ModelAdmin):
 class MatriculaAdmin(admin.ModelAdmin):
     list_display = (
         'matcod',
+        'matfecini',
+        'matfecfin',
         'matestcod',
         'matprocod',
         'matestregcod'
