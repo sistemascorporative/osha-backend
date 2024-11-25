@@ -1,1 +1,1 @@
-web: gunicorn osha_api.wsgi
+web: python manage.py collectstatic && gunicorn osha_api.wsgi

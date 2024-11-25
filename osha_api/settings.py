@@ -28,9 +28,6 @@ SECRET_KEY = 'django-insecure-=f(6gq8n0&2pvf1hxjbn0w&+7-in$9rbe#q)yco+pu!^)vdhw-
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost','web-production-d405.up.railway.app']
-
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -45,6 +42,7 @@ INSTALLED_APPS = [
     #'rest_framework.authtoken',
     'djoser',
     'coreapi',
+    'whitenoise.runserver_nostatic',
     'aula',
     'credenciales',
     'users',
@@ -55,6 +53,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -140,15 +139,26 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 STATIC_URL = 'static/'
+
 STATICFILE_DIRS = [
     os.path.join(BASE_DIR, 'build/static')
 ]
+
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+STORAGES = {
+    # ...
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+    },
+}
+
+ALLOWED_HOSTS = ['localhost','web-production-d405.up.railway.app']
 
 # cors autheization
 CORS_ALLOWED_ORIGINS = [
