@@ -1,4 +1,9 @@
-INSERT INTO programa_cursos (programa_id, curso_id)
+--Eliminar los registros de la tabla
+--DELETE FROM programa_cursos;
+--DELETE FROM modulo;
+--DELETE FROM curso;
+--DELETE FROM programa;
+
+INSERT INTO programa (ProCod, ProNom, ProCodOsh, ProNumHor, ProNumCur, ProEstRegCod)
 VALUES
-    (1010, 1203),
-    (2020, 1203);
+    (0000, 'Prueba', 'PRUEBA-OSHA', 0, 0, 0);

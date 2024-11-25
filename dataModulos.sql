@@ -1,5 +1,5 @@
 --Eliminar los registros de la tabla
---DELETE FROM modulo;
+DELETE FROM modulo;
 --DELETE FROM programa_cursos;
 --DELETE FROM curso;
 
@@ -10,19 +10,14 @@
 -- FOMATO: XXXY
 INSERT INTO modulo (ModCod, ModNom, ModCurCod, ModEstRegCod)
 VALUES
-    (10001, 'Capacitación de la academia OSHA', 100, 1),
-    (10002, 'Cursos de formación', 100, 1),
-    (10003, 'Panel de estudiantes', 100, 1),
-    (10004, 'Documentos oficiales', 100, 1),
-
     (10501, 'Controles y etiquetado', 105, 1),
     (10502, 'Hojas de datos de seguridad (SDS)', 105, 1),
 
-    (10701, 'Introducción a OSHA', 107, 1),
-    (10702, 'Conciencia de peligros', 107, 1),
+    (10701, 'Planes de actuación en caso de emergencia (EAP)', 107, 1),
+    (10702, 'Planes de prevención de incendios (PPI)', 107, 1),
 
-    (10801, 'Requisitos generales de PPE y tipos de PPE', 108, 1),
-    (10802, 'Tipos de EPP (continuación)', 108, 1),
+    (10801, 'Requisitos generales de EPP y tipos de EPP', 108, 1),
+    (10802, 'Tipos de EPP o EPI (continuación)', 108, 1),
     
     (11201, 'La primera responsabilidad "STAR"', 112, 1),
     (11202, 'Más responsabilidades "STAR"', 112, 1),
@@ -30,13 +25,13 @@ VALUES
     (11301, '¿Qué es el liderazgo?', 113, 1),
     (11302, 'Liderazgo en acción', 113, 1),
 
-    (11401, 'Peligros en la superficie que causan caídas', 114, 1),
+    (11401, 'Riesgos de superficie que causan caídas', 114, 1),
     (11402, 'Protección contra caídas', 114, 1),
 
     (11501, 'Peligros electricos', 115, 1),
     (11502, 'Medidas de protección', 115, 1),
 
-    (11601, 'Estándares, recursos y medición', 116, 1),
+    (11601, 'Normas, recursos y medición', 116, 1),
     (11602, 'Consecuencias y evaluación', 116, 1),
 
     (11701, '¿Qué es el reconocimiento efectivo?', 117, 1),
@@ -49,12 +44,12 @@ VALUES
     (12002, 'Soluciones', 120, 1),
 
     (12101, '¿Qué es la educación en seguridad?', 121, 1),
-    (12102, 'Cualificaciones del formador y desarrollo de cursos', 121, 1),
+    (12102, 'Cualificaciones de formador y desarrollo de cursos', 121, 1),
 
-    (12201, 'Identificación de peligros', 122, 1),
-    (12202, 'Controlar los peligros', 122, 1),
+    (12201, 'Identificación de riesgos', 122, 1),
+    (12202, 'Control de riesgos', 122, 1),
 
-    (12301, 'Pasos de escritura: determinación de peligros', 123, 1),
+    (12301, 'Pasos de la redacción: determinación de los peligros', 123, 1),
     (12302, 'Medidas preventivas-Procedimiento de trabajo seguro', 123, 1),
 
     (13801, 'Higiene y limpieza', 138, 1),
@@ -67,7 +62,7 @@ VALUES
     (14402, 'Derechos y responsabilidades', 144, 1),
 
     (15001, 'Factores de riesgo y peligros', 150, 1),
-    (15002, 'Peligros ambientales y ergonómicos', 150, 1),
+    (15002, 'Riesgos medioambientales y ergonómicos', 150, 1),
 
     (15101, 'Factores de riesgo biológico', 151, 1),
     (15102, 'Animales e insectos infecciosos', 151, 1),
@@ -75,8 +70,8 @@ VALUES
     (15201, 'Factores de riesgo ergonómicos', 152, 1),
     (15202, 'Soluciones a los riesgos ergonómicos', 152, 1),
 
-    (15301, 'Identificación de peligros ergonómicos', 153, 1),
-    (15302, 'Controlar los riesgos ergonómicos', 153, 1),
+    (15301, 'Identificación de riesgos ergonómicos', 153, 1),
+    (15302, 'Control de los riesgos ergonómicos', 153, 1),
 
     (15401, 'Peligros de las piezas móviles', 154, 1),
     (15402, 'Métodos de protección de máquinas', 154, 1),
@@ -90,19 +85,16 @@ VALUES
     (15701, 'Los peligros', 157, 1),
     (15702, 'Sistemas de protección', 157, 1),
 
-    (15801, 'Deberes, responsabilidades e inspecciones', 158, 1),
-    (15802, 'Operaciones, Señalización e Izado', 158, 1),
+    (15801, 'Obligaciones, responsabilidades e inspecciones', 158, 1),
+    (15802, 'Operaciones, señalización y elevación', 158, 1),
 
     (15901, 'Ruido y pérdida auditiva', 159, 1),
-    (15902, 'Controles de peligros y medidas de protección', 159, 1),
+    (15902, 'Controles de riesgos y medidas de protección', 159, 1),
 
-    (16001, 'Seguridad con herramientas manuales', 160, 1),
-    (16002, 'Seguridad de las herramientas eléctricas', 160, 1),
+    (16101, 'Higienistas industriales, calidad del aire y sustancias químicas peligrosas', 161, 1),
+    (16102, 'Riesgos biológicos y físicos para la salud', 161, 1),
 
-    (16101, 'Higienistas industriales, calidad del aire y productos químicos peligrosos', 161, 1),
-    (16102, 'Peligros biológicos y físicos para la salud', 161, 1),
-
-    (16201, 'Recopilando los hechos', 162, 1),
+    (16201, 'Recopilando los datos', 162, 1),
     (16202, 'Analizando los hechos', 162, 1),
 
     (17001, 'Prevención de la alergia al látex', 170, 1),
@@ -126,69 +118,7 @@ VALUES
 
     (17801, 'Equipo de protección personal', 178, 1),
 
-    (17901, 'Ubicaciones de peligro comunes', 179, 1),
-    (17902, 'Tipos de peligro', 179, 1),
-
-    (18101, 'Seguridad de objetos punzantes y contenedores', 181, 1),
-
-    (18201, 'Óxido de etileno', 182, 1),
-
     (18301, 'Radiación en la atención sanitaria', 183, 1),
-
-    (50001, 'Gestión de programas y proceso AHA', 500, 1),
-    (50002, 'Saneamiento', 500, 1),
-    (50003, 'Requisitos médicos y de primeros auxilios', 500, 1),
-    (50004, 'Instalaciones temporales', 500, 1),
-    (50005, 'Equipo de seguridad y protección personal', 500, 1),
-    (50006, 'Agentes y entornos peligrosos o tóxicos', 500, 1),
-
-    (50101, 'Encendiendo', 501, 1),
-    (50102, 'Señales de prevención de accidentes', 501, 1),
-    (50103, 'Prevención y protección contra incendios', 501, 1),
-    (50104, 'Soldadura y Corte', 501, 1),
-    (50105, 'Eléctrico', 501, 1),
-    (50106, 'Control de Energía Peligrosa', 501, 1),
-    (50107, 'Herramientas manuales y eléctricas', 501, 1),
-
-    (50201, 'Manejo, almacenamiento y eliminación de materiales', 502, 1),
-    (50202, 'Aparejo', 502, 1),
-    (50203, 'Equipos de manipulación de carga', 502, 1),
-    (50204, 'Transportadores', 502, 1),
-    (50205, 'Vehículos, Maquinaria y Equipo', 502, 1),
-    (50206, 'Plantas Flotantes y Actividades Marinas', 502, 1),
-
-    (50301, 'Equipos y sistemas presurizados', 503, 1),
-    (50302, 'Protección contra caídas', 503, 1),
-    (50303, 'Plataformas de trabajo y andamios', 503, 1),
-    (50304, 'Demolición, renovación y reocupación', 503, 1),
-    (50305, 'Acceso seguro', 503, 1),
-    (50306, 'Excavaciones y zanjas', 503, 1),
-    (50307, 'Construcción subterránea', 503, 1),
-
-    (50401, 'Concreto, mampostería, techado y construcción residencial', 504, 1),
-    (50402, 'Erección de acero', 504, 1),
-    (50403, 'Voladura', 504, 1),
-    (50404, 'Operaciones de buceo', 504, 1),
-    (50405, 'Mantenimiento y remoción de árboles', 504, 1),
-    (50406, 'Operaciones de aeródromos y aeronaves', 504, 1),
-    (50407, 'Operaciones de residuos peligrosos y respuesta a emergencias (HAZWOPER)', 504, 1),
-    (50408, 'Entrada a espacios confinados', 504, 1),
-
-    (60001, 'Introducción a OSHA', 600, 1),
-    (60002, 'Conciencia de peligros', 600, 1),
-    (60003, 'Controles de peligros', 600, 1),
-    (60004, 'Equipo de Protección Personal (EPP)', 600, 1),
-    (60005, 'Planes de acción de emergencia (PAE)', 600, 1),
-    (60006, 'Planes de Prevención de Incendios (FPP)', 600, 1),
-
-    (60101, 'Comunicaciones de peligro', 601, 1),
-    (60102, 'Líquidos inflamables y combustibles', 601, 1),
-    (60103, 'Resbalones, tropezones y caídas', 601, 1),
-    (60104, 'Prevención de la violencia en el lugar de trabajo', 601, 1),
-    (60105, 'Programas de seguridad y salud', 601, 1),
-
-    (60201, 'Estrés por calor y seguridad', 602, 1),
-    (60202, 'Estrés por frío y seguridad', 602, 1),
 
     (60301, 'Tipos de escaleras', 603, 1),
     (60302, 'Requisitos generales: escaleras', 603, 1),
@@ -204,10 +134,6 @@ VALUES
     (60504, 'Requisitos de capacitación en espacios confinados', 605, 1),
     (60505, 'Espacios confinados en la construcción', 605, 1),
 
-    (61001, 'Los productos químicos de limpieza y su salud', 610, 1),
-    (61002, 'Materiales contaminados', 610, 1),
-    (61003, 'Prevención de lesiones', 610, 1),
-
     (61101, 'Conceptos básicos de la pistola de clavos', 611, 1),
     (61102, 'Entrenamiento con pistola de clavos', 611, 1),
     (61103, 'Lesiones por pistola de clavos y otros peligros', 611, 1),
@@ -216,69 +142,12 @@ VALUES
     (61202, 'Seguridad del ángulo muerto', 612, 1),
     (61203, 'Carteles, señales y barricadas', 612, 1),
 
-    (61301, 'Seguridad en el servicio ', 613, 1),
-    (61302, 'Limpieza Seguridad', 613, 1),
-    (61303, 'Seguridad en los autoservicios', 613, 1),
-    (61304, 'Seguridad en la cocina', 613, 1),
-    (61305, 'Seguridad en la cocina', 613, 1),
-    (61306, 'Seguridad en las entregas', 613, 1),
-
-    (61401, 'Tipos de equipos de protección', 614, 1),
-    (61402, 'Protección respiratoria', 614, 1),
-    (61403, 'Equipos de salvamento', 614, 1),
-    (61404, 'Equipos de salvamento ', 614, 1),
-
-    (61501, 'Conceptos básicos', 615, 1),
-    (61502, 'Reconocer los peligros', 615, 1),
-    (61503, 'Evaluación de riesgos y control de peligros', 615, 1),
-
-    (61701, 'Los siete elementos básicos', 617, 1),
-    (61702, 'Pasar a la acción', 617, 1),
-    (61703, 'Primeros pasos', 617, 1),
-
-    (61801, 'Conceptos básicos de CSMS', 618, 1),
-    (61802, 'Trabajar con contratistas', 618, 1),
-    (61803, 'Análisis del lugar de trabajo', 618, 1),
-
-    (61901, 'Manipulación manual', 619, 1),
-    (61902, 'Manipulación mecánica', 619, 1),
-    (61903, 'Grúas y eslingas', 619, 1),
-    (61904, 'Transportadores, limpieza y almacenamiento', 619, 1),
-
-    (62101, 'Introducción a los requisitos de las normas', 621, 1),
-    (62102, 'Formación e inspecciones', 621, 1),
-    (62103, 'Procedimientos de bloqueo y etiquetado', 621, 1),
-
     (62301, 'Programa de seguridad y salud', 623, 1),
     (62302, 'Controles de manipulación de pacientes', 623, 1),
     (62303, 'Otros riesgos ergonómicos', 623, 1),
 
     (62401, 'Principales riesgos y soluciones', 624, 1),
     (62402, 'Herramientas y recursos', 624, 1),
-
-    (62801, 'Transporte de pacientes y equipos', 628, 1),
-    (62802, 'Uso y orientación del equipo', 628, 1),
-    (62803, 'Controles técnicos, administrativos y de prácticas laborales', 628, 1),
-
-    (62901, 'El Plan de Acción de Emergencia (PAE)', 629, 1),
-    (62902, 'Requisitos de la ruta de salida', 629, 1),
-    (62903, 'Planes de prevención y protección contra incendios', 629, 1),
-
-    (63001, 'Medicamentos peligrosos', 630, 1),
-    (63002, 'Uso de drogas peligrosas', 630, 1),
-    (63003, 'Otros riesgos en el entorno de la farmacia', 630, 1),
-
-    (65501, '¿Qué son los patógenos transmitidos por la sangre?', 655, 1),
-    (65502, 'Patógenos específicos transmitidos por la sangre', 655, 1),
-    (65503, 'Transmisión de patógenos sanguíneos', 655, 1),
-    (65504, 'Plan de control de la exposición de su empresa', 655, 1),
-    (65505, 'Reconocer el potencial de exposición', 655, 1),
-    (65506, 'Métodos de control de la exposición ', 655, 1),
-    (65507, 'Equipos de protección individual', 655, 1),
-    (65508, 'Vacunación contra la hepatitis B (VHB)', 655, 1),
-    (65509, 'Cuándo se produce una exposición', 655, 1),
-    (65510, 'Limpieza', 655, 1),
-    (65511, 'Comunicar un peligro', 655, 1),
 
     (65601, '¿Qué son los patógenos transmitidos por la sangre?', 656, 1),
     (65602, 'Patógenos específicos transmitidos por la sangre', 656, 1),
@@ -312,8 +181,6 @@ VALUES
     (66203, 'Propiedades físicas de las sustancias peligrosas', 662, 1),
     (66204, 'Toxicología', 662, 1),
     (66205, 'Peligros para la salud', 662, 1),
-
-
 
     (66301, 'Responsabilidades generales', 663, 1),
     (66302, 'Analizar el lugar de trabajo', 663, 1),
@@ -370,15 +237,6 @@ VALUES
     (70007, 'Educación para la seguridad', 700, 1),
     (70008, 'Mejora continua', 700, 1),
 
-    (70101, 'Papel, objetivo y función del Comité de Seguridad', 701, 1),
-    (70102, 'Primeros pasos', 701, 1),
-    (70103, 'Motivar la participación', 701, 1),
-    (70104, 'Educación y formación', 701, 1),
-    (70105, 'Herramientas de análisis de riesgos', 701, 1),
-    (70106, 'Técnicas de resolución de problemas', 701, 1),
-    (70107, 'Recomendaciones eficaces', 701, 1),
-    (70108, 'Reuniones eficaces', 701, 1),
-
     (70201, 'Conceptos básicos', 702, 1),
     (70202, 'Paso 1: Asegurar la escena', 702, 1),
     (70203, 'Paso 2: Documentar la escena', 702, 1),
@@ -418,21 +276,6 @@ VALUES
     (70605, 'Redactar el procedimiento de trabajo seguro', 706, 1),
     (70606, 'Mejorar el proceso JAI', 706, 1),
 
-    (70701, 'Requisitos de las normas', 707, 1),
-    (70702, 'Función y responsabilidad', 707, 1),
-    (70703, 'Preparación de la reunión', 707, 1),
-    (70704, 'Desarrollo de la reunión', 707, 1),
-    (70705, 'Herramientas para el éxito del Comité de Seguridad', 707, 1),
-    (70706, 'Manejo de situaciones problemáticas', 707, 1),
-    (70707, 'Después de la reunión', 707, 1),
-    
-    (70801, 'Conceptos básicos', 708, 1),
-    (70802, 'Relación con el trabajo', 708, 1),
-    (70803, 'Introducción a los formularios', 708, 1),
-    (70804, 'Criterios de grabación', 708, 1),
-    (70805, 'Requisitos de información', 708, 1),
-    (70806, 'Tasas de incidencia', 708, 1),
-
     (70901, 'Requisitos generales', 709, 1),
     (70902, 'Requisitos de formación en EPI', 709, 1),
     (70903, 'Protección ocular y facial', 709, 1),
@@ -455,15 +298,6 @@ VALUES
     (71103, 'Factores de riesgo en la tarea', 711, 1),
     (71104, 'Factores de riesgo en el medio ambiente', 711, 1),
     (71105, 'Control de los factores de riesgo', 711, 1),
-
-    (71201, 'Responsabilidades básicas', 712, 1),
-    (71202, 'Identificación de riesgos', 712, 1),
-    (71203, 'Corrección de riesgos', 712, 1),
-    (71204, 'Formación en materia de seguridad', 712, 1),
-    (71205, 'Supervisión de la seguridad', 712, 1),
-    (71206, 'Garantizar la responsabilidad en materia de seguridad', 712, 1),
-    (71207, 'Crear una cultura de las consecuencias', 712, 1),
-    (71208, 'Liderazgo en seguridad', 712, 1),
 
     (71301, 'Conceptos básicos sobre espacios confinados', 713, 1),
     (71302, 'Elementos del programa', 713, 1),
@@ -496,13 +330,6 @@ VALUES
     (71509, 'Prácticas laborales seguras', 715, 1),
     (71510, 'Equipos de protección eléctrica', 715, 1),
 
-    (71601, 'Conceptos básicos del sistema de gestión de la seguridad (SMS)', 716, 1),
-    (71602, 'Análisis de los SMS', 716, 1),
-    (71603, 'Análisis de causas', 716, 1),
-    (71604, 'Evaluación del SMS', 716, 1),
-    (71605, 'El SHARP', 716, 1),
-    (71606, 'La VPP', 716, 1),
-
     (71701, 'Preguntas básicas', 717, 1),
     (71702, 'Desarrollo del PAE', 717, 1),
     (71703, 'Políticas y procedimientos', 717, 1),
@@ -526,29 +353,11 @@ VALUES
     (71906, 'Investigación de accidentes', 719, 1),
     (71907, 'Selección y mantenimiento', 719, 1),
 
-    (72001, 'Evaluación inicial y revisión de seguridad', 720, 1),
-    (72002, 'Elaborar una declaración política', 720, 1),
-    (72003, 'El Plan de Prevención de la Violencia (PPV)', 720, 1),
-    (72004, 'Educación y formación', 720, 1),
-    (72005, 'Notificación e investigación de incidentes', 720, 1),
-    (72006, 'Seguimiento posterior al incidente', 720, 1),
-    (72007, 'Recuperación organizativa', 720, 1),
-    (72008, 'Evaluación de programas', 720, 1),
-
     (72101, '¿Es la formación la respuesta?', 721, 1),
     (72102, 'Necesidades de formación', 721, 1),
     (72103, 'Metas y objetivos', 721, 1),
     (72104, 'Actividades de aprendizaje', 721, 1),
     (72105, 'Documentación sobre formación', 721, 1),
-
-    (72201, 'Preparar el terreno para la acción', 722, 1),
-    (72202, 'Analizar el lugar de trabajo', 722, 1),
-    (72203, 'Identificación de los factores de riesgo', 722, 1),
-    (72204, 'Análisis ergonómico de riesgos laborales', 722, 1),
-    (72205, 'Control de los factores de riesgo', 722, 1),
-    (72206, 'Aplicación de controles', 722, 1),
-    (72207, 'Gestión médica', 722, 1),
-    (72208, 'Educación y formación en ergonomía', 722, 1),
 
     (72301, 'Prepárate...', 723, 1),
     (72302, 'Prepárate...', 723, 1),
@@ -571,49 +380,6 @@ VALUES
     (72604, 'Más métodos de protección', 726, 1),
     (72605, 'Construcción de protecciones para máquinas', 726, 1),
     (72606, 'Mantenimiento y reparación de maquinaria', 726, 1),
-    
-    (73601, 'Por qué contamos con la gestión de la seguridad de los procesos', 736, 1),
-    (73602, 'Aplicación de la norma PSM', 736, 1),
-    (73603, 'Los 14 elementos del PSM', 736, 1),
-    (73604, 'Análisis de Peligros del Proceso (PHA)', 736, 1),
-    (73605, 'Procedimientos operativos', 736, 1),
-    (73606, 'Participación de los trabajadores', 736, 1),
-    (73607, 'Contratistas', 736, 1),
-    (73608, 'Permiso de integridad mecánica y trabajos en caliente', 736, 1),
-    (73609, 'MOC, Investigación, Respuesta a Emergencias y Secretos Comerciales ', 736, 1),
-
-    (74401, 'Historia y misión', 744, 1),
-    (74402, 'Derechos de los trabajadores', 744, 1),
-    (74403, 'Responsabilidades del empresario', 744, 1),
-    (74404, 'Qué dicen las normas OSHA', 744, 1),
-    (74405, 'Inspecciones OSHA', 744, 1),
-    (74406, 'Recursos en el lugar de trabajo', 744, 1),
-
-    (75001, 'Higiene industrial y OSHA', 750, 1),
-    (75002, 'Calidad del aire interior y exterior', 750, 1),
-    (75003, 'Peligros químicos', 750, 1),
-    (75004, 'Riesgos biológicos', 750, 1),
-    (75005, 'Riesgos físicos', 750, 1),
-    (75006, 'Riesgos ergonómicos', 750, 1),
-
-    (75101, 'Conceptos básicos', 751, 1),
-    (75102, 'Evaluación de las exposiciones', 751, 1),
-    (75103, 'Control de riesgos', 751, 1),
-    (75104, 'Programa de Conservación de la Audición (HCP)', 751, 1),
-    (75105, 'Mejora del programa', 751, 1),
-    (75106, 'Requisitos de control', 751, 1),
-
-    (75501, '¿Qué son los patógenos transmitidos por la sangre?', 755, 1),
-    (75502, 'Patógenos específicos transmitidos por la sangre', 755, 1),
-    (75503, 'Transmisión de patógenos sanguíneos', 755, 1),
-    (75504, 'Plan de control de la exposición (PCE)', 755, 1),
-    (75505, 'Reconocer el potencial de exposición', 755, 1),
-    (75506, 'Métodos de control de la exposición', 755, 1),
-    (75507, 'Equipos de protección individual', 755, 1),
-    (75508, 'Vacunación contra la hepatitis B (VHB)', 755, 1),
-    (75509, 'Cuándo se produce una exposición', 755, 1),
-    (75510, 'Limpieza', 755, 1),
-    (75511, 'Comunicar un peligro', 755, 1),
 
     (75701, 'Las normas', 757, 1),
     (75702, 'Normas OSHA relacionadas', 757, 1),
@@ -624,13 +390,6 @@ VALUES
     (75707, 'Seguridad en los laboratorios de animales de investigación', 757, 1),
     (75708, 'Riesgos físicos y otros', 757, 1),
     (75709, 'Peligros para la seguridad', 757, 1),
-
-    (77601, '¿Qué es la violencia laboral?', 776, 1),
-    (77602, 'Programas de prevención de la violencia', 776, 1),
-    (77603, 'Análisis del lugar de trabajo', 776, 1),
-    (77604, 'Prevención y control de riesgos', 776, 1),
-    (77605, 'Formación sobre seguridad y salud', 776, 1),
-    (77606, 'Mantenimiento de registros y evaluación de programas', 776, 1),
 
     (80001, 'La cultura de la seguridad', 800, 1),
     (80002, 'Trabajar con contratistas', 800, 1),
@@ -686,15 +445,6 @@ VALUES
     (81004, 'Herramientas eléctricas', 810, 1),
     (81005, 'Disco abrasivo portátil y herramientas neumáticas', 810, 1),
     (81006, 'Herramientas accionadas por combustible, hidráulicas y por pólvora', 810, 1),
-    
-    (81201, '¿Qué son los riesgos de caída?', 812, 1),
-    (81202, 'Riesgos de caída Medidas de protección', 812, 1),
-    (81203, 'Peligros intermedios o intermedios', 812, 1),
-    (81204, 'Medidas de protección intermedias o intermedias', 812, 1),
-    (81205, 'Peligros de atropello', 812, 1),
-    (81206, 'Peligros de atropello Medidas de protección', 812, 1),
-    (81207, 'Peligros de electrocución', 812, 1),
-    (81208, 'Peligros de electrocución Medidas de protección', 812, 1), 
 
     (81301, 'Andamios y plataformas elevadoras', 813, 1),
     (81302, 'Resbalones, tropezones y caídas', 813, 1),
@@ -730,6 +480,13 @@ VALUES
     (81604, 'Programa de permisos de entrada', 816, 1),
     (81605, 'Formación y funciones del equipo de entrada en espacios confinados', 816, 1),
     (81606, 'Rescate de emergencia', 816, 1),
+
+    (81701, 'Preparación del terreno', 817, 1),
+    (81702, 'Grúas', 817, 1),
+    (81703, 'Estabilidad estructural', 817, 1),
+    (81704, 'Edificios metálicos y riesgos aéreos', 817, 1),
+    (81705, 'Protección contra caídas', 817, 1),
+    (81706, 'Formación sobre seguridad en la erección de acero', 817, 1),
 
     (82001, 'Conceptos básicos sobre grúas y torres de perforación', 820, 1),
     (82002, 'Responsabilidades del empresario y del trabajador', 820, 1),
@@ -770,32 +527,6 @@ VALUES
     (90005, 'Prevención y control de riesgos', 900, 1),
     (90006, 'Educación y formación', 900, 1),
 
-    (90101, 'Seguridad general del petróleo y el gas', 901, 1),
-    (90102, 'Cómo se producen las lesiones', 901, 1),
-    (90103, 'Riesgos y accidentes específicos de la tarea', 901, 1),
-    (90104, 'Otros peligros en la perforadora', 901, 1),
-    (90105, 'Otros peligros en la plataforma de perforación (continuación)', 901, 1),
-    (90106, 'Otros peligros en la plataforma de perforación (continuación)', 901, 1),
-    (90107, 'Riesgos para la salud en las operaciones de perforación', 901, 1),
-
-    (90201, 'Preparación de la obra Seguridad', 902, 1),
-    (90202, 'Equipamiento de seguridad', 902, 1),
-    (90203, 'Seguridad de los aparejos (continuación)', 902, 1),
-    (90204, 'Seguridad en la perforación', 902, 1),
-    (90205, 'Seguridad en la perforación (continuación)', 902, 1),
-    (90206, 'Salir/entrar', 902, 1),
-    (90207, 'Seguridad en las operaciones de encamisado', 902, 1),
-    (90208, 'Actividades de mantenimiento', 902, 1),
-    (90209, 'Seguridad en el control de pozos', 902, 1),
-
-    (90301, 'Seguridad en la terminación de pozos', 903, 1),
-    (90302, 'Fracturación hidráulica', 903, 1),
-    (90303, 'Operaciones de mantenimiento Seguridad', 903, 1),
-    (90304, 'Servicios Generales Seguridad', 903, 1),
-    (90305, 'Servicios Especiales Operaciones Seguridad', 903, 1),
-    (90306, 'Seguridad de las operaciones de servicios especiales (continuación)', 903, 1),
-    (90307, 'Seguridad en las operaciones de reacondicionamiento y abandono', 903, 1),
-
     (90401, 'Temas de inspección de la respuesta de emergencia', 904, 1),
     (90402, 'Sistemas eléctricos y protección de máquinas', 904, 1),
     (90403, 'Herramientas manuales y eléctricas', 904, 1),
@@ -807,13 +538,6 @@ VALUES
     (90409, 'Mangueras, pasadores y soportes', 904, 1),
     (90410, 'Peligros químicos', 904, 1),
     (90411, 'Otros ámbitos', 904, 1),
-
-    (90601, 'Introducción a la limpieza de vertidos de petróleo', 906, 1),
-    (90602, '¿Qué es una marea negra?', 906, 1),
-    (90603, 'Efectos en el medio ambiente', 906, 1),
-    (90604, 'Exposición a componentes tóxicos', 906, 1),
-    (90605, 'Equipos de limpieza de vertidos de petróleo', 906, 1),
-    (90606, 'Seguridad y salud de los trabajadores', 906, 1),
 
     (90701, 'Mantenimiento de registros, SWA y UWA', 907, 1),
     (90702, 'Elementos de gestión, cultura y programas', 907, 1),
@@ -840,6 +564,20 @@ VALUES
     (90906, 'Seguridad en la manipulación, el aparejo y la elevación de materiales', 909, 1),
     (90907, 'Buenas prácticas varias', 909, 1),
 
+    (100001, 'Planificación de la protección contra caídas', 1000, 1),
+    (100002, 'Uso de protección contra caídas', 1000, 1),
+    (100003, 'Importancia de la protección contra caídas', 1000, 1),
+    (100004, 'Las caídas son la causa número 1 de lesiones y muertes', 1000, 1),
+    (100005, 'Como hacer una buena inspección de los equipos de protección contra caídas', 1000, 1),
+    (100006, 'Cuerdas salva vidas horizontales', 1000, 1),
+    (100007, 'Anclajes', 1000, 1),
+    (100008, 'Claraboyas', 1000, 1),
+    (100009, 'Traslado de materiales', 1000, 1),
+    (100010, 'Caídas durante la reparación de techos', 1000, 1),
+    (100011, 'Caídas de Andamios fijos', 1000, 1),
+    (100012, 'Identificación del peligro', 1000, 1),
+    (100013, 'Peligro, errores comunes', 1000, 1),
+
     (111001, 'Gestión y Reconocimiento del Sistema Globalmente Armonizado SGA', 1110, 1),
     (111002, 'Clasificación de un producto con base en los criterios de clasificación SGA', 1110, 1),
 
@@ -850,4 +588,60 @@ VALUES
     (120301, 'Introducción a la Toxicología', 1203, 1),
     (120302, 'Toxicología general I', 1203, 1),
     (120303, 'Toxicología complementaria intoxicaciones', 1203, 1),
-    (120304, 'Toxicología rutinaria metales y plaguicidas', 1203, 1);
+    (120304, 'Toxicología rutinaria metales y plaguicidas', 1203, 1),
+
+    (555501, 'Toxicocinética', 5555, 1),
+
+    (555601, 'Toxicodinamia', 5556, 1),
+
+    (555701, 'Tratamiento General del Paciente Intoxicado', 5557, 1),
+
+    (555801, 'Tratamientos Específicos', 5558, 1),
+
+    (555901, 'Hipoxias Tóxicas Monóxido de Carbono', 5559, 1),
+
+    (556001, 'Hipoxias Tóxicas por Cianuro', 5560, 1),
+
+    (556101, 'Hipoxias Tóxicas Metahemoglobinemia', 5561, 1),
+
+    (556201, 'Radiotoxicidad', 5562, 1),
+
+    (556301, 'Intoxicación con Etanol', 5563, 1),
+
+    (556401, 'Intoxicación con Metanol', 5564, 1),
+
+    (556501, 'Intoxicación con Glicoles', 5565, 1),
+
+    (556601, 'Hidrocarburos Generalidades', 5566, 1),
+
+    (556701, 'Hidrocarburos Alifáticos o Lineales', 5567, 1),
+
+    (556801, 'Hidrocarburos Alogenados Clorado', 5568, 1),
+
+    (556901, 'Hidrocarburos Cíclicos Aromáticos', 5569, 1),
+
+    (557001, 'Hidrocarburos Nitrogenados', 5570, 1),
+
+    (557101, 'Arsénico', 5571, 1),
+
+    (557201, 'Plomo', 5572, 1),
+
+    (557301, 'Mercurio', 5573, 1),
+
+    (557401, 'Cromo', 5574, 1),
+
+    (557501, 'Manganeso', 5575, 1),
+
+    (557601, 'Talio', 5576, 1),
+
+    (557701, 'Hierro', 5577, 1),
+
+    (557801, 'Organofosforados', 5578, 1),
+
+    (557901, 'Organoclorados', 5579, 1),
+
+    (558001, 'Dicumarinicus', 5580, 1),
+
+    (558101, 'Bipiridilos', 5581, 1),
+
+    (558201, 'Piretrinas', 5582, 1);
