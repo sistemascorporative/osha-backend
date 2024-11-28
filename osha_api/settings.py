@@ -93,7 +93,11 @@ WSGI_APPLICATION = 'osha_api.wsgi.application'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
 DATABASES = {
-    'default': dj_database_url.config(default=os.getenv('DATABASE_URL'))
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
+    #'default': dj_database_url.config(default=os.getenv('DATABASE_URL'))
 }
 
 # Email
@@ -142,7 +146,7 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
-STATICFILES_DIRS = [
+STATICFILE_DIRS = [
     os.path.join(BASE_DIR, 'build/static')
 ]
 
