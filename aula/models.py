@@ -81,6 +81,7 @@ class Curso(models.Model):
     curcod = models.IntegerField(verbose_name="Código", db_column='CurCod', primary_key=True)
     curnom = models.CharField(verbose_name="Nombre", db_column='CurNom', max_length=80, blank=False)
     curnummod = models.IntegerField( verbose_name="Número de módulos", db_column='CurNumMod', default=0)
+    curfre = models.BooleanField(verbose_name="Gratuitos", db_column='CurFre', default=False)
     curestregcod = models.ForeignKey(EstadoRegistro, models.PROTECT, verbose_name="Código EstReg", db_column='CurEstRegCod')
     
     class Meta:
@@ -217,6 +218,45 @@ class Matricula(models.Model):
     
     def __str__(self):
         return f"{self.matestcod.estusernom} - {self.matprocod.pronom}"
+
+class MatriculaPrograma(models.Model):
+    matprocod = models.AutoField(verbose_name="Codigo", db_column='MatProCod', primary_key=True)
+    matprofecini = models.DateField(verbose_name="Fecha de inicio", db_column='MatProFecIni', blank=True, null=True)
+    matprofecfin = models.DateField(verbose_name="Fecha de finalización", db_column='MatProFecFin', blank=True, null=True)
+    matproter = models.BooleanField(verbose_name="Programa terminado", db_column='MatProTer', blank=False, null=False, default=False)
+    matproestcod = models.ForeignKey(EstudianteUser, models.PROTECT, verbose_name="Codigo Estudiante", db_column='MatProEstCod')
+    matproprocod = models.ForeignKey(Programa, models.PROTECT, verbose_name="Codigo Programa", db_column='MatProProCod')
+    matproestregcod = models.ForeignKey(EstadoRegistro, models.PROTECT, verbose_name="Codigo EstReg", db_column='MatProEstRegCod')
+    
+    class Meta:
+        db_table = 'matricula_programa'
+        managed = True
+        verbose_name = 'Matricula para Programa'
+        verbose_name_plural = 'Matricula para Programas'
+        unique_together = ('matproestcod','matproprocod')
+    
+    def __str__(self):
+        return f"{self.matproestcod.estusernom} - {self.matproprocod.pronom}"
+
+
+class MatriculaCurso(models.Model):
+    matcurcod = models.AutoField(verbose_name="Código", db_column='MatCurCod', primary_key=True)
+    matcurfecini = models.DateField(verbose_name="Fecha de inicio", db_column='MatCurFecIni', blank=True, null=True)
+    matcurfecfin = models.DateField(verbose_name="Fecha de finalización", db_column='MatCurFecFin', blank=True, null=True)
+    matcurter = models.BooleanField(verbose_name="Curso terminado", db_column='MatCurTer', blank=False, null=False, default=False)
+    matcurestcod = models.ForeignKey(EstudianteUser, models.PROTECT, verbose_name="Código Estudiante", db_column='MatCurEstCod')
+    matcurcurcod = models.ForeignKey(Curso, models.PROTECT, verbose_name="Código Curso", db_column='MatCurCurCod')
+    matcurestregcod = models.ForeignKey(EstadoRegistro, models.PROTECT, verbose_name="Código EstReg", db_column='MatCurEstRegCod')
+    
+    class Meta:
+        db_table = 'matricula_curso'
+        managed = True
+        verbose_name = 'Matricula para Curso'
+        verbose_name_plural = 'Matricula para Cursos'
+        unique_together = ('matcurestcod','matcurcurcod')
+    
+    def __str__(self):
+        return f"{self.matcurestcod.estusernom} - {self.matcurcurcod.curnom}"
 
 
 class RegistroExamen(models.Model):

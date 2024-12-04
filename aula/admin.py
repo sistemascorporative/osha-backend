@@ -52,6 +52,37 @@ class MatriculaAdmin(admin.ModelAdmin):
     list_filter = ('matprocod',)
 
 
+# Registro del modelo Matricula Programa
+@admin.register(MatriculaPrograma)
+class MatriculaProgramaAdmin(admin.ModelAdmin):
+    list_display = (
+        'matprocod',
+        'matprofecini',
+        'matprofecfin',
+        'matproter',
+        'matproestcod',
+        'matproprocod',
+        'matproestregcod'
+    )
+    search_fields = ('matproestcod', 'matproprocod',)
+    list_filter = ('matproprocod',)
+
+
+# Registro del modelo Matricula Curso
+@admin.register(MatriculaCurso)
+class MatriculaCursoAdmin(admin.ModelAdmin):
+    list_display = (
+        'matcurcod',
+        'matcurfecini',
+        'matcurfecfin',
+        'matcurestcod',
+        'matcurcurcod',
+        'matcurestregcod'
+    )
+    search_fields = ('matcurestcod', 'matcurcurcod',)
+    list_filter = ('matcurcurcod',)
+
+
 # Registro del modelo Curso
 @admin.register(Curso)
 class CursoAdmin(admin.ModelAdmin):
@@ -59,10 +90,11 @@ class CursoAdmin(admin.ModelAdmin):
         'curcod',
         'curnom',
         'curnummod',
+        'curfre',
         'curestregcod'
     )
     search_fields = ('curcod', 'curnom')
-    list_filter = ('curestregcod',)
+    list_filter = ('curfre',)
     ordering = ('curcod',)
 
 

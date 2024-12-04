@@ -189,7 +189,19 @@ class NotaProgramaPorEstudianteListAPIView(ListAPIView):
         return Response(serializer.data)
     
 
-# Devuelve todas las notas de los cursos de x programa
+# Devuelve todos los cursos matriculados de X estudiante
+class CursosMatriculadosListAPIView(ListAPIView):
+    serializer_class = CursoSerializerList
+
+    def get_queryset(self):
+        estudiante_email = self.kwargs['estudiante_email']
+        return Curso.objects.filter(matriculacurso__matcurestcod__email=estudiante_email)
+
+
+# Devuelve todos los cursos gratuitos
+class CursosGratuitosListAPIView(ListAPIView):
+    queryset = Curso.objects.filter(curfre=True)
+    serializer_class = CursoSerializerList
 
 
 # Estudiante

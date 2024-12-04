@@ -33,6 +33,8 @@ urlpatterns = [
     
     # List
     
+    path('cursos-matriculados/<str:estudiante_email>/', CursosMatriculadosListAPIView.as_view(), name='cursos_matriculados'),
+    path('cursos-gratuitos/', CursosGratuitosListAPIView.as_view(), name='cursos-gratuitos-list'),
     path('estado-registro/', EstadoRegistroListAPIView.as_view(), name='estado-regitro-list'),
     path('estudiante/', EstudianteUserListAPIView.as_view(), name='estudiante-list'),
     path('programa/', ProgramaListAPIView.as_view(), name='programa-list'),

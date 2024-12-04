@@ -57,6 +57,8 @@ class CursoSerializerList(serializers.ModelSerializer):
         fields = [
             "curcod",
             "curnom",
+            "curnummod",
+            "curfre",
             "curestregcod"
         ]
 
@@ -143,6 +145,40 @@ class MatriculaSerializerList(serializers.ModelSerializer):
             "matestcod",
             "matprocod",
             "matestregcod",
+        ]
+
+
+class MatriculaProgramaSerializerList(serializers.ModelSerializer):
+    matproestcod = EstudianteUserSerializerList()
+    matproprocod = ProgramaSerializerList()
+    matproestregcod = EstadoRegistroSerializerList()    
+    class Meta:
+        model = Matricula
+        fields = [
+            "matprocod",
+            'matprofecini',
+            'matprofecfin',
+            'matproter',
+            "matproestcod",
+            "matproprocod",
+            "matproestregcod",
+        ]
+
+
+class MatriculaCursoSerializerList(serializers.ModelSerializer):
+    matcurestcod = EstudianteUserSerializerList()
+    matcurcurcod = CursoSerializerList()
+    matcurestregcod = EstadoRegistroSerializerList()    
+    class Meta:
+        model = Matricula
+        fields = [
+            "matcurcod",
+            'matcurfecini',
+            'matcurfecfin',
+            'matcurter',
+            "matcurestcod",
+            "matcurcurcod",
+            "matcurestregcod",
         ]
 
 
