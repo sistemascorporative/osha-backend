@@ -198,6 +198,30 @@ class RegistroExamenAdmin(admin.ModelAdmin):
     )
 
 
+@admin.register(RegistroExamenPrograma)
+class RegistroExamenProgramaAdmin(admin.ModelAdmin):
+    list_display = (
+        'regexaprocod',
+        'regexapropun',
+        'regexaproint',
+        'regexaproestexacod',
+        'regexapromatprocod',
+        'regexaproexacod',
+    )
+
+
+@admin.register(RegistroExamenCurso)
+class RegistroExamenCursoAdmin(admin.ModelAdmin):
+    list_display = (
+        'regexacurcod',
+        'regexacurpun',
+        'regexacurint',
+        'regexacurestexacod',
+        'regexacurmatcurcod',
+        'regexacurexacod',
+    )
+
+
 # Registro del modelo Pregunta
 @admin.register(NotaPrograma)
 class NotaProgramaAdmin(admin.ModelAdmin):

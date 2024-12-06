@@ -1,6 +1,10 @@
 from django.db.models.signals import m2m_changed, post_save, post_delete
 from django.dispatch import receiver
-from .models import Programa, Modulo, Pregunta, Matricula, Examen, EstadoExamen, RegistroExamen, NotaPrograma
+from .models import *
+import logging
+
+# Configuración del logger
+logger = logging.getLogger(__name__)
 
 
 @receiver(m2m_changed, sender=Programa.cursos.through)
@@ -88,6 +92,144 @@ def delete_registro_examen(sender, instance, **kwargs):
     ).delete()
 
 
+"""
+Signal para crear registros de exámenes para todos los cursos de un programa
+cuando se realiza una matrícula para el programa.
+"""
+@receiver(post_save, sender=MatriculaPrograma)
+def crear_registros_examen_por_programa(sender, instance, created, **kwargs):
+    if created:
+        cursos = instance.matproprocod.cursos.all()
+        estudiante = instance.matproestcod
+
+        for curso in cursos:
+            try:
+                # Crear la matrícula del curso si no existe
+                matricula_curso, created_matricula = MatriculaCurso.objects.get_or_create(
+                    matcurfecini=instance.matprofecini,
+                    matcurfecfin=instance.matprofecfin,
+                    matcurter=False,  # No terminado por defecto
+                    matcurestcod=estudiante,
+                    matcurcurcod=curso,
+                    matcurestregcod=instance.matproestregcod
+                )
+                if created_matricula:
+                    logger.info(
+                        f"Matrícula de curso creada para el estudiante {estudiante.email} y curso {curso.curnom}."
+                    )
+                # Obtener el examen asociado al curso
+                examen = Examen.objects.filter(exacurcod=curso).first()
+                if not examen:
+                    logger.warning(
+                        f"No se encontró un examen asociado al curso {curso.curnom}. "
+                        f"No se creará un registro de examen para la matrícula {matricula_curso.matcurcod}."
+                    )
+                    continue
+                # Crear el registro de examen
+                RegistroExamenCurso.objects.get_or_create(
+                    regexacurpun=0.00,  # Puntuación inicial
+                    regexacurint=0,     # Intentos iniciales
+                    regexacurestexacod=EstadoExamen.objects.get(estexanom="Pendiente"),
+                    regexacurmatcurcod=matricula_curso,
+                    regexacurexacod=examen
+                )
+                logger.info(
+                    f"Registro de examen creado correctamente para el curso {curso.curnom}."
+                )
+            except EstadoExamen.DoesNotExist:
+                logger.error(
+                    f"No se encontró el estado 'Pendiente' en la tabla EstadoExamen. "
+                    f"No se pudo crear el registro de examen para el curso {curso.curnom}."
+                )
+            except Exception as e:
+                logger.error(
+                    f"Error inesperado al procesar el curso {curso.curnom} para la matrícula de programa {instance.matprocod}: {e}"
+                )
+
+
+"""
+Signal para eliminar los registros de examen asociados a una matrícula de programa.
+"""
+@receiver(post_delete, sender=MatriculaPrograma)
+def eliminar_registros_examen_programa(sender, instance, **kwargs):
+    try:
+        # Obtener todas las matrículas de curso asociadas al programa
+        matriculas_curso = MatriculaCurso.objects.filter(
+            matcurestcod=instance.matproestcod,  # Estudiante asociado
+            matcurcurcod__in=instance.matproprocod.cursos.all()  # Cursos del programa
+        )
+        # Eliminar los registros de examen asociados a las matrículas de curso
+        total_eliminados = 0
+        for matricula_curso in matriculas_curso:
+            registros_eliminados = RegistroExamenCurso.objects.filter(
+                regexacurmatcurcod=matricula_curso
+            ).delete()
+            total_eliminados += registros_eliminados[0]
+        logger.info(
+            f"Se eliminaron {total_eliminados} registro(s) de examen asociados al programa {instance.matproprocod.pronom}."
+        )
+    except Exception as e:
+        logger.error(
+            f"Error al eliminar los registros de examen para la matrícula de programa {instance.matprocod}: {e}"
+        )
+
+
+"""
+Signal para crear un registro de examen para una matrícula de curso
+"""
+@receiver(post_save, sender=MatriculaCurso)
+def crear_registro_examen_curso(sender, instance, created, **kwargs):
+    if created:
+        try:
+            # Obtener el examen asociado al curso
+            examen = Examen.objects.filter(exacurcod=instance.matcurcurcod).first()
+            if not examen:
+                logger.warning(
+                    f"No se encontró un examen asociado al curso {instance.matcurcurcod.curnom}. "
+                    f"No se creará un registro de examen para la matrícula {instance.matcurcod}."
+                )
+                return
+            # Crear el registro de examen
+            RegistroExamenCurso.objects.create(
+                regexacurpun=0.00,  # Puntuación inicial
+                regexacurint=0,     # Intentos iniciales
+                regexacurestexacod=EstadoExamen.objects.get(estexanom="Pendiente"),
+                regexacurmatcurcod=instance,
+                regexacurexacod=examen
+            )
+            logger.info(
+                f"Registro de examen creado correctamente para la matrícula de curso {instance.matcurcod}."
+            )
+        except EstadoExamen.DoesNotExist:
+            logger.error(
+                "No se encontró el estado 'Pendiente' en la tabla EstadoExamen. "
+                "No se pudo crear el registro de examen."
+            )
+        except Exception as e:
+            logger.error(
+                f"Error inesperado al crear el registro de examen para la matrícula {instance.matcurcod}: {e}"
+            )
+
+
+"""
+Signal para eliminar los registros de examen asociados a una matrícula de curso.
+"""
+@receiver(post_delete, sender=MatriculaCurso)
+def eliminar_registros_examen_curso(sender, instance, **kwargs):
+    try:
+        # Eliminar los registros de examen asociados a la matrícula
+        registros_eliminados = RegistroExamenCurso.objects.filter(
+            regexacurmatcurcod=instance
+        ).delete()
+        logger.info(
+            f"Se eliminaron {registros_eliminados[0]} registro(s) de examen para la matrícula de curso {instance.matcurcod}."
+        )
+    except Exception as e:
+        logger.error(
+            f"Error al eliminar los registros de examen para la matrícula de curso {instance.matcurcod}: {e}"
+        )
+
+
 # signal para actualizar porcentaje de avance de u programa
 @receiver(post_save, sender=RegistroExamen)
 def actualizar_porcentaje_avance(sender, instance, created, **kwargs):
@@ -102,7 +244,7 @@ def actualizar_porcentaje_avance(sender, instance, created, **kwargs):
     )
 
     # Calcular el porcentaje de avance
-    total_examenes = Examen.objects.filter(curso__programa=programa).count()
+    total_examenes = Examen.objects.filter(exacurcod__programas=programa).count()
     examenes_completos = RegistroExamen.objects.filter(
         regexaestcod=estudiante,
         regexaestprocod=programa,
@@ -130,14 +272,27 @@ def verificar_finalizacion_programa(sender, instance, **kwargs):
         matricula = Matricula.objects.get(matestcod=estudiante, matprocod=programa)
 
         # Obtener todos los exámenes del programa
-        examenes = Examen.objects.filter(curso__programa=programa)
+        examenes = Examen.objects.filter(exacurcod__programas=programa)
 
         # Verificar si todos los exámenes han sido completados y tienen notas >= 70
-        todos_completos = all(
-            RegistroExamen.objects.filter(regexaexacod=examen, regexaestcod=estudiante, regexaestprocod=programa).exists() and
-            RegistroExamen.objects.get(regexaexacod=examen, regexaestcod=estudiante, regexaestprocod=programa).regexapun >= 70
-            for examen in examenes
+        # todos_completos = all(
+        #   RegistroExamen.objects.filter(regexaexacod=examen, regexaestcod=estudiante, regexaestprocod=programa).exists() and
+        #    RegistroExamen.objects.get(regexaexacod=examen, regexaestcod=estudiante, regexaestprocod=programa).regexapun >= 70
+        #
+        #    for examen in examenes
+        #)
+        
+        # Verificar si todos los exámenes han sido completados con nota >= 70
+        examenes_ids = examenes.values_list('exacurcod', flat=True)  # Obtener IDs de exámenes
+        registros = RegistroExamen.objects.filter(
+            regexaestcod=estudiante,
+            regexaestprocod=programa,
+            regexaexacod__in=examenes_ids,
+            regexapun__gte=70  # Verifica que la nota sea >= 70
         )
+
+        # Comparar el número de exámenes con el número de registros de exámenes aprobados
+        todos_completos = registros.count() == examenes.count()
 
         # Actualizar el campo finalizado en la matrícula
         matricula.matter = todos_completos

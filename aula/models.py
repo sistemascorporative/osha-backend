@@ -148,12 +148,11 @@ class Pregunta(models.Model):
     precod = models.AutoField(verbose_name="Codigo", db_column='preCod', primary_key=True)
     pretex = models.CharField(verbose_name="Texto",db_column="PreTex", max_length=300)
     prenummod = models.IntegerField(verbose_name="Número de modulo al que pertenece", db_column="PreNumMod", default=0)
-    prenumsec = models.IntegerField(verbose_name="Número de sección al que pertenece", db_column="PreNumSec", default=0)
     preexacod = models.ForeignKey(Examen, models.PROTECT, verbose_name="Codigo EXamen", db_column='PreExaCod')
     preestregcod = models.ForeignKey(EstadoRegistro, models.PROTECT, verbose_name="Codigo EStReg", db_column='PreEstRegCod')
     
     class Meta:
-        db_table = 'Pregunta' #PREGUNTA
+        db_table = 'Pregunta'
         managed = True
         verbose_name = 'Pregunta'
         verbose_name_plural = 'Pregunta'
@@ -166,8 +165,8 @@ class Alternativa(models.Model):
     altcod = models.AutoField(verbose_name="Codigo", db_column='AltCod', primary_key=True)
     alttex = models.CharField(verbose_name="Texto", db_column='AltTex', max_length=500)
     altcor = models.BooleanField(verbose_name="Correcto", db_column='AltCor')
-    altprecod = models.ForeignKey(Pregunta, models.PROTECT, verbose_name="Codigo Pregunta", db_column='AltPreCod')
-    altestregcod = models.ForeignKey(EstadoRegistro, models.PROTECT, verbose_name="Codigo EstReg", db_column='AltEstRegCod')
+    altprecod = models.ForeignKey(Pregunta, models.PROTECT, verbose_name="Código Pregunta", db_column='AltPreCod')
+    altestregcod = models.ForeignKey(EstadoRegistro, models.PROTECT, verbose_name="Código EstReg", db_column='AltEstRegCod')
     
     class Meta:
         db_table = 'alternativa'
@@ -277,6 +276,44 @@ class RegistroExamen(models.Model):
     
     def __str__(self):
         return f"{self.regexaestcod} - {self.regexaexacod} - {self.regexaestexacod.estexanom}"
+
+
+class RegistroExamenPrograma(models.Model):
+    regexaprocod = models.AutoField(verbose_name="Código", db_column='RegExProCod', primary_key=True)
+    regexapropun = models.DecimalField(verbose_name="Puntuación", db_column='RegExProPun', max_digits=5, decimal_places=2, default=0.00)
+    regexaproint = models.IntegerField(verbose_name="Número de intentos", db_column='RegExProInt', default=0)
+    regexaproestexacod = models.ForeignKey(EstadoExamen, models.PROTECT, verbose_name="Estado del Examen", db_column='RegExProEstExaCod')
+    regexapromatprocod = models.ForeignKey(MatriculaPrograma, models.PROTECT, verbose_name="Matrícula del Programa", db_column='RegExProMatProCod')
+    regexaproexacod = models.ForeignKey(Examen, models.PROTECT, verbose_name="Código del Examen", db_column='RegExProExaCod')
+
+    class Meta:
+        db_table = 'registro_examen_programa'
+        managed = True
+        verbose_name = 'Registro de Examen por Programa'
+        verbose_name_plural = 'Registros de Exámenes por Programa'
+        unique_together = ('regexapromatprocod', 'regexaproexacod')  # Una matrícula solo puede tener un registro por examen.
+
+    def __str__(self):
+        return f"{self.regexapromatprocod.matproestcod.estusernom} - {self.regexaproexacod} - {self.regexaproestexacod.estexanom}"
+
+
+class RegistroExamenCurso(models.Model):
+    regexacurcod = models.AutoField(verbose_name="Código", db_column='RegExCurCod', primary_key=True)
+    regexacurpun = models.DecimalField(verbose_name="Puntuación", db_column='RegExCurPun', max_digits=5, decimal_places=2, default=0.00)
+    regexacurint = models.IntegerField(verbose_name="Número de intentos", db_column='RegExCurInt', default=0)
+    regexacurestexacod = models.ForeignKey(EstadoExamen, models.PROTECT, verbose_name="Estado del Examen", db_column='RegExCurEstExaCod')
+    regexacurmatcurcod = models.ForeignKey(MatriculaCurso, models.PROTECT, verbose_name="Matrícula del Curso", db_column='RegExCurMatCurCod')
+    regexacurexacod = models.ForeignKey(Examen, models.PROTECT, verbose_name="Código del Examen", db_column='RegExCurExaCod')
+
+    class Meta:
+        db_table = 'registro_examen_curso'
+        managed = True
+        verbose_name = 'Registro de Examen por Curso'
+        verbose_name_plural = 'Registros de Exámenes por Curso'
+        unique_together = ('regexacurmatcurcod', 'regexacurexacod')
+
+    def __str__(self):
+        return f"{self.regexacurmatcurcod.matcurestcod.estusernom} - {self.regexacurexacod} - {self.regexacurestexacod.estexanom}"
 
 
 class RegistroCurso(models.Model):

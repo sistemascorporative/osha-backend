@@ -289,7 +289,7 @@ VALUES
 
 
 -- Insertar datos en la tabla Estado de registro
-INSERT INTO pregunta(PreCod, PreTex, PreNumMod, PreNumSec, PreExaCod, PreEstRegCod)
+INSERT INTO pregunta(PreCod, PreTex, PreNumMod, PreExaCod, PreEstRegCod)
 VALUES
     (10001, '', 0, 0, 100, 1),
     (10002, '', 0, 0, 100, 1),
