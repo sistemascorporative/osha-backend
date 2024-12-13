@@ -1,8 +1,17 @@
+from rest_framework.exceptions import ValidationError
+from rest_framework.response import Response
+from rest_framework import status
 from rest_framework.generics import (
     CreateAPIView
 )
 from ..serializers import *
 from ..models import *
+
+
+
+class MatriculaCursoCreateAPIView(CreateAPIView):
+    queryset = MatriculaCurso.objects.all()
+    serializer_class = MatriculaCursoSerializer
 
 
 class EstadoRegistroCreateAPIView(CreateAPIView):
@@ -53,11 +62,6 @@ class AlternativaCreateAPIView(CreateAPIView):
 class RespuestaCreateAPIView(CreateAPIView):
     queryset = Respuesta.objects.all()
     serializer_class = RespuestaSerializer
-
-
-class MatriculaCreateAPIView(CreateAPIView):
-    queryset = Matricula.objects.all()
-    serializer_class = MatriculaSerializer
 
 
 class RegistroExamenCreateAPIView(CreateAPIView):

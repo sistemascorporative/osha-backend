@@ -62,11 +62,6 @@ class RespuestaRetrieveAPIView(RetrieveAPIView):
     serializer_class = RespuestaSerializerList
 
 
-class MatriculaRetrieveAPIView(RetrieveAPIView):
-    queryset = Matricula.objects.all()
-    serializer_class = MatriculaSerializerList
-
-
 class RegistroExamenRetrieveAPIView(RetrieveAPIView):
     queryset = RegistroExamen.objects.all()
     serializer_class = RegistroExamenSerializerList

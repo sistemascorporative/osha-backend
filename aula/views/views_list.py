@@ -12,40 +12,43 @@ from rest_framework.permissions import IsAuthenticated
 #ListAPIViews
 
 
-# Devuelve todos los programas por X estudiante matriculado
-class ProgramasPorEstudianteListAPIView(ListAPIView):
+# Devuelve todos los programas matriculados de X estudiante
+class ProgramasMatriculadosPorEstudianteListAPIView(ListAPIView):
     serializer_class = ProgramaSerializer
     
     def get_queryset(self):
         estudiante_email = self.kwargs.get('estudiante_email')
-        if estudiante_email is not None:
-            try:
-                estudiante = EstudianteUser.objects.get(email=estudiante_email)
-                matriculas = Matricula.objects.filter(matestcod=estudiante)
-                if not matriculas:
-                    raise Matricula.DoesNotExist("Usted aún no se matriculado a ningún programa")
-                programas = [matricula.matprocod for matricula in matriculas]
-                return programas
-            except EstudianteUser.DoesNotExist:
-                raise EstudianteUser.DoesNotExist("Estudiante no encontrado.")
-            except Matricula.DoesNotExist:
-                raise Matricula.DoesNotExist("Usted aún no se matriculado a ningún programa.")
-        else:
+        if not estudiante_email:
             return Programa.objects.none()
-
+        # Filtrar programas directamente mediante la relación en MatriculaPrograma
+        return Programa.objects.filter(matriculaprograma__matproestcod__email=estudiante_email)
+    
     def list(self, request, *args, **kwargs):
-        try:
-            queryset = self.get_queryset()
-            if not queryset:
-                return Response({"detail": "Estudiante  no encontrado o no hay programas inscritos."}, status=status.HTTP_404_NOT_FOUND)
-            serializer = self.get_serializer(queryset, many=True)
-            return Response(serializer.data)
-        except EstudianteUser.DoesNotExist as e:
-            return Response({"detail": str(e)}, status=status.HTTP_404_NOT_FOUND)
-        except Matricula.DoesNotExist as e:
-            return Response({"detail": str(e)}, status=status.HTTP_404_NOT_FOUND)
-        except Exception as e:
-            return Response({"detail": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        queryset = self.get_queryset()
+        # Manejar el caso en el que no se encuentra el email del estudiante
+        if not queryset.exists() and not EstudianteUser.objects.filter(email=self.kwargs.get('estudiante_email')).exists():
+            return Response(
+                {"detail": "El estudiante con el email proporcionado no existe."},
+                status=status.HTTP_404_NOT_FOUND
+            )
+        serializer = self.get_serializer(queryset, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+# Devuelve todos los cursos matriculados de X estudiante
+class CursosMatriculadosPorEstudianteListAPIView(ListAPIView):
+    serializer_class = CursoSerializerList
+
+    def get_queryset(self):
+        estudiante_email = self.kwargs['estudiante_email']
+        return Curso.objects.filter(matriculacurso__matcurestcod__email=estudiante_email)
+
+
+# Devuelve todos los cursos gratuitos
+class CursosGratuitosListAPIView(ListAPIView):
+    queryset = Curso.objects.filter(curfre=True)
+    serializer_class = CursoSerializerList
+
 
 
 # Devuelve todos los cursos por X programa
@@ -189,20 +192,6 @@ class NotaProgramaPorEstudianteListAPIView(ListAPIView):
         return Response(serializer.data)
     
 
-# Devuelve todos los cursos matriculados de X estudiante
-class CursosMatriculadosListAPIView(ListAPIView):
-    serializer_class = CursoSerializerList
-
-    def get_queryset(self):
-        estudiante_email = self.kwargs['estudiante_email']
-        return Curso.objects.filter(matriculacurso__matcurestcod__email=estudiante_email)
-
-
-# Devuelve todos los cursos gratuitos
-class CursosGratuitosListAPIView(ListAPIView):
-    queryset = Curso.objects.filter(curfre=True)
-    serializer_class = CursoSerializerList
-
 
 # Estudiante
 class EstudianteUserListAPIView(ListAPIView):
@@ -257,11 +246,6 @@ class AlternativaListAPIView(ListAPIView):
 class RespuestaListAPIView(ListAPIView):
     queryset = Respuesta.objects.all()
     serializer_class = RespuestaSerializerList
-
-
-class MatriculaListAPIView(ListAPIView):
-    queryset = Matricula.objects.all()
-    serializer_class = MatriculaSerializerList
 
 
 class RegistroExamenListAPIView(ListAPIView):

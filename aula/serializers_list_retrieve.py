@@ -25,6 +25,7 @@ class EstudianteUserSerializerList(serializers.ModelSerializer):
     class Meta:
         model = EstudianteUser
         fields = [
+            "id",
             "email",
             "estusernom",
             "estuserape",

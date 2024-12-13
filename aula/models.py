@@ -218,6 +218,7 @@ class Matricula(models.Model):
     def __str__(self):
         return f"{self.matestcod.estusernom} - {self.matprocod.pronom}"
 
+
 class MatriculaPrograma(models.Model):
     matprocod = models.AutoField(verbose_name="Codigo", db_column='MatProCod', primary_key=True)
     matprofecini = models.DateField(verbose_name="Fecha de inicio", db_column='MatProFecIni', blank=True, null=True)

@@ -99,52 +99,27 @@ cuando se realiza una matrícula para el programa.
 @receiver(post_save, sender=MatriculaPrograma)
 def crear_registros_examen_por_programa(sender, instance, created, **kwargs):
     if created:
-        cursos = instance.matproprocod.cursos.all()
-        estudiante = instance.matproestcod
-
+        programa = instance.matproprocod  # Programa asociado a la matrícula
+        estudiante = instance.matproestcod  # Estudiante asociado a la matrícula
+        # Suponiendo que el estado "Pendiente" existe
+        estado_pendiente, created = EstadoExamen.objects.get_or_create(estexanom="Pendiente")
+        # Obtener los cursos del programa
+        cursos = programa.cursos.all()
+        # Iterar sobre los cursos y crear registros de examen
         for curso in cursos:
             try:
-                # Crear la matrícula del curso si no existe
-                matricula_curso, created_matricula = MatriculaCurso.objects.get_or_create(
-                    matcurfecini=instance.matprofecini,
-                    matcurfecfin=instance.matprofecfin,
-                    matcurter=False,  # No terminado por defecto
-                    matcurestcod=estudiante,
-                    matcurcurcod=curso,
-                    matcurestregcod=instance.matproestregcod
+                examen = Examen.objects.get(exacurcod=curso)
+                RegistroExamenPrograma.objects.get_or_create(
+                    regexapromatprocod=instance,
+                    regexaproexacod=examen,
+                    defaults={
+                        'regexapropun': 0.00,
+                        'regexaproint': 0,
+                        'regexaproestexacod': estado_pendiente  # Asumiendo que 1 es el estado inicial del examen
+                    }
                 )
-                if created_matricula:
-                    logger.info(
-                        f"Matrícula de curso creada para el estudiante {estudiante.email} y curso {curso.curnom}."
-                    )
-                # Obtener el examen asociado al curso
-                examen = Examen.objects.filter(exacurcod=curso).first()
-                if not examen:
-                    logger.warning(
-                        f"No se encontró un examen asociado al curso {curso.curnom}. "
-                        f"No se creará un registro de examen para la matrícula {matricula_curso.matcurcod}."
-                    )
-                    continue
-                # Crear el registro de examen
-                RegistroExamenCurso.objects.get_or_create(
-                    regexacurpun=0.00,  # Puntuación inicial
-                    regexacurint=0,     # Intentos iniciales
-                    regexacurestexacod=EstadoExamen.objects.get(estexanom="Pendiente"),
-                    regexacurmatcurcod=matricula_curso,
-                    regexacurexacod=examen
-                )
-                logger.info(
-                    f"Registro de examen creado correctamente para el curso {curso.curnom}."
-                )
-            except EstadoExamen.DoesNotExist:
-                logger.error(
-                    f"No se encontró el estado 'Pendiente' en la tabla EstadoExamen. "
-                    f"No se pudo crear el registro de examen para el curso {curso.curnom}."
-                )
-            except Exception as e:
-                logger.error(
-                    f"Error inesperado al procesar el curso {curso.curnom} para la matrícula de programa {instance.matprocod}: {e}"
-                )
+            except Examen.DoesNotExist:
+                print(f"No existe examen para el curso: {curso.curnom}")
 
 
 """
@@ -180,35 +155,26 @@ Signal para crear un registro de examen para una matrícula de curso
 @receiver(post_save, sender=MatriculaCurso)
 def crear_registro_examen_curso(sender, instance, created, **kwargs):
     if created:
-        try:
-            # Obtener el examen asociado al curso
-            examen = Examen.objects.filter(exacurcod=instance.matcurcurcod).first()
-            if not examen:
-                logger.warning(
-                    f"No se encontró un examen asociado al curso {instance.matcurcurcod.curnom}. "
-                    f"No se creará un registro de examen para la matrícula {instance.matcurcod}."
+        estudiante = instance.matcurestcod
+        programa = instance.matcurprocod
+        # Suponiendo que el estado "Pendiente" existe
+        estado_pendiente, created = EstadoExamen.objects.get_or_create(estexanom="Pendiente")
+        # Obtener todos los cursos del programa
+        cursos = programa.cursos.all()
+        for curso in cursos:
+            try:
+                examen = Examen.objects.get(exacurcod=curso)
+                RegistroExamenCurso.objects.create(
+                    regexacurpun=0.00,
+                    regexacurint=0,
+                    regexacurestcod=estudiante,
+                    regexacurestprocod=programa,
+                    regexacurexacod=examen,
+                    regexacurestexacod=estado_pendiente  # Ajusta esto según tu lógica de estado de examen
                 )
-                return
-            # Crear el registro de examen
-            RegistroExamenCurso.objects.create(
-                regexacurpun=0.00,  # Puntuación inicial
-                regexacurint=0,     # Intentos iniciales
-                regexacurestexacod=EstadoExamen.objects.get(estexanom="Pendiente"),
-                regexacurmatcurcod=instance,
-                regexacurexacod=examen
-            )
-            logger.info(
-                f"Registro de examen creado correctamente para la matrícula de curso {instance.matcurcod}."
-            )
-        except EstadoExamen.DoesNotExist:
-            logger.error(
-                "No se encontró el estado 'Pendiente' en la tabla EstadoExamen. "
-                "No se pudo crear el registro de examen."
-            )
-        except Exception as e:
-            logger.error(
-                f"Error inesperado al crear el registro de examen para la matrícula {instance.matcurcod}: {e}"
-            )
+            except Examen.DoesNotExist:
+                # Manejar el caso donde no existe un examen para el curso
+                pass
 
 
 """

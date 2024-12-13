@@ -1,15 +1,10 @@
 from rest_framework import serializers
 from djoser.serializers import UserCreateSerializer as BaseUserCreateSerializer, UserSerializer as BaseUserSerializer
 from .models import *
-from datetime import datetime
-from djoser.serializers import UserCreateSerializer
 from django.contrib.auth import get_user_model
 User = get_user_model()
-from django.contrib.auth.password_validation import validate_password
-from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework import serializers
-from rest_framework.validators import UniqueValidator
-from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+
 
 
 class EstudianteUserSerializer(serializers.ModelSerializer):
@@ -102,6 +97,18 @@ class RespuestaSerializer(serializers.ModelSerializer):
 class MatriculaSerializer(serializers.ModelSerializer):
     class Meta:
         model = Matricula
+        fields = '__all__'
+
+
+class MatriculaProgramaSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = MatriculaPrograma
+        fields = '__all__'
+
+
+class MatriculaCursoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = MatriculaCurso
         fields = '__all__'
 
 
