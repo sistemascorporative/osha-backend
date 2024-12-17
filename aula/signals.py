@@ -150,31 +150,26 @@ def eliminar_registros_examen_programa(sender, instance, **kwargs):
 
 
 """
-Signal para crear un registro de examen para una matrícula de curso
+Signal para crear un registro de examen curso para una matrícula de curso
 """
 @receiver(post_save, sender=MatriculaCurso)
 def crear_registro_examen_curso(sender, instance, created, **kwargs):
     if created:
-        estudiante = instance.matcurestcod
-        programa = instance.matcurprocod
-        # Suponiendo que el estado "Pendiente" existe
-        estado_pendiente, created = EstadoExamen.objects.get_or_create(estexanom="Pendiente")
-        # Obtener todos los cursos del programa
-        cursos = programa.cursos.all()
-        for curso in cursos:
-            try:
-                examen = Examen.objects.get(exacurcod=curso)
-                RegistroExamenCurso.objects.create(
-                    regexacurpun=0.00,
-                    regexacurint=0,
-                    regexacurestcod=estudiante,
-                    regexacurestprocod=programa,
-                    regexacurexacod=examen,
-                    regexacurestexacod=estado_pendiente  # Ajusta esto según tu lógica de estado de examen
-                )
-            except Examen.DoesNotExist:
-                # Manejar el caso donde no existe un examen para el curso
-                pass
+        curso = instance.matcurcurcod
+        try:
+            # Buscar el examen asociado al curso
+            examen = Examen.objects.get(exacurcod=curso)
+            estado_pendiente, created = EstadoExamen.objects.get_or_create(estexanom="Pendiente")
+            RegistroExamenCurso.objects.create(
+                regexacurpun=0.0,  # Puntuación inicial
+                regexacurint=0,  # Número de intentos inicial
+                regexacurestexacod=estado_pendiente,
+                regexacurmatcurcod=instance,
+                regexacurexacod=examen
+            )
+        except Examen.DoesNotExist:
+            # Manejar el caso donde no existe un examen para el curso
+            print(f"No se encontró examen para el curso {curso.curnom}")
 
 
 """

@@ -4,6 +4,7 @@ from rest_framework.generics import (
 from ..serializers_list_retrieve import *
 from ..serializers import *
 from ..models import Curso, Programa
+from django.shortcuts import get_object_or_404
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
@@ -96,6 +97,55 @@ class ModulosPorCursoListAPIView(ListAPIView):
             return Response({"detail": "Modulos not found."}, status=status.HTTP_404_NOT_FOUND)
         serializer = self.get_serializer(queryset, many=True)
         return Response(serializer.data)
+
+
+
+"""
+Endpoint para obtener las matrículas de programas según el correo del estudiante.
+"""
+class MatriculaProgramaPorEstudianteListView(ListAPIView):
+    serializer_class = MatriculaProgramaSerializerList
+
+    def get_queryset(self):
+        email = self.kwargs.get('estudiante_email')
+        estudiante = get_object_or_404(EstudianteUser, email=email)
+        return MatriculaPrograma.objects.filter(matproestcod=estudiante)
+
+
+"""
+Endpoint para obtener los registros de exámenes de programa.
+"""
+class RegistroExamenProgramaPorMatriculaListView(ListAPIView):
+    serializer_class = RegistroExamenProgramaSerializerList
+
+    def get_queryset(self):
+        matprocod = self.kwargs.get('codigo_matricula')        
+        return RegistroExamenPrograma.objects.filter(regexapromatprocod=matprocod)
+
+
+"""
+Endpoint para obtener las matrículas de cursos según el correo del estudiante.
+"""
+class MatriculaCursoPorEstudianteListView(ListAPIView):
+    serializer_class = MatriculaCursoSerializerList
+
+    def get_queryset(self):
+        email = self.kwargs.get('estudiante_email')
+        estudiante = get_object_or_404(EstudianteUser, email=email)
+        return MatriculaCurso.objects.filter(matcurestcod=estudiante)
+
+
+"""
+Endpoint para obtener todos los registros de exámenes de cursos de un estudiante.
+"""
+class RegistroExamenCursoPorEstudianteListView(ListAPIView):
+    serializer_class = RegistroExamenCursoSerializerList
+
+    def get_queryset(self):
+        email = self.kwargs.get('estudiante_email')
+        estudiante = get_object_or_404(EstudianteUser, email=email)
+        matriculas_curso = MatriculaCurso.objects.filter(matcurestcod=estudiante)
+        return RegistroExamenCurso.objects.filter(regexacurmatcurcod__in=matriculas_curso)
 
 
 

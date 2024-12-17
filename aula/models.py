@@ -186,7 +186,6 @@ class Respuesta(models.Model):
     resexacod = models.ForeignKey(Examen, on_delete=models.PROTECT, verbose_name="Codigo Examen", db_column='ResExaCod')
     resprecod = models.ForeignKey(Pregunta, models.PROTECT, verbose_name="Codigo Pregunta", db_column='ResPreCod')
     resaltcod = models.ForeignKey(Alternativa, models.PROTECT, verbose_name="Codigo Alternativa", db_column='ResAltCod')
-    #resestregcod = models.ForeignKey(EstadoRegistro, models.DO_NOTHING, verbose_name="Codigo EstReg", db_column='AltEstRegCod')
     
     class Meta:
         db_table = 'respuesta'
@@ -224,6 +223,8 @@ class MatriculaPrograma(models.Model):
     matprofecini = models.DateField(verbose_name="Fecha de inicio", db_column='MatProFecIni', blank=True, null=True)
     matprofecfin = models.DateField(verbose_name="Fecha de finalización", db_column='MatProFecFin', blank=True, null=True)
     matproter = models.BooleanField(verbose_name="Programa terminado", db_column='MatProTer', blank=False, null=False, default=False)
+    matpropun = models.DecimalField(verbose_name="Puntuación", db_column='MatProPun', max_digits=5, decimal_places=2, default=0.00)
+    matpropor = models.DecimalField(verbose_name="Porcentaje de avance", db_column='MatProPor', max_digits=5, decimal_places=2, default=0.00)
     matproestcod = models.ForeignKey(EstudianteUser, models.PROTECT, verbose_name="Codigo Estudiante", db_column='MatProEstCod')
     matproprocod = models.ForeignKey(Programa, models.PROTECT, verbose_name="Codigo Programa", db_column='MatProProCod')
     matproestregcod = models.ForeignKey(EstadoRegistro, models.PROTECT, verbose_name="Codigo EstReg", db_column='MatProEstRegCod')
