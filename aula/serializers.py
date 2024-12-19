@@ -112,12 +112,6 @@ class MatriculaCursoSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class RegistroCursoSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = RegistroCurso
-        fields = '__all__'
-
-
 class RegistroExamenSerializer(serializers.ModelSerializer):
     class Meta:
         model = RegistroExamen

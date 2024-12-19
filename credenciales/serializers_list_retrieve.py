@@ -1,50 +1,62 @@
 from rest_framework import serializers
 from .models import *
 
+
 # Define los serializers para cada modelo
 
-class CredencialSerializerList(serializers.ModelSerializer):
+class CredencialProgramaMatriculadoSerializerList(serializers.ModelSerializer):
+    crepromatprocod = MatriculaPrograma
     class Meta:
-        model = Credencial
+        model = CredencialProgramaMatriculado
         fields = [
-            "crecod",
-            "creestcod",
             "creprocod",
+            "creprofecemi",
+            "creprofeccad",
+            "creprotipo",
+            "creprocarnet",
+            "crepromatprocod",
         ]
 
 
-class CertificadoSerializerList(serializers.ModelSerializer):
+class CredencialProgramaSerializerList(serializers.ModelSerializer):
+    creproestcod = EstudianteUser
+    creproprocod = Programa
     class Meta:
-        model = Certificado
+        model = CredencialPrograma
         fields = [
-            "cercod",
-            "cerfecemi",
-            "cerfeccad",
-            "cersrc",
-            "cercrecod",
-            "cerestregcod",
+            "creprocod",
+            "creprofecemi",
+            "creprofeccad",
+            "creprotipo",
+            "creprocarnet",
+            "creproestcod",
+            "creproprocod",
         ]
 
 
-class DiplomaSerializerList(serializers.ModelSerializer):
+class CertificadoCursoMatriculadoSerializerList(serializers.ModelSerializer):
+    cercurmatcurcod = MatriculaCurso
     class Meta:
-        model = Diploma
+        model = CertificadoCursoMatriculado
         fields = [
-            "dipcod",
-            "dipfecemi",
-            "dipfeccad",
-            "dipsrc",
-            "dipcrecod",
-            "dipestregcod",
+            "cercurcod",
+            "cercurfecemi",
+            "cercurfeccad",
+            "cercurcarnet",
+            "cercurmatcurcod",
         ]
 
 
-class CarnetSerializerList(serializers.ModelSerializer):
+class CertificadoCursoSerializerList(serializers.ModelSerializer):
+    cercurestcod = EstudianteUser
+    cercurcurcod = Curso
     class Meta:
-        model = Carnet
+        model = CertificadoCurso
         fields = [
-            "carcod",
-            "carsrc",
-            "carcrecod",
-            "carestregcod",
+            "cercurcod",
+            "cercurfecemi",
+            "cercurfeccad",
+            "cercurcarnet",
+            "cercurestcod",
+            "cercurcurcod",
         ]

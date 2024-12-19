@@ -303,11 +303,3 @@ class RegistroExamenListAPIView(ListAPIView):
     serializer_class = RegistroExamenSerializerList
 
 
-class RegistroCursoListAPIView(ListAPIView):
-    queryset = RegistroCurso.objects.all()
-    serializer_class = RegistroCursoSerializerList
-
-
-class NotaProgramaListAPIView(ListAPIView):
-    queryset = NotaPrograma.objects.all()
-    serializer_class = NotaProgramaSerializerList

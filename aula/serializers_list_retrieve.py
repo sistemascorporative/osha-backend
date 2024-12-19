@@ -217,21 +217,6 @@ class RegistroExamenCursoSerializerList(serializers.ModelSerializer):
         ]
 
 
-class RegistroCursoSerializerList(serializers.ModelSerializer):
-    regcurestcod = EstudianteUserSerializerList()
-    regcurcurcod = CursoSerializerList()
-    regcurestregcod = EstadoRegistroSerializerList()
-    class Meta:
-        model = RegistroCurso
-        fields = [
-            "regcurcod",
-            "regcurpun",
-            "regcurestcod",
-            "regcurcurcod",
-            "regcurestregcod"
-        ]
-
-
 class NotaProgramaSerializerList(serializers.ModelSerializer):
     notproestcod = EstudianteUserSerializerList()
     notproprocod = ProgramaSerializerList()

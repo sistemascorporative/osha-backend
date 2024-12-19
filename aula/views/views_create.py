@@ -69,11 +69,6 @@ class RegistroExamenCreateAPIView(CreateAPIView):
     serializer_class = RegistroExamenSerializer
 
 
-class RegistroCursoCreateAPIView(CreateAPIView):
-    queryset = RegistroCurso.objects.all()
-    serializer_class = RegistroCursoSerializer
-
-
 class NotaProgramaCreateAPIView(CreateAPIView):
     queryset = NotaPrograma.objects.all()
     serializer_class = NotaProgramaSerializer

@@ -1,60 +1,68 @@
 from django.db import models
-from aula.models import EstadoRegistro, EstudianteUser, Programa
+from aula.models import EstudianteUser, Programa, Curso, MatriculaPrograma, MatriculaCurso
 
 # Create your models here.
 
 
-
-class Credencial(models.Model):
-    crecod = models.AutoField(verbose_name="Codigo osha", db_column='CreCod', primary_key=True)
-    creestcod = models.OneToOneField(EstudianteUser, models.PROTECT, verbose_name="Código Estudiante", db_column='CreEstCod', blank=True, null=True)
-    creprocod = models.ForeignKey(Programa, models.PROTECT, verbose_name="Código del programa", db_column='CreProCod', blank=True, null=True)
-    
+class CredencialProgramaMatriculado(models.Model):
+    TIPO_CHOICES = [
+        ('CERT', 'Certificado'),
+        ('DIPLO', 'Diploma')
+    ]
+    creprocod = models.AutoField(verbose_name="Código", db_column='CreProCod', primary_key=True)
+    creprofecemi = models.DateField(verbose_name="Fecha de emisión", db_column='CreProFecEmi', blank=True, null=True)
+    creprofeccad = models.DateField(verbose_name="Fecha de caducidad", db_column='CreProFecCad', blank=True, null=True)
+    creprotipo = models.CharField(verbose_name="Tipo credencial", db_column='CreProTipo', blank=False, null=False, max_length=20, choices=TIPO_CHOICES)
+    creprocarnet = models.BooleanField(verbose_name="Con carnet", db_column='CreProCarnet', blank=False, null=False, default=True)
+    crepromatprocod = models.ForeignKey(MatriculaPrograma, models.PROTECT, verbose_name="Código Matrícula Programa", db_column='CreProMatProCod', blank=True, null=True)
     class Meta:
-        db_table = 'credencial'
+        db_table = 'Credencial_programa_matriculado'
         managed = True
-        verbose_name = 'Credencial'
-        verbose_name_plural = 'Credenciales'
+        verbose_name = 'Credencial para Programa Matriculado'
+        verbose_name_plural = 'Credenciales para Programa Matriculado'
 
 
-class Certificado(models.Model):
-    cercod = models.AutoField(verbose_name="Codigo", db_column='CerCod', primary_key=True)
-    cerfecemi = models.DateField(verbose_name="Fecha de emisión", db_column='CerFecEmi', blank=True, null=True)
-    cerfeccad = models.DateField(verbose_name="Fecha de caducidad", db_column='CerFecCad', blank=True, null=True)
-    cersrc = models.FileField(verbose_name="Archivo", db_column="CerSrc", upload_to='credenciales/certificados/', blank=True, null=True)
-    cercrecod = models.ForeignKey(Credencial, models.PROTECT, verbose_name="Código de credencial", db_column='CerCreCod', blank=True, null=True)
-    cerestregcod = models.ForeignKey(EstadoRegistro, models.PROTECT, verbose_name="Codigo EstReg", db_column='CerEstRegCod', blank=True, null=True)
-    
+class CredencialPrograma(models.Model):
+    TIPO_CHOICES = [
+        ('CERT', 'Certificado'),
+        ('DIPLO', 'Diploma')
+    ]
+    creprocod = models.AutoField(verbose_name="Código", db_column='CreProCod', primary_key=True)
+    creprofecemi = models.DateField(verbose_name="Fecha de emisión", db_column='CreProFecEmi', blank=True, null=True)
+    creprofeccad = models.DateField(verbose_name="Fecha de caducidad", db_column='CreProFecCad', blank=True, null=True)
+    creprotipo = models.CharField(verbose_name="Tipo credencial", db_column='CreProTipo', blank=False, null=False, max_length=20, choices=TIPO_CHOICES)
+    creprocarnet = models.BooleanField(verbose_name="Con carnet", db_column='CreProCarnet', blank=False, null=False, default=True)
+    creproestcod = models.ForeignKey(EstudianteUser, models.PROTECT, verbose_name="Código Estudiante", db_column='CreProEstCod', blank=True, null=True)
+    creproprocod = models.ForeignKey(Programa, models.PROTECT, verbose_name="Código Programa", db_column='CreProProCod', blank=True, null=True)
     class Meta:
-        db_table = 'certificado'
+        db_table = 'Credencial_programa'
         managed = True
-        verbose_name = 'Certificado'
-        verbose_name_plural = 'Certificados'
+        verbose_name = 'Credencial para Programa'
+        verbose_name_plural = 'Credenciales para Programa'
 
 
-class Diploma(models.Model):
-    dipcod = models.AutoField(verbose_name="", db_column='DipCod', primary_key=True)
-    dipfecemi = models.DateField(verbose_name="Fecha de emisión", db_column='CerDipEmi', blank=True, null=True)
-    dipfeccad = models.DateField(verbose_name="Fecha de caducidad", db_column='CerDipCad', blank=True, null=True)
-    dipsrc = models.FileField(verbose_name="Archivo", db_column="DipSrc", upload_to='credenciales/diplomas/', blank=True, null=True)
-    dipcrecod = models.ForeignKey(Credencial, models.PROTECT, verbose_name="Código de credencial", db_column='DipCreCod', blank=True, null=True)
-    dipestregcod = models.ForeignKey(EstadoRegistro, models.PROTECT, verbose_name="Codigo EstReg", db_column='DipEstRegCod', blank=True, null=True)
-    
+class CertificadoCursoMatriculado(models.Model):
+    cercurcod = models.AutoField(verbose_name="Código", db_column='CerCurCod', primary_key=True)
+    cercurfecemi = models.DateField(verbose_name="Fecha de emisión", db_column='CerCurFecEmi', blank=True, null=True)
+    cercurfeccad = models.DateField(verbose_name="Fecha de caducidad", db_column='CerCurFecCad', blank=True, null=True)
+    cercurcarnet = models.BooleanField(verbose_name="Con carnet", db_column='CerCurCarnet', blank=False, null=False, default=False)
+    cercurmatcurcod = models.ForeignKey(MatriculaCurso, models.PROTECT, verbose_name="Código Matrícula Curso", db_column='CerCurMatCurCod', blank=True, null=True)
     class Meta:
-        db_table = 'diploma'
+        db_table = 'certificado_curso_matriculado'
         managed = True
-        verbose_name = 'Diploma'
-        verbose_name_plural = 'Diplomas'
+        verbose_name = 'Certificado para Curso Matriculado'
+        verbose_name_plural = 'Certificados para Curso Matriculado'
 
 
-class Carnet(models.Model):
-    carcod = models.AutoField(verbose_name="", db_column='CarCod', primary_key=True)
-    carsrc = models.FileField(verbose_name="Archivo", db_column="CarSrc", upload_to='credenciales/carnets/', blank=True, null=True)
-    carcrecod = models.ForeignKey(Credencial, models.PROTECT, verbose_name="Código de credencial", db_column='CarCreCod', blank=True, null=True)
-    carestregcod = models.ForeignKey(EstadoRegistro, models.PROTECT, verbose_name="Codigo EstReg")
-    
+class CertificadoCurso(models.Model):
+    cercurcod = models.AutoField(verbose_name="Código", db_column='CerCurCod', primary_key=True)
+    cercurfecemi = models.DateField(verbose_name="Fecha de emisión", db_column='CerCurFecEmi', blank=True, null=True)
+    cercurfeccad = models.DateField(verbose_name="Fecha de caducidad", db_column='CerCurFecCad', blank=True, null=True)
+    cercurcarnet = models.BooleanField(verbose_name="Con carnet", db_column='CerCurCarnet', blank=False, null=False, default=False)
+    cercurestcod = models.ForeignKey(EstudianteUser, models.PROTECT, verbose_name="Código Estudiante", db_column='CerCurEstCod', blank=True, null=True)
+    cercurcurcod = models.ForeignKey(Curso, models.PROTECT, verbose_name="Código Programa", db_column='CerCurCurCod', blank=True, null=True)
     class Meta:
-        db_table = 'carnet'
+        db_table = 'certificado_curso'
         managed = True
-        verbose_name = 'Carnet'
-        verbose_name_plural = 'Carnets'
+        verbose_name = 'Certificado para Curso'
+        verbose_name_plural = 'Certificados para Curso'

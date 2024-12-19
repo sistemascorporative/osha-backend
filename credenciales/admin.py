@@ -1,50 +1,50 @@
 from django.contrib import admin
 from .models import *
 
-# Register your models here.
 
-# Registro del modelo Credencial
-@admin.register(Credencial)
-class CredencialAdmin(admin.ModelAdmin):
+
+@admin.register(CredencialProgramaMatriculado)
+class CredencialProgramaMatriculaAdmin(admin.ModelAdmin):
     list_display = (
-        'crecod',
-        'creestcod',
-        'creprocod',
+        'crepromatprocod',
+        'creprofecemi',
+        'creprofeccad',
+        'creprotipo',
+        'creprocarnet',
     )
 
 
-# Registro del modelo Certificado
-@admin.register(Certificado)
-class CertificadoAdmin(admin.ModelAdmin):
+@admin.register(CredencialPrograma)
+class CredencialProgramaAdmin(admin.ModelAdmin):
     list_display = (
-        'cercod',
-        'cerfecemi',
-        'cerfeccad',
-        'cersrc',
-        'cercrecod',
-        'cerestregcod',
+        'creproestcod',
+        'creproprocod',
+        'creprofecemi',
+        'creprofeccad',
+        'creprotipo',
+        'creprocarnet',
     )
 
 
-# Registro del modelo Diploma
-@admin.register(Diploma)
-class DiplomaAdmin(admin.ModelAdmin):
+
+# Registro del modelo CertificadoCursoMatricula
+@admin.register(CertificadoCursoMatriculado)
+class CertificadoCursoMatriculaAdmin(admin.ModelAdmin):
     list_display = (
-        'dipcod',
-        'dipfecemi',
-        'dipfeccad',
-        'dipsrc',
-        'dipcrecod',
-        'dipestregcod',
+        'cercurmatcurcod',
+        'cercurfecemi',
+        'cercurfeccad',
+        'cercurcarnet',
     )
 
 
-# Registro del modelo Carnet
-@admin.register(Carnet)
-class CarnetAdmin(admin.ModelAdmin):
+# Registro del modelo CertificadoCurso
+@admin.register(CertificadoCurso)
+class CertificadoCursoAdmin(admin.ModelAdmin):
     list_display = (
-        'carcod',
-        'carsrc',
-        'carcrecod',
-        'carestregcod',
+        'cercurestcod',
+        'cercurcurcod',
+        'cercurfecemi',
+        'cercurfeccad',
+        'cercurcarnet',
     )

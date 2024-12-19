@@ -3,10 +3,14 @@ from django.dispatch import receiver
 from .models import *
 import logging
 
+
 # Configuración del logger
 logger = logging.getLogger(__name__)
 
 
+"""
+Actualizar numero de cursos en la tabla Programa
+"""
 @receiver(m2m_changed, sender=Programa.cursos.through)
 def update_curso_count(sender, instance, action, **kwargs):
     if action in ["post_add", "post_remove", "post_clear"]:
@@ -14,6 +18,9 @@ def update_curso_count(sender, instance, action, **kwargs):
         instance.save()
 
 
+"""
+Actualiza el número de modulos en la tabla Curso crea, actualiza o elimina un modulo
+"""
 @receiver(post_save, sender=Modulo)
 @receiver(post_delete, sender=Modulo)
 def update_modulo_count(sender, instance, **kwargs):
@@ -22,6 +29,9 @@ def update_modulo_count(sender, instance, **kwargs):
     curso.save()
 
 
+"""
+Actualiza el número de preguntas de la tabla Exmen cuando crea, actualiza o elimina una pregunta
+"""
 @receiver(post_save, sender=Pregunta)
 @receiver(post_delete, sender=Pregunta)
 def update_pregunta_count(sender, instance, **kwargs):
@@ -54,6 +64,7 @@ def delete_nota_programa(sender, instance, **kwargs):
         pass
 
 
+
 # Signal para crear registros de examen al crear una matrícula
 @receiver(post_save, sender=Matricula)
 def create_registro_examen(sender, instance, created, **kwargs):
@@ -78,6 +89,7 @@ def create_registro_examen(sender, instance, created, **kwargs):
             except Examen.DoesNotExist:
                 # Manejar el caso donde no existe un examen para el curso
                 pass
+
 
 
 # Signal para eliminar registros de examen al eliminar una matrícula

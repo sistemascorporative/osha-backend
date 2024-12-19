@@ -1,7 +1,5 @@
 from django.db import models
-from django.db.models.signals import post_save, post_delete
-from django.dispatch import receiver
-from django.contrib.auth.models import AbstractUser, AbstractBaseUser, PermissionsMixin, BaseUserManager
+from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
 
 
 # Create your models here.
@@ -316,25 +314,6 @@ class RegistroExamenCurso(models.Model):
 
     def __str__(self):
         return f"{self.regexacurmatcurcod.matcurestcod.estusernom} - {self.regexacurexacod} - {self.regexacurestexacod.estexanom}"
-
-
-class RegistroCurso(models.Model):
-    regcurcod = models.AutoField(verbose_name="Codigo", db_column='RegCurCod', primary_key=True)
-    regcurest = models.CharField(verbose_name="Estado", db_column='RegCurEst', max_length=50)
-    regcurpro = models.DecimalField(verbose_name="Progeso", db_column='RegCurPro', max_digits=5, decimal_places=2)
-    regcurprocod = models.ForeignKey(Programa, models.PROTECT, verbose_name="Codiogo Programa", db_column='RegCurProCod')
-    regcurestcod = models.ForeignKey(EstudianteUser, models.PROTECT, verbose_name="Codigo Estudiante", db_column='RegCurEstCod')
-    regcurcurcod = models.ForeignKey(Curso, models.PROTECT, verbose_name="Codigo Curso", db_column='RegCurCurCod')
-    
-    class Meta:
-        db_table = 'registro_curso'
-        managed = True
-        verbose_name = 'RegistroCurso'
-        verbose_name_plural = 'RegistroCursos'
-        unique_together = ('regcurprocod','regcurestcod','regcurcurcod')
-    
-    def __str__(self):
-        return self.regcurest
 
 
 class NotaPrograma(models.Model):

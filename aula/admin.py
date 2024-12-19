@@ -181,10 +181,6 @@ class RespuestaAdmin(admin.ModelAdmin):
 
 
 # Registro del modelo Pregunta
-admin.site.register(RegistroCurso)
-
-
-# Registro del modelo Pregunta
 @admin.register(RegistroExamen)
 class RegistroExamenAdmin(admin.ModelAdmin):
     list_display = (
@@ -221,14 +217,4 @@ class RegistroExamenCursoAdmin(admin.ModelAdmin):
         'regexacurexacod',
     )
 
-
-# Registro del modelo Pregunta
-@admin.register(NotaPrograma)
-class NotaProgramaAdmin(admin.ModelAdmin):
-    list_display = (
-        'notprocod',
-        'notpropun',
-        'notproestcod',
-        'notproprocod',
-    )
 

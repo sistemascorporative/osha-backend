@@ -1,27 +1,29 @@
 from rest_framework import serializers
 from .models import *
-from datetime import datetime
 
 
-class CredencialSerializer(serializers.ModelSerializer):
+# Define los serializers para cada modelo
+
+class CredencialProgramaMatriculadoSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Credencial
+        model = CredencialProgramaMatriculado
         fields = '__all__'
 
 
-class CertificadoSerializer(serializers.ModelSerializer):
+class CredencialProgramaSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Certificado
+        model = CredencialPrograma
         fields = '__all__'
 
 
-class DiplomaSerializer(serializers.ModelSerializer):
+class CertificadoCursoMatriculadoSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Diploma
+        model = CertificadoCursoMatriculado
         fields = '__all__'
 
 
-class CarnetSerializer(serializers.ModelSerializer):
+class CertificadoCursoSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Carnet
+        model = CertificadoCurso
         fields = '__all__'
+

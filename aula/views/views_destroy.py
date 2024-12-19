@@ -59,11 +59,6 @@ class RegistroExamenDestroyAPIView(RetrieveDestroyAPIView):
     serializer_class = RegistroExamenSerializer
 
 
-class RegistroCursoDestroyAPIView(RetrieveDestroyAPIView):
-    queryset = RegistroCurso.objects.all()
-    serializer_class = RegistroCursoSerializer
-
-
 class NotaProgramaDestroyAPIView(RetrieveDestroyAPIView):
     queryset = NotaPrograma.objects.all()
     serializer_class = NotaProgramaSerializer
