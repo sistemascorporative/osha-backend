@@ -1,11 +1,12 @@
 from rest_framework import serializers
 from .models import *
+from aula.serializers_list_retrieve import *
 
 
 # Define los serializers para cada modelo
 
 class CredencialProgramaMatriculadoSerializerList(serializers.ModelSerializer):
-    crepromatprocod = MatriculaPrograma
+    crepromatprocod = MatriculaProgramaSerializerList()
     class Meta:
         model = CredencialProgramaMatriculado
         fields = [
@@ -19,8 +20,8 @@ class CredencialProgramaMatriculadoSerializerList(serializers.ModelSerializer):
 
 
 class CredencialProgramaSerializerList(serializers.ModelSerializer):
-    creproestcod = EstudianteUser
-    creproprocod = Programa
+    creproestcod = EstudianteUserSerializerList()
+    creproprocod = ProgramaSerializerList()
     class Meta:
         model = CredencialPrograma
         fields = [
@@ -35,7 +36,7 @@ class CredencialProgramaSerializerList(serializers.ModelSerializer):
 
 
 class CertificadoCursoMatriculadoSerializerList(serializers.ModelSerializer):
-    cercurmatcurcod = MatriculaCurso
+    cercurmatcurcod = MatriculaCursoSerializerList()
     class Meta:
         model = CertificadoCursoMatriculado
         fields = [
@@ -48,8 +49,8 @@ class CertificadoCursoMatriculadoSerializerList(serializers.ModelSerializer):
 
 
 class CertificadoCursoSerializerList(serializers.ModelSerializer):
-    cercurestcod = EstudianteUser
-    cercurcurcod = Curso
+    cercurestcod = EstudianteUserSerializerList()
+    cercurcurcod = CursoSerializerList()
     class Meta:
         model = CertificadoCurso
         fields = [

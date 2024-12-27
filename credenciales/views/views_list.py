@@ -19,7 +19,7 @@ class CredencialProgramaMatriculadoByEmailListView(ListAPIView):
     def get_queryset(self):
         email = self.kwargs.get('estudiante_email')
         estudiante = get_object_or_404(EstudianteUser, email=email)
-        return CredencialProgramaMatriculado.objects.filter(crepromatprocod__estudiante=estudiante)
+        return CredencialProgramaMatriculado.objects.filter(crepromatprocod__matproestcod=estudiante)
 
 
 """
@@ -43,8 +43,7 @@ class CertificadoCursoMatriculadoByEmailListView(ListAPIView):
     def get_queryset(self):
         email = self.kwargs.get('estudiante_email')
         estudiante = get_object_or_404(EstudianteUser, email=email)
-        matriculas_curso = MatriculaCurso.objects.filter(estudiante=estudiante)
-        return CertificadoCursoMatriculado.objects.filter(cercurmatcurcod__in=matriculas_curso)
+        return CertificadoCursoMatriculado.objects.filter(cercurmatcurcod__matcurestcod=estudiante)
 
 
 """

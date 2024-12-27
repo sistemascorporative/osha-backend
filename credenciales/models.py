@@ -1,6 +1,7 @@
 from django.db import models
 from aula.models import EstudianteUser, Programa, Curso, MatriculaPrograma, MatriculaCurso
 
+
 # Create your models here.
 
 
