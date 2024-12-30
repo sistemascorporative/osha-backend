@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
-
+from django.core.exceptions import ValidationError
 
 # Create your models here.
 
@@ -95,6 +95,8 @@ class Curso(models.Model):
 class Programa(models.Model):
     procod = models.IntegerField(verbose_name="Código", db_column='ProCod', primary_key=True)
     pronom = models.CharField(verbose_name="Nombre", db_column='ProNom', max_length=100, blank=False)
+    pronomeng = models.CharField(verbose_name="Nombre en inglés", db_column='ProNomEng', max_length=100, blank=True, default='')
+    pronomdip = models.CharField(verbose_name="Nombre de diploma", db_column='ProNomDip', max_length=100, blank=True, default='')
     procodosh = models.CharField(verbose_name="Codigo osha", db_column='ProCodOsh', max_length=30)
     pronumhor = models.IntegerField( verbose_name="Número de horas", db_column='ProNumHor', default=0)
     pronumcur = models.IntegerField( verbose_name="Número de cursos", db_column='ProNumCur', default=0)
@@ -176,46 +178,6 @@ class Alternativa(models.Model):
         return self.alttex
 
 
-class Respuesta(models.Model):
-    rescod = models.AutoField(verbose_name="Codigo", db_column='ResCod', primary_key=True)
-    respun = models.DecimalField(verbose_name="Puntuacion", db_column='ResPun', max_digits=5, decimal_places=2)
-    resestcod = models.ForeignKey(EstudianteUser, models.PROTECT, verbose_name="Codigo Estudiante", db_column='ResEstCod')
-    resprocod = models.ForeignKey(Programa, models.PROTECT, verbose_name="Codigo Programa", db_column='ResProCod')
-    resexacod = models.ForeignKey(Examen, on_delete=models.PROTECT, verbose_name="Codigo Examen", db_column='ResExaCod')
-    resprecod = models.ForeignKey(Pregunta, models.PROTECT, verbose_name="Codigo Pregunta", db_column='ResPreCod')
-    resaltcod = models.ForeignKey(Alternativa, models.PROTECT, verbose_name="Codigo Alternativa", db_column='ResAltCod')
-    
-    class Meta:
-        db_table = 'respuesta'
-        managed = True
-        verbose_name = 'Respuesta'
-        verbose_name_plural = 'Respuestas'
-        unique_together = ('resestcod','resprocod', 'resexacod', 'resprecod')
-    
-    def __str__(self):
-        return f"{self.rescod}"
-
-
-class Matricula(models.Model):
-    matcod = models.AutoField(verbose_name="Codigo", db_column='MatCod', primary_key=True)
-    matfecini = models.DateField(verbose_name="Fecha de inicio", db_column='MatFecIni', blank=True, null=True)
-    matfecfin = models.DateField(verbose_name="Fecha de finalización", db_column='MatFecFin', blank=True, null=True)
-    matter = models.BooleanField(verbose_name="Programa terminado", db_column='MatTer', blank=False, null=False, default=False)
-    matestcod = models.ForeignKey(EstudianteUser, models.PROTECT, verbose_name="Codigo Estudiante", db_column='MatEstCod')
-    matprocod = models.ForeignKey(Programa, models.PROTECT, verbose_name="Codigo Programa", db_column='MatProCod')
-    matestregcod = models.ForeignKey(EstadoRegistro, models.PROTECT, verbose_name="Codigo EstReg", db_column='MatEstRegCod')
-    
-    class Meta:
-        db_table = 'matricula'
-        managed = True
-        verbose_name = 'Matricula'
-        verbose_name_plural = 'Matriculas'
-        unique_together = ('matestcod','matprocod')
-    
-    def __str__(self):
-        return f"{self.matestcod.estusernom} - {self.matprocod.pronom}"
-
-
 class MatriculaPrograma(models.Model):
     matprocod = models.AutoField(verbose_name="Codigo", db_column='MatProCod', primary_key=True)
     matprofecini = models.DateField(verbose_name="Fecha de inicio", db_column='MatProFecIni', blank=True, null=True)
@@ -256,6 +218,58 @@ class MatriculaCurso(models.Model):
     
     def __str__(self):
         return f"{self.matcurestcod.estusernom} - {self.matcurcurcod.curnom}"
+
+
+#class Respuesta(models.Model):
+#    rescod = models.AutoField(verbose_name="Codigo", db_column='ResCod', primary_key=True)
+#    respun = models.DecimalField(verbose_name="Puntuacion", db_column='ResPun', max_digits=5, decimal_places=2)
+#    resestcod = models.ForeignKey(EstudianteUser, models.PROTECT, verbose_name="Codigo Estudiante", db_column='ResEstCod')
+#    resprocod = models.ForeignKey(Programa, models.PROTECT, verbose_name="Codigo Programa", db_column='ResProCod')
+#    resexacod = models.ForeignKey(Examen, on_delete=models.PROTECT, verbose_name="Codigo Examen", db_column='ResExaCod')
+#    resprecod = models.ForeignKey(Pregunta, models.PROTECT, verbose_name="Codigo Pregunta", db_column='ResPreCod')
+#    resaltcod = models.ForeignKey(Alternativa, models.PROTECT, verbose_name="Codigo Alternativa", db_column='ResAltCod')
+#    
+#    class Meta:
+#        db_table = 'respuesta'
+#        managed = True
+#        verbose_name = 'Respuesta'
+#        verbose_name_plural = 'Respuestas'
+#        unique_together = ('resestcod','resprocod', 'resexacod', 'resprecod')
+#    
+#    def __str__(self):
+#        return f"{self.rescod}"
+
+
+
+class Respuesta(models.Model):
+    rescod = models.AutoField(verbose_name="Código", db_column='ResCod', primary_key=True)
+    resfec = models.DateTimeField( verbose_name="Fecha de Respuesta", db_column='ResFec', auto_now_add=True)
+    resexacod = models.ForeignKey(Examen, on_delete=models.PROTECT, verbose_name="Codigo Examen", db_column='ResExaCod')
+    resprecod = models.ForeignKey(Pregunta, models.PROTECT, verbose_name="Codigo Pregunta", db_column='ResPreCod')
+    resaltcod = models.ForeignKey(Alternativa, models.PROTECT, verbose_name="Codigo Alternativa", db_column='ResAltCod')
+    resmatcurcod = models.ForeignKey('MatriculaCurso', models.PROTECT, verbose_name="Matrícula del Curso", db_column='ResMatCur', blank=True, null=True)
+    resmatprocod = models.ForeignKey('MatriculaPrograma', models.PROTECT, verbose_name="Matrícula del Programa", db_column='ResMatPro', blank=True, null=True)
+
+    class Meta:
+        db_table = 'respuesta'
+        managed = True
+        verbose_name = 'Respuesta'
+        verbose_name_plural = 'Respuestas'
+
+    def __str__(self):
+        return f"Respuesta {self.rescod} - Pregunta {self.resprecod}"
+    
+    def clean(self):
+        super().clean()
+        # Validación: Solo uno de los dos campos debe estar lleno
+        if self.resmatcurcod and self.resmatprocod:
+            raise ValidationError(
+                "La respuesta no puede estar asociada a una matrícula de curso y a una matrícula de programa al mismo tiempo."
+            )
+        if not self.resmatcurcod and not self.resmatprocod:
+            raise ValidationError(
+                "La respuesta debe estar asociada a una matrícula de curso o a una matrícula de programa."
+            )
 
 
 class RegistroExamen(models.Model):
@@ -314,21 +328,3 @@ class RegistroExamenCurso(models.Model):
 
     def __str__(self):
         return f"{self.regexacurmatcurcod.matcurestcod.estusernom} - {self.regexacurexacod} - {self.regexacurestexacod.estexanom}"
-
-
-class NotaPrograma(models.Model):
-    notprocod = models.AutoField(verbose_name="Código", db_column='NotProCod', primary_key=True)
-    notpropun = models.DecimalField(verbose_name="Puntuación", db_column='NotProPun', max_digits=5, decimal_places=2)
-    notpropor = models.DecimalField(verbose_name="Porcentaje de avance", db_column='NotProPor', max_digits=5, decimal_places=2, default=0.00)
-    notproestcod = models.ForeignKey(EstudianteUser, models.PROTECT, verbose_name="Codio Estudiante", db_column='NotProEstCod')
-    notproprocod = models.ForeignKey(Programa, models.PROTECT, verbose_name="Codigo Programa", db_column='NotProProCod')
-    
-    class Meta:
-        db_table = 'nota_programa'
-        managed = True
-        verbose_name = 'NotaPrograma'
-        verbose_name_plural = 'NotaProgramas'
-        unique_together = ('notproestcod','notproprocod')
-    
-    def __str__(self):
-        return f"{self.notprocod} - {self.notproestcod}"

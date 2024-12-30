@@ -43,6 +43,7 @@ class ProgramaSerializerList(serializers.ModelSerializer):
         fields = [
             "procod",
             "pronom",
+            "pronomeng",
             "pronumhor",
             "pronumcur",
             "procodosh",
@@ -133,39 +134,27 @@ class RespuestaSerializerList(serializers.ModelSerializer):
         ]
 
 
-class MatriculaSerializerList(serializers.ModelSerializer):
-    matestcod = EstudianteUserSerializerList()
-    matprocod = ProgramaSerializerList()
-    matestregcod = EstadoRegistroSerializerList()    
-    class Meta:
-        model = Matricula
-        fields = [
-            "matcod",
-            "matfecini",
-            "matfecfin",
-            "matestcod",
-            "matprocod",
-            "matestregcod",
-        ]
-
-
 class MatriculaProgramaSerializerList(serializers.ModelSerializer):
     matproprocod = ProgramaSerializerList()
+    matproestcod = EstudianteUserSerializerList()
     class Meta:
         model = MatriculaPrograma
         fields = [
             "matprocod",
             "matproprocod",
+            "matproestcod",
         ]
 
 
 class MatriculaCursoSerializerList(serializers.ModelSerializer):
     matcurcurcod = CursoSerializerList()
+    matcurestcod = EstudianteUserSerializerList()
     class Meta:
         model = MatriculaCurso
         fields = [
             "matcurcod",
             "matcurcurcod",
+            "matcurestcod",
         ]
 
 
@@ -216,18 +205,6 @@ class RegistroExamenCursoSerializerList(serializers.ModelSerializer):
             "regexacurexacod"
         ]
 
-
-class NotaProgramaSerializerList(serializers.ModelSerializer):
-    notproestcod = EstudianteUserSerializerList()
-    notproprocod = ProgramaSerializerList()
-    class Meta:
-        model = NotaPrograma
-        fields = [
-            "notprocod",
-            "notpropun",
-            "notproestcod",
-            "notproprocod"
-        ]
 
 class XAlternativaSerializerList(serializers.ModelSerializer):
     class Meta:

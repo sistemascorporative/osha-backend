@@ -9,7 +9,8 @@ class CredencialProgramaMatriculaAdmin(admin.ModelAdmin):
         'crepromatprocod',
         'creprofecemi',
         'creprofeccad',
-        'creprotipo',
+        'creprocer',
+        'creprodip',
         'creprocarnet',
     )
 
@@ -21,7 +22,8 @@ class CredencialProgramaAdmin(admin.ModelAdmin):
         'creproprocod',
         'creprofecemi',
         'creprofeccad',
-        'creprotipo',
+        'creprocer',
+        'creprodip',
         'creprocarnet',
     )
 

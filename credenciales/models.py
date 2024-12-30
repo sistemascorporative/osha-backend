@@ -6,14 +6,11 @@ from aula.models import EstudianteUser, Programa, Curso, MatriculaPrograma, Matr
 
 
 class CredencialProgramaMatriculado(models.Model):
-    TIPO_CHOICES = [
-        ('CERT', 'Certificado'),
-        ('DIPLO', 'Diploma')
-    ]
     creprocod = models.AutoField(verbose_name="Código", db_column='CreProCod', primary_key=True)
     creprofecemi = models.DateField(verbose_name="Fecha de emisión", db_column='CreProFecEmi', blank=True, null=True)
     creprofeccad = models.DateField(verbose_name="Fecha de caducidad", db_column='CreProFecCad', blank=True, null=True)
-    creprotipo = models.CharField(verbose_name="Tipo credencial", db_column='CreProTipo', blank=False, null=False, max_length=20, choices=TIPO_CHOICES)
+    creprocer = models.BooleanField(verbose_name="Certificado", db_column='CreProCer', blank=False, null=False, default=True)
+    creprodip = models.BooleanField(verbose_name="Con diploma", db_column='CreProDip', blank=False, null=False, default=True)
     creprocarnet = models.BooleanField(verbose_name="Con carnet", db_column='CreProCarnet', blank=False, null=False, default=True)
     crepromatprocod = models.ForeignKey(MatriculaPrograma, models.PROTECT, verbose_name="Código Matrícula Programa", db_column='CreProMatProCod', blank=True, null=True)
     class Meta:
@@ -24,14 +21,11 @@ class CredencialProgramaMatriculado(models.Model):
 
 
 class CredencialPrograma(models.Model):
-    TIPO_CHOICES = [
-        ('CERT', 'Certificado'),
-        ('DIPLO', 'Diploma')
-    ]
     creprocod = models.AutoField(verbose_name="Código", db_column='CreProCod', primary_key=True)
     creprofecemi = models.DateField(verbose_name="Fecha de emisión", db_column='CreProFecEmi', blank=True, null=True)
     creprofeccad = models.DateField(verbose_name="Fecha de caducidad", db_column='CreProFecCad', blank=True, null=True)
-    creprotipo = models.CharField(verbose_name="Tipo credencial", db_column='CreProTipo', blank=False, null=False, max_length=20, choices=TIPO_CHOICES)
+    creprocer = models.BooleanField(verbose_name="Certificado", db_column='CreProCer', blank=False, null=False, default=True)
+    creprodip = models.BooleanField(verbose_name="Con diploma", db_column='CreProDip', blank=False, null=False, default=True)
     creprocarnet = models.BooleanField(verbose_name="Con carnet", db_column='CreProCarnet', blank=False, null=False, default=True)
     creproestcod = models.ForeignKey(EstudianteUser, models.PROTECT, verbose_name="Código Estudiante", db_column='CreProEstCod', blank=True, null=True)
     creproprocod = models.ForeignKey(Programa, models.PROTECT, verbose_name="Código Programa", db_column='CreProProCod', blank=True, null=True)

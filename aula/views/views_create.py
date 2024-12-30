@@ -1,6 +1,3 @@
-from rest_framework.exceptions import ValidationError
-from rest_framework.response import Response
-from rest_framework import status
 from rest_framework.generics import (
     CreateAPIView
 )
@@ -67,8 +64,3 @@ class RespuestaCreateAPIView(CreateAPIView):
 class RegistroExamenCreateAPIView(CreateAPIView):
     queryset = RegistroExamen.objects.all()
     serializer_class = RegistroExamenSerializer
-
-
-class NotaProgramaCreateAPIView(CreateAPIView):
-    queryset = NotaPrograma.objects.all()
-    serializer_class = NotaProgramaSerializer

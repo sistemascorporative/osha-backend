@@ -37,21 +37,6 @@ class EstudianteAdmin(admin.ModelAdmin):
     search_fields = ('estusernom', 'estuserape','email','estuserdocide',)
 
 
-# Registro del modelo Matricula
-@admin.register(Matricula)
-class MatriculaAdmin(admin.ModelAdmin):
-    list_display = (
-        'matcod',
-        'matfecini',
-        'matfecfin',
-        'matestcod',
-        'matprocod',
-        'matestregcod'
-    )
-    search_fields = ('matcod',)
-    list_filter = ('matprocod',)
-
-
 # Registro del modelo Matricula Programa
 @admin.register(MatriculaPrograma)
 class MatriculaProgramaAdmin(admin.ModelAdmin):
@@ -171,9 +156,9 @@ class AlternativaAdmin(admin.ModelAdmin):
 class RespuestaAdmin(admin.ModelAdmin):
     list_display = (
         'rescod',
-        'respun',
-        'resestcod',
-        'resprocod',
+        'resfec',
+        'resexacod',
+        'resprecod',
         'resexacod',
         'resprecod',
         'resaltcod',

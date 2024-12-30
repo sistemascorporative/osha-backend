@@ -2,8 +2,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from django.db.models import Avg
-from ..serializers_list_retrieve import RespuestaSerializerList
-from ..models import Examen, Programa, EstudianteUser, Pregunta, Alternativa, Respuesta, RegistroExamen, EstadoExamen, NotaPrograma
+from ..models import Examen, Programa, EstudianteUser, Pregunta, Alternativa, Respuesta, RegistroExamen, EstadoExamen
 
 
 class GuardarRespuestasAPIView(APIView):
@@ -114,9 +113,9 @@ class GuardarRespuestasAPIView(APIView):
         promedio_puntuacion = registros_examen.aggregate(promedio=Avg('regexapun'))['promedio']
         
         # Actualizar el campo notpropun en el modelo NotaPrograma
-        nota_programa = NotaPrograma.objects.get(notproestcod=estudiante, notproprocod=programa)
-        nota_programa.notpropun = promedio_puntuacion
-        nota_programa.save()
+        #nota_programa = NotaPrograma.objects.get(notproestcod=estudiante, notproprocod=programa)
+        #nota_programa.notpropun = promedio_puntuacion
+        #nota_programa.save()
         
         return Response({"message": "Respuestas guardadas o actualizadas con éxito."}, status=status.HTTP_200_OK)
 

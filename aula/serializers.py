@@ -94,12 +94,6 @@ class RespuestaSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class MatriculaSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Matricula
-        fields = '__all__'
-
-
 class MatriculaProgramaSerializer(serializers.ModelSerializer):
     class Meta:
         model = MatriculaPrograma
@@ -127,10 +121,4 @@ class RegistroExamenProgramaSerializer(serializers.ModelSerializer):
 class RegistroExamenCursoSerializer(serializers.ModelSerializer):
     class Meta:
         model = RegistroExamenCurso
-        fields = '__all__'
-
-
-class NotaProgramaSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = NotaPrograma
         fields = '__all__'

@@ -218,31 +218,6 @@ class ExamenesPorProgramaListAPIView(ListAPIView):
         return Response(serializer.data)
 
 
-# Devuelve todas las notas promedio de los programas por X estudiante
-class NotaProgramaPorEstudianteListAPIView(ListAPIView):
-    serializer_class = NotaProgramaSerializerList
-    
-    def get_queryset(self):
-        estudiante_email = self.kwargs.get('estudiante_email')
-        if estudiante_email is not None:
-            try:
-                estudiante = EstudianteUser.objects.get(email=estudiante_email)
-                notasDeProgramas = NotaPrograma.objects.filter(notproestcod=estudiante)
-                return notasDeProgramas
-            except EstudianteUser.DoesNotExist:
-                return NotaPrograma.objects.none()
-        else:
-            return NotaPrograma.objects.none()
-    
-    def list(self, request, *args, **kwargs):
-        queryset = self.get_queryset()
-        if not queryset:
-            return Response({"detail": "No se encontraron Notas de programas para este estudiante."}, status=status.HTTP_404_NOT_FOUND)
-        serializer = self.get_serializer(queryset, many=True)
-        return Response(serializer.data)
-    
-
-
 # Estudiante
 class EstudianteUserListAPIView(ListAPIView):
     queryset = EstudianteUser.objects.all()
