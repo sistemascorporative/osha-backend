@@ -3,7 +3,7 @@ DELETE FROM programa_cursos;
 DELETE FROM programa;
 
 -- Insertar datos en la tabla Programa
-INSERT INTO programa (ProCod, ProNom, ProCodOsh, ProNumHor, ProNumCur, ProEstRegCod)
+INSERT INTO programa (ProCod, ProNom, ProNomEng, ProNomDip, ProCodOsh, ProNumHor, ProNumCur, ProEstRegCod)
 VALUES
     --(1001, 'Train The Trainer Osha', 'TT-OSHA', 320, 26, 1),
     --(1002, 'Trainer de Trabajos Críticos', 'TTC-OSHA', 320, 0, 1),
@@ -22,12 +22,12 @@ VALUES
     --(2056, 'Especialista Hazmat Nivel IV Osha', 'EHIV-OSHA', 260, 0, 1);
 
 
-    (0000, 'Prueba', 'PRUEBA-OSHA', 0, 0, 0),
-    (1001, 'Train The Trainer Osha', 'TT-OSHA', 320, 0, 1),
-    (1002, 'Trainer de Trabajos Críticos', 'TTC-OSHA', 320, 0, 1),
+    (0000, 'Prueba', 'PRUEBA-OSHA', 'Nombre en ingles prueba', 'Nombre de diploma en ingles', 0, 0, 0),
+    (1001, 'Train The Trainer Osha', 'Train The Trainer Osha', 'Occupational Safety and Health Trainer of Osha-Institute', 'TT-OSHA', 320, 0, 1),
+    (1002, 'Trainer de Trabajos Críticos', '', '', 'TTC-OSHA', 320, 0, 1),
     (1010, 'Trainer Hazmat Osha', 'TH-OSHA', 320, 0, 1),
     (1016, 'Trainer de Seguridad y Salud Ocupacional Osha', 'TSSO-OSHA', 320, 0, 1),
-    (1019, 'Trainer de Trabajos en Altura Osha', 'TTA-OSHA', 320, 0, 1),
+    (1019, 'Trainer de Trabajos en Altura Osha', 'Work at Height Trainer Osha', '' 'TTA-OSHA', 320, 0, 1),
     (1020, "Trainer de Seguridad y Salud en el Trabajo en la Industria de la Construcción", "TSSTIC-OSHA", 320, 0, 1),
 
     (1040, 'Supervisor en Seguridad y Salud en el Trabajo Osha', 'SSST-OSHA', 360, 0, 1),
