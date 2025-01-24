@@ -34,9 +34,19 @@ INSERT INTO bmodulo (BModCod, BModNomEs, BModNomEn, ModCurCod)
 VALUES
     (000001, "modulo 1", "module 1", 0000),
 
-    (100101, "", "", 1001),
+    (100101, "Módulo 1: Gestión Integral", "", 1001),
+    (100102, "Módulo 2: Seguridad Laboral", "", 1001),
+    (100103, "Módulo 3: Gestión de Riesgos", "", 1001),
+    (100104, "Módulo 4: Seguridad Ocupacional", "", 1001),
+    (100105, "Módulo 5: Gestión Ambiental y Seguridad", "", 1001),
+    (100106, "Módulo 6: Prevención", "", 1001),
 
-    (100201, "", "", 1002),
+    (100201, "Módulo 1: Formación y Entrenamiento", "Module 1:", 1002),
+    (100202, "Módulo 2:", "Module 2:", 1002),
+    (100203, "Módulo 3:", "Module 3:", 1002),
+    (100204, "Módulo 4:", "Module 4:", 1002),
+    (100205, "Módulo 5:", "Module 5:", 1002),
+    (100206, "Módulo 6:", "Module 6:", 1002),
 
     (101001, "", "", 1010),
 

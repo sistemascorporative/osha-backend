@@ -43,10 +43,9 @@ VALUES
     (2040, 'Especialista Hazmat Nivel IV Osha', 'EHIV-OSHA', 260, 0, 1),
     (2050, 'Especialista en Seguridad y Salud en la Construcción Osha', 'ESSC-OSHA', 260, 0, 1),
     (2060, 'Especialista en Seguridad Hospitalaria de Atención Médica', 'ESHAM-OSHA', 260, 0, 1),
+    (2070, 'Especialista en Seguridad en Laboratorios de Atención a la Salud Bajo Normas Osha', 'ESLAS-OSHA', 260, 0, 1);
 
     (3010, 'Técnico de Seguridad y Salud Laboral en la Industria de la Construcción Osha', 'TSSLIC-OSHA', 220, 0, 1),
 
     (5000, 'Seguridad en la Operación de Equipos Pesados', 'SOEP', 220, 0, 1),
-    (5001, 'Trabajos en Altura para Techos', 'TAPT', 220, 0, 1),
-    (5010, 'Seguridad en el Laboratorio de Atención Médica', 'SLAM', 220, 0, 1);
 
