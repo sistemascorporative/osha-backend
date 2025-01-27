@@ -1,6 +1,5 @@
 import pdfplumber
 import re
-import spacy
 import os
 import openai
 import json
@@ -270,8 +269,6 @@ class ModuloTxtContentView(APIView):
 
 
 
-# Cargar el modelo de spaCy
-nlp = spacy.load("es_core_news_sm")  # Asegúrate de que el modelo esté instalado
 class ProcessPdfView(APIView):
 
     def post(self, request, curso_id):

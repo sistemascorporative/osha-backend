@@ -9,7 +9,9 @@ from .views.views_list import *
 from .views.views_retrieve import *
 from .views.views_update import *
 from .views.views_destroy import *
-from .views.views import GuardarRespuestasAPIView
+from .views.views import *
+from .views.views_upload import UploadPDFView
+
 
 urlpatterns = [
     path('', include('djoser.urls')),
@@ -28,6 +30,19 @@ urlpatterns = [
     path('programa/<int:programa_id>/estudiante/<str:estudiante_id>/registrosexamenes/', RegistrosExamenesPorProgramaPorEstudianteListAPIView.as_view(), name='registros-de-examenes-por-programa-y-estudiante'),
     path('programa/<int:programa_id>/examenes/', ExamenesPorProgramaListAPIView.as_view(), name='examenes-por-programa'),
     path('guardar-respuestas-examen/', GuardarRespuestasAPIView.as_view(), name='guardar_respuestas_examen'),
+    
+    path('generar-examen/', GenerarExamenView.as_view(), name='generar_examen'),
+    path("modulo/<int:pk>/update-txt/", UpdateModuloTxtContentView.as_view(), name="update-txt"),
+    
+    # Vistas para pdf
+    
+    path('curso/<int:curso_id>/upload-pdf/', UploadPDFView.as_view(), name='upload_pdf'),
+    path('curso/<int:curso_id>/pdf-pages/', GetPdfPagesView.as_view(), name='pdf-pages'),
+    path('curso/<int:curso_id>/process-pdf/', ProcessPdfView.as_view(), name='process-pdf'),
+    
+    # Vistas de modulos txt
+    
+    path('modulos_txt/<int:curso_id>/', ModuloTxtContentView.as_view(), name='modulo_txt_content'),
     
     # List
     
