@@ -78,8 +78,9 @@ class EstudianteUser(AbstractBaseUser, PermissionsMixin): #UserAccount
 class Curso(models.Model):
     curcod = models.IntegerField(verbose_name="Código", db_column='CurCod', primary_key=True)
     curnom = models.CharField(verbose_name="Nombre", db_column='CurNom', max_length=80, blank=False)
-    curnummod = models.IntegerField( verbose_name="Número de módulos", db_column='CurNumMod', default=0)
     curfre = models.BooleanField(verbose_name="Gratuitos", db_column='CurFre', default=False)
+    curnummod = models.IntegerField( verbose_name="Número de módulos", db_column='CurNumMod', default=0)
+    cursrcpdf = models.FileField(verbose_name="Archivo PDF", db_column='CurSrcPdf', upload_to='cursos_pdf/', blank=True, null=True)
     curestregcod = models.ForeignKey(EstadoRegistro, models.PROTECT, verbose_name="Código EstReg", db_column='CurEstRegCod')
     
     class Meta:
@@ -116,6 +117,7 @@ class Programa(models.Model):
 class Modulo(models.Model):
     modcod = models.AutoField(verbose_name="Codigo", db_column='ModCod', primary_key=True)
     modnom = models.CharField(verbose_name="Nombre", db_column='ModNom', max_length=100, blank=False)
+    modsrctxt = models.FileField(verbose_name="Archivo TXT", db_column='ModSrcTxt', upload_to='modulo_pdf/', blank=True, null=True)
     modcurcod = models.ForeignKey(Curso, models.PROTECT, verbose_name="Codigo Curso", db_column='ModCurCod')
     modestregcod = models.ForeignKey(EstadoRegistro, models.PROTECT, verbose_name="Codigo EstReg", db_column='ModEstRegCod')
     
@@ -131,7 +133,7 @@ class Modulo(models.Model):
 
 class Examen(models.Model):
     exacurcod = models.OneToOneField(Curso, models.PROTECT, verbose_name="Codigo Curso", db_column='ExaCurCod', primary_key=True)
-    exanumpre = models.IntegerField( verbose_name="Numero de preguntas", db_column='ExaNumPre', default=0)
+    exanumpre = models.IntegerField( verbose_name="Número de preguntas", db_column='ExaNumPre', default=0)
     exaestregcod = models.ForeignKey(EstadoRegistro, models.PROTECT, verbose_name="Codigo EstReg", db_column='ExaEstRegCod', default=1)
     
     class Meta:
@@ -147,6 +149,7 @@ class Examen(models.Model):
 class Pregunta(models.Model):
     precod = models.AutoField(verbose_name="Codigo", db_column='preCod', primary_key=True)
     pretex = models.CharField(verbose_name="Texto",db_column="PreTex", max_length=300)
+    preexp = models.CharField(verbose_name="Explicación",db_column="PreExp", max_length=300, default='')
     prenummod = models.IntegerField(verbose_name="Número de modulo al que pertenece", db_column="PreNumMod", default=0)
     preexacod = models.ForeignKey(Examen, models.PROTECT, verbose_name="Codigo EXamen", db_column='PreExaCod')
     preestregcod = models.ForeignKey(EstadoRegistro, models.PROTECT, verbose_name="Codigo EStReg", db_column='PreEstRegCod')

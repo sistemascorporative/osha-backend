@@ -150,19 +150,19 @@ STATICFILE_DIRS = [
     os.path.join(BASE_DIR, 'build/static')
 ]
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-STORAGES = {
+#STORAGES = {
     # ...
-    "staticfiles": {
-        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
-    },
-}
+#    "staticfiles": {
+#        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+#    },
+#}
 
 ALLOWED_HOSTS = ['localhost','web-production-d405.up.railway.app']
 
@@ -170,6 +170,7 @@ ALLOWED_HOSTS = ['localhost','web-production-d405.up.railway.app']
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:5173',
     'http://127.0.0.1:5173',
+    'http://127.0.0.1:5174',
 ]
 
 CSRF_TRUSTED_ORIGINS = ['http://*','https://web-production-d405.up.railway.app']
