@@ -14,4 +14,9 @@ urlpatterns = [
     path('credenciales/programa/by-email/<str:estudiante_email>/', CredencialProgramaByEmailListView.as_view(), name='credencial-programa-by-email'),
     path('certificados/curso/matriculado/by-email/<str:estudiante_email>/', CertificadoCursoMatriculadoByEmailListView.as_view(), name='certificado-curso-matriculado-by-email'),
     path('certificados/curso/by-email/<str:estudiante_email>/', CertificadoCursoByEmailListView.as_view(), name='certificado-curso-by-email'),
+    
+    path('credenciales/programa/matriculado/by-doc-identidad/<str:documento_identidad>/', CredencialProgramaMatriculadoByDocIdListView.as_view(), name='credencial-programa-by-documento-identidad'),
+    path('credenciales/programa/by-doc-identidad/<str:documento_identidad>/', CredencialProgramaByDocIdListView.as_view(), name='credencial-programa-by-documento-identidad'),
+    path('certificados/curso/matriculado/by-doc-identidad/<str:documento_identidad>/', CertificadoCursoMatriculadoByDocIdListView.as_view(), name='certificado-curso-matriculado-by-documento-identidad'),
+    path('certificados/curso/by-doc-identidad/<str:documento_identidad>/', CertificadoCursoByDocIdListView.as_view(), name='certificado-curso-by-documento-identidad'),
 ]
