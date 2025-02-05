@@ -59,6 +59,7 @@ class EstudianteUser(AbstractBaseUser, PermissionsMixin): #UserAccount
     estusernom = models.CharField(verbose_name="Nombre", db_column='EstUserNom', max_length=60, blank=False)
     estuserape = models.CharField(verbose_name="Apellidos", db_column='EstUserApe', max_length=60, blank=False)
     estuserdocide = models.CharField(verbose_name="Documento de identidad", db_column='EstUserDocIde', max_length=50, blank=False, unique=True)
+    estusercodosh = models.CharField(verbose_name="Código Osha Institute", db_column='EstUserCodOsh', max_length=9, blank=True, null=True, unique=True)
     estuserpai = models.CharField(verbose_name="Pais", db_column='EstUserPai', max_length=50, blank=True, null=True)
     estuserciu = models.CharField(verbose_name="Ciudad", db_column='EstUserCiu', max_length=50, blank=True, null=True)
     estuserdir = models.CharField(verbose_name="Dirección", db_column='EstUserDir', max_length=100, blank=True, null=True)
@@ -73,6 +74,12 @@ class EstudianteUser(AbstractBaseUser, PermissionsMixin): #UserAccount
     
     def __str__(self):
         return self.estusernom + " " + self.estuserape + " - " + self.estuserdocide
+    
+    def save(self, *args, **kwargs):
+        if not self.estusercodosh:  # Si no tiene código, generar uno automáticamente
+            last_user = EstudianteUser.objects.order_by('-id').first()
+            last_code = int(last_user.estusercodosh) if last_user and last_user.estusercodosh.isdigit() else 0
+            self.estusercodosh = str(last_code + 1).zfill(9)  # Asegurar 9 dígitos con ceros a la izquierda
 
 
 class Curso(models.Model):
