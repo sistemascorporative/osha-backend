@@ -151,31 +151,32 @@ class AlternativaAdmin(admin.ModelAdmin):
     list_filter = ('altestregcod',)
 
 
-# Registro del modelo Respuesta
-@admin.register(Respuesta)
-class RespuestaAdmin(admin.ModelAdmin):
+# Registro del modelo RespuestaExamenPrograma
+@admin.register(RespuestaExamenPrograma)
+class RespuestaExamenProgramaAdmin(admin.ModelAdmin):
     list_display = (
-        'rescod',
-        'resfec',
-        'resexacod',
-        'resprecod',
-        'resexacod',
-        'resprecod',
-        'resaltcod',
+        'resprocod',
+        'respropun',
+        'resproestcod',
+        'resproprocod',
+        'resproexacod',
+        'resproprecod',
+        'resproaltcod',
+        'resprofec',
     )
 
 
-# Registro del modelo Pregunta
-@admin.register(RegistroExamen)
-class RegistroExamenAdmin(admin.ModelAdmin):
+# Registro del modelo RespuestaExamenCurso
+@admin.register(RespuestaExamenCurso)
+class RespuestaExamenCursoAdmin(admin.ModelAdmin):
     list_display = (
-        'regexacod',
-        'regexapun',
-        'regexaint',
-        'regexaestexacod',
-        'regexaestprocod',
-        'regexaestcod',
-        'regexaexacod',
+        'rescurcod',
+        'rescurpun',
+        'rescurestcod',
+        'rescurexacod',
+        'rescurprecod',
+        'rescuraltcod',
+        'rescurfec',
     )
 
 
@@ -185,9 +186,10 @@ class RegistroExamenProgramaAdmin(admin.ModelAdmin):
         'regexaprocod',
         'regexapropun',
         'regexaproint',
-        'regexaproestexacod',
-        'regexapromatprocod',
+        'regexaproprocod',
+        'regexaproestcod',
         'regexaproexacod',
+        'regexaproestexacod',
     )
 
 
@@ -197,9 +199,10 @@ class RegistroExamenCursoAdmin(admin.ModelAdmin):
         'regexacurcod',
         'regexacurpun',
         'regexacurint',
-        'regexacurestexacod',
-        'regexacurmatcurcod',
+        'regexacurcurcod',
+        'regexacurestcod',
         'regexacurexacod',
+        'regexacurestexacod',
     )
 
 

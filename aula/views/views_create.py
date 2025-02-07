@@ -55,12 +55,3 @@ class AlternativaCreateAPIView(CreateAPIView):
     queryset = Alternativa.objects.all()
     serializer_class = AlternativaSerializer
 
-
-class RespuestaCreateAPIView(CreateAPIView):
-    queryset = Respuesta.objects.all()
-    serializer_class = RespuestaSerializer
-
-
-class RegistroExamenCreateAPIView(CreateAPIView):
-    queryset = RegistroExamen.objects.all()
-    serializer_class = RegistroExamenSerializer

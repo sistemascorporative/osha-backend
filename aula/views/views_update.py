@@ -50,11 +50,3 @@ class AlternativaUpdateAPIView(RetrieveUpdateAPIView):
     serializer_class = AlternativaSerializer
 
 
-class RespuestaUpdateAPIView(RetrieveUpdateAPIView):
-    queryset = Respuesta.objects.all()
-    serializer_class = RespuestaSerializer
-
-
-class RegistroExamenUpdateAPIView(RetrieveUpdateAPIView):
-    queryset = RegistroExamen.objects.all()
-    serializer_class = RegistroExamenSerializer

@@ -49,11 +49,4 @@ class AlternativaDestroyAPIView(RetrieveDestroyAPIView):
     serializer_class = AlternativaSerializer
 
 
-class RespuestaDestroyAPIView(RetrieveDestroyAPIView):
-    queryset = Respuesta.objects.all()
-    serializer_class = RespuestaSerializer
 
-
-class RegistroExamenDestroyAPIView(RetrieveDestroyAPIView):
-    queryset = RegistroExamen.objects.all()
-    serializer_class = RegistroExamenSerializer

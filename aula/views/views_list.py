@@ -151,7 +151,7 @@ class RegistroExamenCursoPorEstudianteListView(ListAPIView):
 
 # Devuelve todos los registros de examenes de X programa y X estudiante
 class RegistrosExamenesPorProgramaPorEstudianteListAPIView(ListAPIView):
-    serializer_class = RegistroExamenSerializerList
+    serializer_class = RegistroExamenProgramaSerializerList
     
     def get_queryset(self):
         programa_id = self.kwargs.get('programa_id')
@@ -167,20 +167,20 @@ class RegistrosExamenesPorProgramaPorEstudianteListAPIView(ListAPIView):
                 estudiante = EstudianteUser.objects.get(email=estudiante_id)
                 
                 # Obtener los registros de examen asociados al programa y al estudiante
-                registros_examen = RegistroExamen.objects.filter(
-                    regexaestprocod=programa,  # Filtrar por programa
-                    regexaestcod=estudiante    # Filtrar por estudiante
+                registros_examen = RegistroExamenPrograma.objects.filter(
+                    regexaproprocod=programa,  # Filtrar por programa
+                    regexaproestcod=estudiante    # Filtrar por estudiante
                 )
                 return registros_examen
             
             except Programa.DoesNotExist:
-                return RegistroExamen.objects.none()
+                return RegistroExamenPrograma.objects.none()
             
             except EstudianteUser.DoesNotExist:
-                return RegistroExamen.objects.none()
+                return RegistroExamenPrograma.objects.none()
             
         else:
-            return RegistroExamen.objects.none()
+            return RegistroExamenPrograma.objects.none()
 
     def list(self, request, *args, **kwargs):
         queryset = self.get_queryset()
@@ -268,13 +268,5 @@ class AlternativaListAPIView(ListAPIView):
     serializer_class = AlternativaSerializerList
 
 
-class RespuestaListAPIView(ListAPIView):
-    queryset = Respuesta.objects.all()
-    serializer_class = RespuestaSerializerList
-
-
-class RegistroExamenListAPIView(ListAPIView):
-    queryset = RegistroExamen.objects.all()
-    serializer_class = RegistroExamenSerializerList
 
 

@@ -116,21 +116,40 @@ class AlternativaSerializerList(serializers.ModelSerializer):
         ]
 
 
-class RespuestaSerializerList(serializers.ModelSerializer):
+class RespuestaExamenProgramaSerializerList(serializers.ModelSerializer):
     resestcod = EstudianteUserSerializerList()
     resexacod = ExamenSerializerList()
     resprecod = PreguntaSerializerList()
     resaltcod = AlternativaSerializerList()
     class Meta:
-        model = Respuesta
+        model = RespuestaExamenPrograma
         fields = [
-            "rescod",
-            "respun",
-            "resestcod",
-            "resexacod",
-            "resprecod",
-            "resaltcod",
             "resprocod",
+            "respropun",
+            "resproestcod",
+            "resproprocod",
+            "resproexacod",
+            "resproprecod",
+            "resproaltcod",
+            "resprofec",
+        ]
+
+
+class RespuestaExamenCursoSerializerList(serializers.ModelSerializer):
+    resestcod = EstudianteUserSerializerList()
+    resexacod = ExamenSerializerList()
+    resprecod = PreguntaSerializerList()
+    resaltcod = AlternativaSerializerList()
+    class Meta:
+        model = RespuestaExamenCurso
+        fields = [
+            "rescurcod",
+            "rescurpun",
+            "rescurestcod",
+            "rescurexacod",
+            "rescurprecod",
+            "rescuraltcod",
+            "rescurfec",
         ]
 
 
@@ -158,22 +177,6 @@ class MatriculaCursoSerializerList(serializers.ModelSerializer):
         ]
 
 
-class RegistroExamenSerializerList(serializers.ModelSerializer):
-    regexaestexacod = EstadoExamenSerializerList()
-    regexaestcod = EstudianteUserSerializerList()
-    regexaexacod = ExamenSerializerList()
-    class Meta:
-        model = RegistroExamen
-        fields = [
-            "regexacod",
-            "regexapun",
-            "regexaint",
-            "regexaestexacod",
-            "regexaestcod",
-            "regexaexacod"
-        ]
-
-
 class RegistroExamenProgramaSerializerList(serializers.ModelSerializer):
     regexaproestexacod = EstadoExamenSerializerList()
     regexapromatprocod = MatriculaProgramaSerializerList()
@@ -184,9 +187,10 @@ class RegistroExamenProgramaSerializerList(serializers.ModelSerializer):
             "regexaprocod",
             "regexapropun",
             "regexaproint",
-            "regexaproestexacod",
-            "regexapromatprocod",
-            "regexaproexacod"
+            "regexaproprocod",
+            "regexaproestcod",
+            "regexaproexacod",
+            "regexaproestexacod"
         ]
 
 
@@ -200,9 +204,10 @@ class RegistroExamenCursoSerializerList(serializers.ModelSerializer):
             "regexacurcod",
             "regexacurpun",
             "regexacurint",
-            "regexacurestexacod",
-            "regexacurmatcurcod",
-            "regexacurexacod"
+            "regexacurcurcod",
+            "regexacurestcod",
+            "regexacurexacod",
+            "regexacurestexacod"
         ]
 
 

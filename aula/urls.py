@@ -61,7 +61,6 @@ urlpatterns = [
     path('examen/', ExamenListAPIView.as_view(), name='examen-list'),
     path('pregunta/', PreguntaListAPIView.as_view(), name='pregunta-list'),
     path('alternativa/', AlternativaListAPIView.as_view(), name='alternativa-list'),
-    path('respuesta/', RespuestaListAPIView.as_view(), name='respuesta-list'),
     
     # Create
     
@@ -74,7 +73,6 @@ urlpatterns = [
     path('examen/create/', ExamenCreateAPIView.as_view(), name='examen-create'),
     path('pregunta/create/', PreguntaCreateAPIView.as_view(), name='pregunta-create'),
     path('alternativa/create/', AlternativaCreateAPIView.as_view(), name='alternativa-create'),
-    path('respuesta/create/', RespuestaCreateAPIView.as_view(), name='respuesta-create'),
     
     # Detail
     
@@ -87,7 +85,6 @@ urlpatterns = [
     path('xexamen/<int:pk>/', XExamenRetrieveAPIView.as_view(), name='Xexamen-detail'),
     path('pregunta/<int:pk>/', PreguntaRetrieveAPIView.as_view(), name='pregunta-detail'),
     path('alternativa/<int:pk>/', AlternativaRetrieveAPIView.as_view(), name='alternativa-detail'),
-    path('respuesta/<int:pk>/', RespuestaRetrieveAPIView.as_view(), name='respuesta-detail'),
     
     # Update
     
@@ -99,7 +96,6 @@ urlpatterns = [
     path('examen/<int:pk>/update/', ExamenUpdateAPIView.as_view(), name='examen-update'),
     path('pregunta/<int:pk>/update/', PreguntaUpdateAPIView.as_view(), name='pregunta-update'),
     path('alternativa/<int:pk>/update/', AlternativaUpdateAPIView.as_view(), name='alternativa-update'),
-    path('respuesta/<int:pk>/update/', RespuestaUpdateAPIView.as_view(), name='respuesta-update'),
     
     # Delete
     
@@ -111,5 +107,4 @@ urlpatterns = [
     path('examen/<int:pk>/delete/', ExamenDestroyAPIView.as_view(), name='examen-delete'),
     path('pregunta/<int:pk>/delete/', PreguntaDestroyAPIView.as_view(), name='pregunta-delete'),
     path('alternativa/<int:pk>/delete/', AlternativaDestroyAPIView.as_view(), name='alternativa-delete'),
-    path('respuesta/<int:pk>/delete/', RespuestaDestroyAPIView.as_view(), name='respuesta-delete'),
 ]
