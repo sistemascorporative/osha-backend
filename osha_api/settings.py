@@ -94,19 +94,22 @@ WSGI_APPLICATION = 'osha_api.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.sqlite3', #postresql
+        'NAME': BASE_DIR / 'db.sqlite3', #'auth_system'
+        #'USER': 'postgres',
+        #'PASSWORD': 'password123',
+        #'HOST': ' Localhost'
     }
     #'default': dj_database_url.config(default=os.getenv('DATABASE_URL'))
 }
 
 # Email
-"""EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'maricarmencoaquiracuevas@gmail.com'
 EMAIL_HOST_PASSWORD = '1qwertyui'
-EMAIL_USE_TLS = True"""
+EMAIL_USE_TLS = True
 
 
 
@@ -238,4 +241,4 @@ SIMPLE_JWT = {
     }
 }"""
 
-AUTH_USER_MODEL = 'aula.EstudianteUser'
+AUTH_USER_MODEL = 'users.CustomUser'
