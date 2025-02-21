@@ -21,19 +21,19 @@ class EstadoExamenSerializerList(serializers.ModelSerializer):
         ]
 
 
-class EstudianteUserSerializerList(serializers.ModelSerializer):
-    class Meta:
-        model = EstudianteUser
-        fields = [
-            "id",
-            "email",
-            "estusernom",
-            "estuserape",
-            "estuserdocide",
-            "estuserpai",
-            "estuserciu",
-            "estuserdir",
-        ]
+#class EstudianteUserSerializerList(serializers.ModelSerializer):
+#    class Meta:
+#        model = EstudianteUser
+#        fields = [
+#            "id",
+#            "email",
+#            "estusernom",
+#            "estuserape",
+#            "estuserdocide",
+#            "estuserpai",
+#            "estuserciu",
+#            "estuserdir",
+#        ]
 
 
 class ProgramaSerializerList(serializers.ModelSerializer):
@@ -117,7 +117,7 @@ class AlternativaSerializerList(serializers.ModelSerializer):
 
 
 class RespuestaExamenProgramaSerializerList(serializers.ModelSerializer):
-    resestcod = EstudianteUserSerializerList()
+    #resestcod = EstudianteUserSerializerList()
     resexacod = ExamenSerializerList()
     resprecod = PreguntaSerializerList()
     resaltcod = AlternativaSerializerList()
@@ -136,7 +136,7 @@ class RespuestaExamenProgramaSerializerList(serializers.ModelSerializer):
 
 
 class RespuestaExamenCursoSerializerList(serializers.ModelSerializer):
-    resestcod = EstudianteUserSerializerList()
+    #resestcod = EstudianteUserSerializerList()
     resexacod = ExamenSerializerList()
     resprecod = PreguntaSerializerList()
     resaltcod = AlternativaSerializerList()
@@ -155,7 +155,7 @@ class RespuestaExamenCursoSerializerList(serializers.ModelSerializer):
 
 class MatriculaProgramaSerializerList(serializers.ModelSerializer):
     matproprocod = ProgramaSerializerList()
-    matproestcod = EstudianteUserSerializerList()
+    #matproestcod = EstudianteUserSerializerList()
     class Meta:
         model = MatriculaPrograma
         fields = [
@@ -167,7 +167,7 @@ class MatriculaProgramaSerializerList(serializers.ModelSerializer):
 
 class MatriculaCursoSerializerList(serializers.ModelSerializer):
     matcurcurcod = CursoSerializerList()
-    matcurestcod = EstudianteUserSerializerList()
+    #matcurestcod = EstudianteUserSerializerList()
     class Meta:
         model = MatriculaCurso
         fields = [

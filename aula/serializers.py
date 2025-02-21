@@ -7,37 +7,37 @@ from rest_framework import serializers
 
 
 
-class EstudianteUserSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = EstudianteUser
-        fields = (
-            'email',
-            'password',
-            'estusernom',
-            'estuserape',
-            'estuserdocide',
-            'estuserpai',
-            'estuserciu',
-            'estuserdir'
-        )
-        extra_kwargs = {
-            'password': {'write_only': True},
-            'is_staff': {'read_only': True},
-            'is_active': {'read_only': True}
-        }
+#class EstudianteUserSerializer(serializers.ModelSerializer):
+#    class Meta:
+#        model = EstudianteUser
+#        fields = (
+#            'email',
+#            'password',
+#            'estusernom',
+#            'estuserape',
+#            'estuserdocide',
+#            'estuserpai',
+#            'estuserciu',
+#            'estuserdir'
+#        )
+#        extra_kwargs = {
+#            'password': {'write_only': True},
+#            'is_staff': {'read_only': True},
+#            'is_active': {'read_only': True}
+#        }
 
-    def create(self, validated_data):
-        user = EstudianteUser.objects.create_user(
-            email=validated_data['email'],
-            password=validated_data['password'],
-            estusernom=validated_data['estusernom'],
-            estuserape=validated_data['estuserape'],
-            estuserdocide=validated_data['estuserdocide'],
-            estuserpai=validated_data.get('estuserpai', ''),
-            estuserciu=validated_data.get('estuserciu', ''),
-            estuserdir=validated_data.get('estuserdir', '')
-        )
-        return user
+#    def create(self, validated_data):
+#        user = EstudianteUser.objects.create_user(
+#            email=validated_data['email'],
+#            password=validated_data['password'],
+#            estusernom=validated_data['estusernom'],
+#            estuserape=validated_data['estuserape'],
+#            estuserdocide=validated_data['estuserdocide'],
+#            estuserpai=validated_data.get('estuserpai', ''),
+#            estuserciu=validated_data.get('estuserciu', ''),
+#            estuserdir=validated_data.get('estuserdir', '')
+#        )
+#        return user
 
 
 class EstadoRegistroSerializer(serializers.ModelSerializer):

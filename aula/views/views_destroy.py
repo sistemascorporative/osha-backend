@@ -14,9 +14,9 @@ class EstadoExamenDestroyAPIView(RetrieveDestroyAPIView):
     serializer_class = EstadoExamenSerializer
 
 
-class EstudianteUserDestroyAPIView(RetrieveDestroyAPIView):
-    queryset = EstudianteUser.objects.all()
-    serializer_class = EstudianteUserSerializer
+#class EstudianteUserDestroyAPIView(RetrieveDestroyAPIView):
+#    queryset = EstudianteUser.objects.all()
+#    serializer_class = EstudianteUserSerializer
 
 
 class ProgramaDestroyAPIView(RetrieveDestroyAPIView):

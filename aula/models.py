@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
 from django.core.exceptions import ValidationError
+from users.models import EstudianteUser
 
 # Create your models here.
 
@@ -32,54 +33,54 @@ class EstadoExamen(models.Model):
         return self.estexanom
 
 
-class UserAccountManager(BaseUserManager):
-    def create_user(self, email, password=None, **extra_fields):
-        if not email:
-            raise ValueError('El email debe ser proporcionado')
-        email = self.normalize_email(email)
-        user = self.model(email=email, **extra_fields)
-        user.set_password(password)
-        user.save(using=self._db)
-        return user
+#class UserAccountManager(BaseUserManager):
+#    def create_user(self, email, password=None, **extra_fields):
+#        if not email:
+#            raise ValueError('El email debe ser proporcionado')
+#        email = self.normalize_email(email)
+#        user = self.model(email=email, **extra_fields)
+#        user.set_password(password)
+#        user.save(using=self._db)
+#        return user
     
-    def create_superuser(self, email, password=None, **extra_fields):
-        extra_fields["is_staff"] = True  # Forzar que is_staff sea True
-        extra_fields["is_superuser"] = True  # Forzar que is_superuser sea True
-        return self.create_user(email, password, **extra_fields)
+#    def create_superuser(self, email, password=None, **extra_fields):
+#        extra_fields["is_staff"] = True  # Forzar que is_staff sea True
+#        extra_fields["is_superuser"] = True  # Forzar que is_superuser sea True
+#        return self.create_user(email, password, **extra_fields)
 
 
-class EstudianteUser(AbstractBaseUser, PermissionsMixin): #UserAccount
-    USER_TYPES = [
-        ('ADMIN', 'Administrador'),
-        ('PROF', 'Profesor'),
-        ('STUD', 'Estudiante'),
-    ]
-    email = models.EmailField(verbose_name="Email", unique=True)
+#class EstudianteUser(AbstractBaseUser, PermissionsMixin): #UserAccount
+#    USER_TYPES = [
+#        ('ADMIN', 'Administrador'),
+#        ('PROF', 'Profesor'),
+#        ('STUD', 'Estudiante'),
+#    ]
+#    email = models.EmailField(verbose_name="Email", unique=True)
+
+#    estusernom = models.CharField(verbose_name="Nombre", db_column='EstUserNom', max_length=60, blank=False)
+#    estuserape = models.CharField(verbose_name="Apellidos", db_column='EstUserApe', max_length=60, blank=False)
+#    estuserdocide = models.CharField(verbose_name="Documento de identidad", db_column='EstUserDocIde', max_length=50, blank=False, unique=True)
+#    estusercodosh = models.CharField(verbose_name="Código Osha Institute", db_column='EstUserCodOsh', max_length=9, blank=True, null=True, unique=True)
+#    estuserpai = models.CharField(verbose_name="Pais", db_column='EstUserPai', max_length=50, blank=True, null=True)
+#    estuserciu = models.CharField(verbose_name="Ciudad", db_column='EstUserCiu', max_length=50, blank=True, null=True)
+#    estuserdir = models.CharField(verbose_name="Dirección", db_column='EstUserDir', max_length=100, blank=True, null=True)
+#    is_active = models.BooleanField(default=True)
+#    is_staff = models.BooleanField(default=False)
+#    is_superuser = models.BooleanField(default=False)
+#    
+#    USERNAME_FIELD = 'email'
+#    REQUIRED_FIELDS = []
     
-    estusernom = models.CharField(verbose_name="Nombre", db_column='EstUserNom', max_length=60, blank=False)
-    estuserape = models.CharField(verbose_name="Apellidos", db_column='EstUserApe', max_length=60, blank=False)
-    estuserdocide = models.CharField(verbose_name="Documento de identidad", db_column='EstUserDocIde', max_length=50, blank=False, unique=True)
-    estusercodosh = models.CharField(verbose_name="Código Osha Institute", db_column='EstUserCodOsh', max_length=9, blank=True, null=True, unique=True)
-    estuserpai = models.CharField(verbose_name="Pais", db_column='EstUserPai', max_length=50, blank=True, null=True)
-    estuserciu = models.CharField(verbose_name="Ciudad", db_column='EstUserCiu', max_length=50, blank=True, null=True)
-    estuserdir = models.CharField(verbose_name="Dirección", db_column='EstUserDir', max_length=100, blank=True, null=True)
-    is_active = models.BooleanField(default=True)
-    is_staff = models.BooleanField(default=False)
-    is_superuser = models.BooleanField(default=False)
-    
-    USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = []
-    
-    objects = UserAccountManager()
-    
-    def __str__(self):
-        return self.estusernom + " " + self.estuserape + " - " + self.estuserdocide
-    
-    def save(self, *args, **kwargs):
-        if not self.estusercodosh:  # Si no tiene código, generar uno automáticamente
-            last_user = EstudianteUser.objects.order_by('-id').first()
-            last_code = int(last_user.estusercodosh) if last_user and last_user.estusercodosh.isdigit() else 0
-            self.estusercodosh = str(last_code + 1).zfill(9)  # Asegurar 9 dígitos con ceros a la izquierda
+#    objects = UserAccountManager()
+#    
+#    def __str__(self):
+#        return self.estusernom + " " + self.estuserape + " - " + self.estuserdocide
+
+#    def save(self, *args, **kwargs):
+#        if not self.estusercodosh:  # Si no tiene código, generar uno automáticamente
+#            last_user = EstudianteUser.objects.order_by('-id').first()
+#            last_code = int(last_user.estusercodosh) if last_user and last_user.estusercodosh.isdigit() else 0
+#            self.estusercodosh = str(last_code + 1).zfill(9)  # Asegurar 9 dígitos con ceros a la izquierda
 
 
 class Curso(models.Model):

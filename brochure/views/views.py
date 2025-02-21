@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from users.models import EstudianteUser
 
 # Create your views here.
 

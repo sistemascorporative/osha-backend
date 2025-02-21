@@ -15,9 +15,9 @@ class EstadoExamenUpdateAPIView(RetrieveUpdateAPIView):
     serializer_class = EstadoExamenSerializer
 
 
-class EstudianteUserUpdateAPIView(RetrieveUpdateAPIView):
-    queryset = EstudianteUser.objects.all()
-    serializer_class = EstudianteUserSerializer
+#class EstudianteUserUpdateAPIView(RetrieveUpdateAPIView):
+#    queryset = EstudianteUser.objects.all()
+#    serializer_class = EstudianteUserSerializer
 
 
 class ProgramaUpdateAPIView(RetrieveUpdateAPIView):

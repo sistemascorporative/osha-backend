@@ -94,11 +94,11 @@ WSGI_APPLICATION = 'osha_api.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3', #postresql
+        'ENGINE': 'django.db.backends.sqlite3', #postgres
         'NAME': BASE_DIR / 'db.sqlite3', #'auth_system'
         #'USER': 'postgres',
         #'PASSWORD': 'password123',
-        #'HOST': ' Localhost'
+        #'HOST': 'localhost'
     }
     #'default': dj_database_url.config(default=os.getenv('DATABASE_URL'))
 }
@@ -107,8 +107,8 @@ DATABASES = {
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
-EMAIL_HOST_USER = 'maricarmencoaquiracuevas@gmail.com'
-EMAIL_HOST_PASSWORD = '1qwertyui'
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER', '')
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD', '')
 EMAIL_USE_TLS = True
 
 
@@ -174,14 +174,15 @@ CORS_ALLOWED_ORIGINS = [
     'http://localhost:5173',
     'http://127.0.0.1:5173',
     'http://127.0.0.1:5174',
+    'https://httpie.io',
 ]
 
 CSRF_TRUSTED_ORIGINS = ['http://*','https://web-production-d405.up.railway.app']
 
 REST_FRAMEWORK = {
-    'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.IsAuthenticated',
-    ],
+    #'DEFAULT_PERMISSION_CLASSES': [
+    #    'rest_framework.permissions.IsAuthenticated',
+    #],
     'DEFAULT_AUTHENTICATION_CLASSES': (
         #'rest_framework.authentication.BasicAuthentication',
         #'rest_framework.authentication.SessionAuthentication',
@@ -221,7 +222,7 @@ SIMPLE_JWT = {
     'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=1),
 }
 
-"""DJOSER = {
+DJOSER = {
     'LOGIN_FIELD': 'email',
     'USER_CREATE_PASSWORD_RETYPE': True,
     'USERNAME_CHANGED_EMAIL_CONFIRMATION': True,
@@ -234,11 +235,11 @@ SIMPLE_JWT = {
     'ACTIVATION_URL': 'activate/{uid}/{token}',
     'SEND_ACTIVATION_EMAIL': True,
     'SERIALIZERS': {
-        'user_create': 'aula.serializers.UserCreateSerializer',
-        'user': 'aula.serializers.UserCreateSerializer',
-        'current_user': 'aula.serializers.UserCreateSerializer',
+        'user_create': 'users.serializers.UserCreateSerializer',
+        'user': 'users.serializers.UserCreateSerializer',
+        #'current_user': 'users.serializers.UserCreateSerializer',
         'user_delete': 'djoser.serializers.UserDeleteSerializer',
     }
-}"""
+}
 
-AUTH_USER_MODEL = 'users.CustomUser'
+AUTH_USER_MODEL = 'users.EstudianteUser'

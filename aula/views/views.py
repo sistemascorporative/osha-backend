@@ -11,7 +11,7 @@ from ..models import *
 from django.conf import settings
 from django.db import transaction
 from urllib.parse import urljoin
-
+from users.models import EstudianteUser
 
 
 class UpdateModuloTxtContentView(APIView):

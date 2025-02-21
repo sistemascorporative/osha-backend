@@ -22,7 +22,7 @@ class UserAccountManager(BaseUserManager):
         return self.create_user(email, password, **extra_fields)
 
 
-class CustomUser(AbstractBaseUser, PermissionsMixin): #UserAccount
+class EstudianteUser(AbstractBaseUser, PermissionsMixin): #UserAccount
     USER_TYPES = [
         ('ADMIN', 'Administrador'),
         ('PROF', 'Profesor'),
@@ -44,7 +44,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin): #UserAccount
     objects = UserAccountManager()
     
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['email']
+    REQUIRED_FIELDS = ['usernom']
     
     def get_full_name(self):
         return self.usernom + "" + self.userape

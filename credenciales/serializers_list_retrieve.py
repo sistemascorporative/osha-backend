@@ -21,7 +21,7 @@ class CredencialProgramaMatriculadoSerializerList(serializers.ModelSerializer):
 
 
 class CredencialProgramaSerializerList(serializers.ModelSerializer):
-    creproestcod = EstudianteUserSerializerList()
+    #creproestcod = EstudianteUserSerializerList()
     creproprocod = ProgramaSerializerList()
     class Meta:
         model = CredencialPrograma
@@ -51,7 +51,7 @@ class CertificadoCursoMatriculadoSerializerList(serializers.ModelSerializer):
 
 
 class CertificadoCursoSerializerList(serializers.ModelSerializer):
-    cercurestcod = EstudianteUserSerializerList()
+    #cercurestcod = EstudianteUserSerializerList()
     cercurcurcod = CursoSerializerList()
     class Meta:
         model = CertificadoCurso
