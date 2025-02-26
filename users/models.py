@@ -13,13 +13,13 @@ class UserAccountManager(BaseUserManager):
         user = self.model(email=email, **extra_fields)
         
         user.set_password(password)
-        user.save(using=self._db)
+        user.save()#user.save(using=self._db)
         return user
     
-    def create_superuser(self, email, password=None, **extra_fields):
-        extra_fields["is_staff"] = True  # Forzar que is_staff sea True
-        extra_fields["is_superuser"] = True  # Forzar que is_superuser sea True
-        return self.create_user(email, password, **extra_fields)
+    #def create_superuser(self, email, password=None, **extra_fields):
+    #    extra_fields["is_staff"] = True  # Forzar que is_staff sea True
+    #    extra_fields["is_superuser"] = True  # Forzar que is_superuser sea True
+    #    return self.create_user(email, password, **extra_fields)
 
 
 class EstudianteUser(AbstractBaseUser, PermissionsMixin): #UserAccount
