@@ -16,10 +16,10 @@ class UserAccountManager(BaseUserManager):
         user.save()#user.save(using=self._db)
         return user
     
-    #def create_superuser(self, email, password=None, **extra_fields):
-    #    extra_fields["is_staff"] = True  # Forzar que is_staff sea True
-    #    extra_fields["is_superuser"] = True  # Forzar que is_superuser sea True
-    #    return self.create_user(email, password, **extra_fields)
+    def create_superuser(self, email, password=None, **extra_fields):
+        extra_fields["is_staff"] = True  # Forzar que is_staff sea True
+        extra_fields["is_superuser"] = True  # Forzar que is_superuser sea True
+        return self.create_user(email, password, **extra_fields)
 
 
 class EstudianteUser(AbstractBaseUser, PermissionsMixin): #UserAccount
@@ -29,7 +29,6 @@ class EstudianteUser(AbstractBaseUser, PermissionsMixin): #UserAccount
         ('STUD', 'Estudiante'),
     ]
     email = models.EmailField(verbose_name="Email", unique=True)
-    
     usernom = models.CharField(verbose_name="Nombre", db_column='EstUserNom', max_length=60, blank=False)
     userape = models.CharField(verbose_name="Apellidos", db_column='EstUserApe', max_length=60, blank=False)
     userdocide = models.CharField(verbose_name="Documento de identidad", db_column='EstUserDocIde', max_length=50, blank=False, unique=True)

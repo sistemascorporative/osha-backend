@@ -22,21 +22,6 @@ class EstadoExamenAdmin(admin.ModelAdmin):
     )
 
 
-# Registro del modelo EStudiante usuario personalizado
-#@admin.register(EstudianteUser)
-#class EstudianteAdmin(admin.ModelAdmin):
-#    list_display = (
-#        'email',
-#        'estusernom',
-#        'estuserape',
-#        'estuserdocide',
-#        'is_active',
-#        'is_staff',
-#        'is_superuser'
-#    )
-#    search_fields = ('estusernom', 'estuserape','email','estuserdocide',)
-
-
 # Registro del modelo Matricula Programa
 @admin.register(MatriculaPrograma)
 class MatriculaProgramaAdmin(admin.ModelAdmin):
