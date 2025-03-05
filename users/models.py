@@ -43,7 +43,7 @@ class EstudianteUser(AbstractBaseUser, PermissionsMixin): #UserAccount
     objects = UserAccountManager()
     
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['usernom']
+    REQUIRED_FIELDS = ['usernom', 'userape', 'userdocide', 'userpai', 'userciu']
     
     def get_full_name(self):
         return self.usernom + "" + self.userape

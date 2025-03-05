@@ -223,6 +223,11 @@ SIMPLE_JWT = {
 }
 
 DJOSER = {
+    'PERMISSIONS': {
+        'user_create': ['rest_framework.permissions.AllowAny'],
+        # Los demás endpoints pueden seguir usando IsAuthenticated
+        'user': ['rest_framework.permissions.IsAuthenticated'],
+    },
     'LOGIN_FIELD': 'email',
     'USER_CREATE_PASSWORD_RETYPE': True,
     'USERNAME_CHANGED_EMAIL_CONFIRMATION': True,
@@ -239,7 +244,7 @@ DJOSER = {
         'user': 'users.serializers.UserCreateSerializer',
         #'current_user': 'users.serializers.UserCreateSerializer',
         'user_delete': 'djoser.serializers.UserDeleteSerializer',
-    }
+    },    
 }
 
 AUTH_USER_MODEL = 'users.EstudianteUser'
