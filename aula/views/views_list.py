@@ -7,7 +7,6 @@ from ..models import Curso, Programa
 from django.shortcuts import get_object_or_404
 from rest_framework.response import Response
 from rest_framework import status
-from rest_framework.permissions import IsAuthenticated
 from users.models import EstudianteUser
 
 #ListAPIViews
@@ -218,24 +217,9 @@ class ExamenesPorProgramaListAPIView(ListAPIView):
         return Response(serializer.data)
 
 
-# Estudiante
-#class EstudianteUserListAPIView(ListAPIView):
-#    queryset = EstudianteUser.objects.all()
-#    serializer_class = EstudianteUserSerializerList
-    #permission_classes = [IsAuthenticated]
-
-#    def get_queryset(self):
-#        return super().get_queryset()
-
-
 class EstadoRegistroListAPIView(ListAPIView):
     queryset = EstadoRegistro.objects.all()
     serializer_class = EstadoRegistroSerializerList
-
-
-#class EstudianteListAPIView(ListAPIView):
-#    queryset = EstudianteUser.objects.all()
-#    serializer_class = EstudianteUserSerializerList#
 
 
 class ProgramaListAPIView(ListAPIView):

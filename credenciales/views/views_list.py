@@ -53,7 +53,7 @@ class CertificadoCursoByEmailListView(ListAPIView):
 
     def get_queryset(self):
         email = self.kwargs.get('estudiante_email')
-        estudiante = get_object_or_404(EstudianteUser, estuserdocide=email)
+        estudiante = get_object_or_404(EstudianteUser, userdocide=email)
         return CertificadoCurso.objects.filter(cercurestcod=estudiante)
 
 
@@ -66,7 +66,7 @@ class CredencialProgramaMatriculadoByDocIdListView(ListAPIView):
 
     def get_queryset(self):
         docId = self.kwargs.get('documento_identidad')
-        estudiante = get_object_or_404(EstudianteUser, estuserdocide=docId)
+        estudiante = get_object_or_404(EstudianteUser, userdocide=docId)
         return CredencialProgramaMatriculado.objects.filter(crepromatprocod__matproestcod=estudiante)
 
 
@@ -79,7 +79,7 @@ class CredencialProgramaByDocIdListView(ListAPIView):
 
     def get_queryset(self):
         docId = self.kwargs.get('documento_identidad')
-        estudiante = get_object_or_404(EstudianteUser, estuserdocide=docId)
+        estudiante = get_object_or_404(EstudianteUser, userdocide=docId)
         return CredencialPrograma.objects.filter(creproestcod=estudiante)
 
 
@@ -92,7 +92,7 @@ class CertificadoCursoMatriculadoByDocIdListView(ListAPIView):
 
     def get_queryset(self):
         docId = self.kwargs.get('documento_identidad')
-        estudiante = get_object_or_404(EstudianteUser, estuserdocide=docId)
+        estudiante = get_object_or_404(EstudianteUser, userdocide=docId)
         return CertificadoCursoMatriculado.objects.filter(cercurmatcurcod__matcurestcod=estudiante)
 
 
@@ -105,5 +105,5 @@ class CertificadoCursoByDocIdListView(ListAPIView):
 
     def get_queryset(self):
         docId = self.kwargs.get('documento_identidad')
-        estudiante = get_object_or_404(EstudianteUser, estuserdocide=docId)
+        estudiante = get_object_or_404(EstudianteUser, userdocide=docId)
         return CertificadoCurso.objects.filter(cercurestcod=estudiante)

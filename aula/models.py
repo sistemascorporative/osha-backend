@@ -1,6 +1,4 @@
 from django.db import models
-from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
-from django.core.exceptions import ValidationError
 from users.models import EstudianteUser
 
 # Create your models here.
@@ -158,7 +156,7 @@ class MatriculaPrograma(models.Model):
         unique_together = ('matproestcod','matproprocod')
     
     def __str__(self):
-        return f"{self.matproestcod.estusernom} - {self.matproprocod.pronom}"
+        return f"{self.matproestcod.usernom} - {self.matproprocod.pronom}"
 
 
 class MatriculaCurso(models.Model):
@@ -178,7 +176,7 @@ class MatriculaCurso(models.Model):
         unique_together = ('matcurestcod','matcurcurcod')
     
     def __str__(self):
-        return f"{self.matcurestcod.estusernom} - {self.matcurcurcod.curnom}"
+        return f"{self.matcurestcod.usernom} - {self.matcurcurcod.curnom}"
 
 
 class RespuestaExamenPrograma(models.Model):
@@ -199,7 +197,7 @@ class RespuestaExamenPrograma(models.Model):
         unique_together = ('resproestcod', 'resproprocod', 'resproexacod', 'resproprecod')
 
     def __str__(self):
-        return f"{self.resproestcod.estusernom} - {self.resproprecod} - {self.resproaltcod}"
+        return f"{self.resproestcod.usernom} - {self.resproprecod} - {self.resproaltcod}"
 
 
 class RespuestaExamenCurso(models.Model):
@@ -219,7 +217,7 @@ class RespuestaExamenCurso(models.Model):
         unique_together = ('rescurestcod', 'rescurexacod', 'rescurprecod')  # Una respuesta por pregunta en un intento.
 
     def __str__(self):
-        return f"{self.rescurestcod.estusernom} - {self.rescurprecod} - {self.rescuraltcod}"
+        return f"{self.rescurestcod.usernom} - {self.rescurprecod} - {self.rescuraltcod}"
 
 
 #class Respuesta(models.Model):
@@ -259,7 +257,7 @@ class RegistroExamenPrograma(models.Model):
         unique_together = ('regexaproestcod', 'regexaproprocod', 'regexaproexacod')  # Una matrícula solo puede tener un registro por examen.
 
     def __str__(self):
-        return f"{self.regexaproestcod.estusernom} - {self.regexaproexacod} - {self.regexaproestexacod.estexanom}"
+        return f"{self.regexaproestcod.usernom} - {self.regexaproexacod} - {self.regexaproestexacod.estexanom}"
 
 
 class RegistroExamenCurso(models.Model):
@@ -279,4 +277,4 @@ class RegistroExamenCurso(models.Model):
         unique_together = ('regexacurestcod', 'regexacurcurcod', 'regexacurexacod')
 
     def __str__(self):
-        return f"{self.regexacurestcod.estusernom} - {self.regexacurexacod} - {self.regexacurestexacod.estexanom}"
+        return f"{self.regexacurestcod.usernom} - {self.regexacurexacod} - {self.regexacurestexacod.estexanom}"

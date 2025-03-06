@@ -21,11 +21,6 @@ class EstadoExamenCreateAPIView(CreateAPIView):
     serializer_class = EstadoExamenSerializer
 
 
-#class EstudianteUserCreateAPIView(CreateAPIView):
-#    queryset = EstudianteUser.objects.all()
-#    serializer_class = EstudianteUserSerializer
-
-
 class ProgramaCreateAPIView(CreateAPIView):
     queryset = Programa.objects.all()
     serializer_class = ProgramaSerializer

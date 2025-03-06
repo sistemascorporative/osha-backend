@@ -25,27 +25,27 @@ VALUES
     (0000, 'Prueba', 'PRUEBA-OSHA', 'Nombre en ingles prueba', 'Nombre de diploma en ingles', 0, 0, 0),
     (1001, 'Train The Trainer Osha', 'Train The Trainer Osha', 'Occupational Safety and Health Trainer of Osha-Institute', 'TT-OSHA', 320, 0, 1),
     (1002, 'Trainer de Trabajos Críticos', '', '', 'TTC-OSHA', 320, 0, 1),
-    (1010, 'Trainer Hazmat Osha', 'TH-OSHA', 320, 0, 1),
-    (1016, 'Trainer de Seguridad y Salud Ocupacional Osha', 'TSSO-OSHA', 320, 0, 1),
-    (1019, 'Trainer de Trabajos en Altura Osha', 'Work at Height Trainer Osha', '' 'TTA-OSHA', 320, 0, 1),
-    (1020, "Trainer de Seguridad y Salud en el Trabajo en la Industria de la Construcción", "TSSTIC-OSHA", 320, 0, 1),
+    (1010, 'Trainer Hazmat Osha', '', '', 'TH-OSHA', 320, 0, 1),
+    (1016, 'Trainer de Seguridad y Salud Ocupacional Osha', '', '', 'TSSO-OSHA', 320, 0, 1),
+    (1019, 'Trainer de Trabajos en Altura Osha', 'Work at Height Trainer Osha', '', 'TTA-OSHA', 320, 0, 1),
+    (1020, "Trainer de Seguridad y Salud en el Trabajo en la Industria de la Construcción", '', '', "TSSTIC-OSHA", 320, 0, 1),
 
-    (1040, 'Supervisor en Seguridad y Salud en el Trabajo Osha', 'SSST-OSHA', 360, 0, 1),
+    (1040, 'Supervisor en Seguridad y Salud en el Trabajo Osha', '', '', 'SSST-OSHA', 360, 0, 1),
 
-    (1060, 'Gerencia de la Seguridad en la Industria de la Construcción', 'GSIC-OSHA', 360, 0, 1),
-    (1061, 'Gerencia en Seguridad y Salud Ocupacional Osha', "GSSO-OSHA", 360, 0, 1),
+    (1060, 'Gerencia de la Seguridad en la Industria de la Construcción', '', '', 'GSIC-OSHA', 360, 0, 1),
+    (1061, 'Gerencia en Seguridad y Salud Ocupacional Osha', '', '', "GSSO-OSHA", 360, 0, 1),
 
-    (1080, 'Director de Prevención de Riesgos Laborales Osha', 'DPRL-OSHA', 360, 0, 1),
+    (1080, 'Director de Prevención de Riesgos Laborales Osha', '', '', 'DPRL-OSHA', 360, 0, 1),
     
-    (2010, 'Especialista en Seguridad y Salud en el Trabajo Osha', 'ESST-OSHA', 260, 0, 1),
-    (2020, 'Especialista en Seguridad y Salud Ocupacional Osha', 'ESSO-OSHA', 260, 0, 1),
-    (2030, 'Especialista en Prevención de Riesgos Laborales Osha', 'EPRL-OSHA', 260, 0, 1),
-    (2040, 'Especialista Hazmat Nivel IV Osha', 'EHIV-OSHA', 260, 0, 1),
-    (2050, 'Especialista en Seguridad y Salud en la Construcción Osha', 'ESSC-OSHA', 260, 0, 1),
-    (2060, 'Especialista en Seguridad Hospitalaria de Atención Médica', 'ESHAM-OSHA', 260, 0, 1),
-    (2070, 'Especialista en Seguridad en Laboratorios de Atención a la Salud Bajo Normas Osha', 'ESLAS-OSHA', 260, 0, 1);
+    (2010, 'Especialista en Seguridad y Salud en el Trabajo Osha', '', '', 'ESST-OSHA', 260, 0, 1),
+    (2020, 'Especialista en Seguridad y Salud Ocupacional Osha', '', '', 'ESSO-OSHA', 260, 0, 1),
+    (2030, 'Especialista en Prevención de Riesgos Laborales Osha', '', '', 'EPRL-OSHA', 260, 0, 1),
+    (2040, 'Especialista Hazmat Nivel IV Osha', '', '', 'EHIV-OSHA', 260, 0, 1),
+    (2050, 'Especialista en Seguridad y Salud en la Construcción Osha', '', '', 'ESSC-OSHA', 260, 0, 1),
+    (2060, 'Especialista en Seguridad Hospitalaria de Atención Médica', '', '', 'ESHAM-OSHA', 260, 0, 1),
+    (2070, 'Especialista en Seguridad en Laboratorios de Atención a la Salud Bajo Normas Osha', '', '', 'ESLAS-OSHA', 260, 0, 1);
 
-    (3010, 'Técnico de Seguridad y Salud Laboral en la Industria de la Construcción Osha', 'TSSLIC-OSHA', 220, 0, 1),
+    --(3010, 'Técnico de Seguridad y Salud Laboral en la Industria de la Construcción Osha', 'TSSLIC-OSHA', 220, 0, 1),
 
-    (5000, 'Seguridad en la Operación de Equipos Pesados', 'SOEP', 220, 0, 1),
+    --(5000, 'Seguridad en la Operación de Equipos Pesados', 'SOEP', 220, 0, 1),
 
