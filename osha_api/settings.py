@@ -181,7 +181,7 @@ CSRF_TRUSTED_ORIGINS = ['http://*','https://web-production-d405.up.railway.app']
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.IsAuthenticated',
+        'rest_framework.permissions.AllowAny', #IsAuthenticated
     ],
     'DEFAULT_AUTHENTICATION_CLASSES': (
         #'rest_framework.authentication.BasicAuthentication',

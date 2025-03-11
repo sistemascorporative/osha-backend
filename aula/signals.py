@@ -51,7 +51,7 @@ eliminar registros de examen
 
 
 
-"""
+""" ojo
 Signal para crear registros de exámenes para todos los cursos de un programa
 cuando se realiza una matrícula para el programa.
 """

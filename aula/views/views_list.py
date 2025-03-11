@@ -62,14 +62,15 @@ class CursosPorProgramaListAPIView(ListAPIView):
                 programa = Programa.objects.get(procod=procod)
                 return programa.cursos.all()
             except Programa.DoesNotExist:
-                return Curso.objects.none()
-        else:
-            return Curso.objects.none()
+                return None  # Cambiado a None para diferenciar cuando el programa no existe
+        return None
 
     def list(self, request, *args, **kwargs):
         queryset = self.get_queryset()
-        if not queryset:
-            return Response({"detail": "Programa not found."}, status=status.HTTP_404_NOT_FOUND)
+        if queryset is None:  # Si el programa no existe
+            return Response({"detail": "Programa no encontrado."}, status=status.HTTP_404_NOT_FOUND)
+        if not queryset.exists():  # Si el programa existe pero no tiene cursos
+            return Response({"detail": "No hay cursos en este programa."}, status=status.HTTP_200_OK)
         serializer = self.get_serializer(queryset, many=True)
         return Response(serializer.data)
 
@@ -111,6 +112,17 @@ class MatriculaProgramaPorEstudianteListView(ListAPIView):
         return MatriculaPrograma.objects.filter(matproestcod=estudiante)
 
 
+""" ojo
+Endpoint para obtener los registros de exámenes de programa.
+"""
+#class RegistroExamenProgramaPorMatriculaListView(ListAPIView):
+#    serializer_class = RegistroExamenProgramaSerializerList
+
+#    def get_queryset(self):
+#        matprocod = self.kwargs.get('codigo_matricula')        
+#        return RegistroExamenPrograma.objects.filter(regexapromatprocod=matprocod)
+
+
 """
 Endpoint para obtener los registros de exámenes de programa.
 """
@@ -118,8 +130,9 @@ class RegistroExamenProgramaPorMatriculaListView(ListAPIView):
     serializer_class = RegistroExamenProgramaSerializerList
 
     def get_queryset(self):
-        matprocod = self.kwargs.get('codigo_matricula')        
-        return RegistroExamenPrograma.objects.filter(regexapromatprocod=matprocod)
+        procod = self.kwargs.get('programa_id')
+        usercod = self.kwargs.get('estudiante_id')
+        return RegistroExamenPrograma.objects.filter(regexaproprocod=procod, regexaproestcod=usercod)
 
 
 """
@@ -143,8 +156,8 @@ class RegistroExamenCursoPorEstudianteListView(ListAPIView):
     def get_queryset(self):
         email = self.kwargs.get('estudiante_email')
         estudiante = get_object_or_404(EstudianteUser, email=email)
-        matriculas_curso = MatriculaCurso.objects.filter(matcurestcod=estudiante)
-        return RegistroExamenCurso.objects.filter(regexacurmatcurcod__in=matriculas_curso)
+        #matriculas_curso = MatriculaCurso.objects.filter(matcurestcod=estudiante)
+        return RegistroExamenCurso.objects.filter(regexacurestcod=estudiante)
 
 
 
