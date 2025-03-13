@@ -1,6 +1,7 @@
 from django.db import models
 from users.models import EstudianteUser
 
+
 # Create your models here.
 
 class EstadoRegistro(models.Model):
@@ -34,6 +35,7 @@ class EstadoExamen(models.Model):
 class Curso(models.Model):
     curcod = models.IntegerField(verbose_name="Código", db_column='CurCod', primary_key=True)
     curnom = models.CharField(verbose_name="Nombre", db_column='CurNom', max_length=80, blank=False)
+    curnomeng = models.CharField(verbose_name="Nombre en Inglés", db_column='CurNomEng', max_length=80, blank=False, default="")
     curfre = models.BooleanField(verbose_name="Gratuitos", db_column='CurFre', default=False)
     curnummod = models.IntegerField( verbose_name="Número de módulos", db_column='CurNumMod', default=0)
     cursrcpdf = models.FileField(verbose_name="Archivo PDF", db_column='CurSrcPdf', upload_to='cursos_pdf/', blank=True, null=True)
@@ -51,9 +53,10 @@ class Curso(models.Model):
 
 class Programa(models.Model):
     procod = models.IntegerField(verbose_name="Código", db_column='ProCod', primary_key=True)
-    pronom = models.CharField(verbose_name="Nombre", db_column='ProNom', max_length=100, blank=False)
-    pronomeng = models.CharField(verbose_name="Nombre en inglés", db_column='ProNomEng', max_length=100, blank=True, default='')
-    pronomdip = models.CharField(verbose_name="Nombre de diploma", db_column='ProNomDip', max_length=100, blank=True, default='')
+    pronom = models.CharField(verbose_name="Nombre de Grado", db_column='ProNom', max_length=100, blank=False)
+    pronomeng = models.CharField(verbose_name="Nombre de Grado en inglés", db_column='ProNomEng', max_length=100, blank=True, default='')
+    prodip = models.CharField(verbose_name="Nombre de Diploma", db_column='ProDip', max_length=100, blank=True, default='')
+    prodipeng = models.CharField(verbose_name="Nombre de Diploma en inglés", db_column='ProDipEng', max_length=100, blank=True, default='')
     procodosh = models.CharField(verbose_name="Codigo osha", db_column='ProCodOsh', max_length=30)
     pronumhor = models.IntegerField( verbose_name="Número de horas", db_column='ProNumHor', default=0)
     pronumcur = models.IntegerField( verbose_name="Número de cursos", db_column='ProNumCur', default=0)

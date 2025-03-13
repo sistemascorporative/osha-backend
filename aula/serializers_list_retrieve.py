@@ -30,9 +30,11 @@ class ProgramaSerializerList(serializers.ModelSerializer):
             "procod",
             "pronom",
             "pronomeng",
+            "prodip",
+            "prodipeng",
+            "procodosh",
             "pronumhor",
             "pronumcur",
-            "procodosh",
             "proestregcod"
         ]
 
@@ -45,6 +47,7 @@ class CursoSerializerList(serializers.ModelSerializer):
         fields = [
             "curcod",
             "curnom",
+            "curnomeng",
             "curnummod",
             "curfre",
             "curestregcod"
