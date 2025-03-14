@@ -3,17 +3,26 @@ from .models import *
 
 # Define los serializers para cada modelo
 
-class EstudianteUserSerializerList(serializers.ModelSerializer):
+
+class UserSimpleSerializerList(serializers.ModelSerializer):
     class Meta:
-        model = EstudianteUser
+        model = UserSimple
         fields = [
-            "id",
-            "email",
             "usernom",
             "userape",
             "userdocide",
             "usercodosh",
             "userpai",
+        ]
+
+
+class EstudianteUserSerializerList(serializers.ModelSerializer):
+    usuario = UserSimpleSerializerList()
+    class Meta:
+        model = EstudianteUser
+        fields = [
+            "usuario",
+            "email",
             "userciu",
             "userdir",
         ]

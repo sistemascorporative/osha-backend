@@ -1,6 +1,6 @@
 from django.db import models
 from aula.models import Programa, Curso, MatriculaPrograma, MatriculaCurso
-from users.models import EstudianteUser
+from users.models import EstudianteUser, UserSimple
 
 # Create your models here.
 
@@ -27,7 +27,7 @@ class CredencialPrograma(models.Model):
     creprocer = models.BooleanField(verbose_name="Certificado", db_column='CreProCer', blank=False, null=False, default=True)
     creprodip = models.BooleanField(verbose_name="Con diploma", db_column='CreProDip', blank=False, null=False, default=True)
     creprocarnet = models.BooleanField(verbose_name="Con carnet", db_column='CreProCarnet', blank=False, null=False, default=True)
-    creproestcod = models.ForeignKey(EstudianteUser, models.PROTECT, verbose_name="Código Estudiante", db_column='CreProEstCod', blank=True, null=True)
+    creproestcod = models.ForeignKey(UserSimple, models.PROTECT, verbose_name="Código Estudiante", db_column='CreProEstCod', blank=True, null=True)
     creproprocod = models.ForeignKey(Programa, models.PROTECT, verbose_name="Código Programa", db_column='CreProProCod', blank=True, null=True)
     class Meta:
         db_table = 'Credencial_programa'
@@ -54,7 +54,7 @@ class CertificadoCurso(models.Model):
     cercurfecemi = models.DateField(verbose_name="Fecha de emisión", db_column='CerCurFecEmi', blank=True, null=True)
     cercurfeccad = models.DateField(verbose_name="Fecha de caducidad", db_column='CerCurFecCad', blank=True, null=True)
     cercurcarnet = models.BooleanField(verbose_name="Con carnet", db_column='CerCurCarnet', blank=False, null=False, default=False)
-    cercurestcod = models.ForeignKey(EstudianteUser, models.PROTECT, verbose_name="Código Estudiante", db_column='CerCurEstCod', blank=True, null=True)
+    cercurestcod = models.ForeignKey(UserSimple, models.PROTECT, verbose_name="Código Estudiante", db_column='CerCurEstCod', blank=True, null=True)
     cercurcurcod = models.ForeignKey(Curso, models.PROTECT, verbose_name="Código Programa", db_column='CerCurCurCod', blank=True, null=True)
     class Meta:
         db_table = 'certificado_curso'

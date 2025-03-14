@@ -3,16 +3,27 @@ from .models import *
 
 # Register your models here.
 
+# Registro del modelo UserSimple personalizado
+@admin.register(UserSimple)
+class UserSimpleAdmin(admin.ModelAdmin):
+    list_display = (
+        'userdocide',
+        'usernom',
+        'userape',
+        'usercodosh',
+        'userpai',
+    )
+    search_fields = ('usernom', 'userape', 'userdocide', 'usercodosh',)
+    list_filter = ('userpai',)
+
+
 # Registro del modelo EStudiante usuario personalizado
 @admin.register(EstudianteUser)
 class EstudianteAdmin(admin.ModelAdmin):
     list_display = (
         'email',
-        'usernom',
-        'userape',
         'is_staff',
         'is_active',
-        'userdocide',
     )
-    search_fields = ('usernom', 'userape', 'userdocide', 'usercodosh',)
-    list_filter = ('is_staff','userpai',)
+    search_fields = ('email',)
+    list_filter = ('is_staff',)
