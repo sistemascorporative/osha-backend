@@ -80,21 +80,30 @@ class UserSimple(models.Model):
     userape = models.CharField(verbose_name="Apellidos", db_column='UserApe', max_length=60, blank=False)
     userdocide = models.CharField(verbose_name="Documento de identidad", db_column='UserDocIde', max_length=50, blank=False, unique=True)
     usercodosh = models.CharField(verbose_name="Código Osha Institute", db_column='UserCodOsh', max_length=9, blank=True, null=True, unique=True)
-    userpai = models.CharField(verbose_name="Pais", db_column='UserPai', max_length=50, blank=True, null=True)
+    userpai = models.CharField(verbose_name="Pais", db_column='UserPai', max_length=50, blank=True, null=True, default='')
+    userciu = models.CharField(verbose_name="Ciudad", db_column='UserCiu', max_length=50, blank=True, null=True, default='')
+    userdir = models.CharField(verbose_name="Dirección", db_column='UserDir', max_length=100, blank=True, null=True, default='')
     
-    def __str__(self):
-        return f"{self.usernom} {self.userape} - {self.userdocide}"
+    def convertir_a_usuario(self, email, password):
+        """Convierte esta instancia de UserSimple en un usuario que puede iniciar sesión."""
+        if hasattr(self, 'estudianteuser'):
+            raise ValueError("Este usuario ya tiene una cuenta de acceso.")
+        # Crear el usuario con acceso a la plataforma
+        usuario = EstudianteUser.objects.create_user(
+            usuario=self,  # Usa el UserSimple como PK
+            email=email,
+            password=password
+        )
+        return usuario
 
 
 class EstudianteUser(AbstractBaseUser, PermissionsMixin):
     """Usuarios que pueden iniciar sesión en la plataforma."""
 
     usuario = models.OneToOneField(
-        UserSimple, on_delete=models.CASCADE, verbose_name="Usuario", db_column='User', unique=True, null=False, default=0
+        UserSimple, primary_key=True, on_delete=models.CASCADE, verbose_name="Usuario", db_column='User', unique=True, null=False
     )
     email = models.EmailField(verbose_name="Email", unique=True)
-    userciu = models.CharField(verbose_name="Ciudad", db_column='UserCiu', max_length=50, blank=True, null=True, default='')
-    userdir = models.CharField(verbose_name="Dirección", db_column='UserDir', max_length=100, blank=True, null=True, default='')
     
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
@@ -102,7 +111,7 @@ class EstudianteUser(AbstractBaseUser, PermissionsMixin):
     objects = UserAccountManager()
     
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = []
+    REQUIRED_FIELDS = ['usuario']
     
     def get_full_name(self):
         return self.usuario.usernom + "" + self.usuario.userape

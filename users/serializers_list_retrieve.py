@@ -13,6 +13,8 @@ class UserSimpleSerializerList(serializers.ModelSerializer):
             "userdocide",
             "usercodosh",
             "userpai",
+            "userciu",
+            "userdir",
         ]
 
 
@@ -23,6 +25,4 @@ class EstudianteUserSerializerList(serializers.ModelSerializer):
         fields = [
             "usuario",
             "email",
-            "userciu",
-            "userdir",
         ]
