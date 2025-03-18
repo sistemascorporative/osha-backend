@@ -4,9 +4,55 @@ from ..serializers_list_retrieve import *
 from ..serializers import *
 from ..models import *
 from django.shortcuts import get_object_or_404
-from users.models import EstudianteUser
+from users.models import EstudianteUser, UserSimple
 
 #ListAPIViews
+
+"""
+Endpoint para obtener todos los credenciales de programas matriculados por estudiante pk
+"""
+class CredencialProgramaMatriculadoByPkListView(ListAPIView):
+    serializer_class = CredencialProgramaMatriculadoSerializerList
+
+    def get_queryset(self):
+        id = self.kwargs.get('pk')
+        return CredencialProgramaMatriculado.objects.filter(crepromatprocod__matproestcod=id)
+
+
+"""
+Endpoint para obtener todos los credenciales de programas por estudiante pk
+"""
+class CredencialProgramaByPkListView(ListAPIView):
+    serializer_class = CredencialProgramaSerializerList
+
+    def get_queryset(self):
+        id = self.kwargs.get('pk')
+        return CredencialPrograma.objects.filter(creproestcod=id)
+
+
+"""
+Endpoint para obtener todos los certificados de cursos matriculados por estudiante pk
+"""
+class CertificadoCursoMatriculadoByPkListView(ListAPIView):
+    serializer_class = CertificadoCursoMatriculadoSerializerList
+
+    def get_queryset(self):
+        id = self.kwargs.get('pk')
+        return CertificadoCursoMatriculado.objects.filter(cercurmatcurcod__matcurestcod=id)
+
+
+"""
+Endpoint para obtener todos los certificados de cursos por estudiante pk
+"""
+class CertificadoCursoByPkListView(ListAPIView):
+    serializer_class = CertificadoCursoSerializerList
+
+    def get_queryset(self):
+        id = self.kwargs.get('pk')
+        return CertificadoCurso.objects.filter(cercurestcod=id)
+
+
+
 
 
 """
@@ -29,7 +75,7 @@ class CredencialProgramaByEmailListView(ListAPIView):
 
     def get_queryset(self):
         email = self.kwargs.get('estudiante_email')
-        estudiante = get_object_or_404(EstudianteUser, email=email)
+        estudiante = get_object_or_404(UserSimple, email=email)
         return CredencialPrograma.objects.filter(creproestcod=estudiante)
 
 
@@ -53,7 +99,7 @@ class CertificadoCursoByEmailListView(ListAPIView):
 
     def get_queryset(self):
         email = self.kwargs.get('estudiante_email')
-        estudiante = get_object_or_404(EstudianteUser, email=email)
+        estudiante = get_object_or_404(UserSimple, email=email)
         return CertificadoCurso.objects.filter(cercurestcod=estudiante)
 
 
