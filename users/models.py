@@ -101,7 +101,7 @@ class EstudianteUser(AbstractBaseUser, PermissionsMixin):
     """Usuarios que pueden iniciar sesión en la plataforma."""
 
     usuario = models.OneToOneField(
-        UserSimple, primary_key=True, on_delete=models.CASCADE, verbose_name="Usuario", db_column='User', unique=True, null=False
+        UserSimple, on_delete=models.CASCADE, verbose_name="Usuario", db_column='User', unique=True, null=False
     )
     email = models.EmailField(verbose_name="Email", unique=True)
     

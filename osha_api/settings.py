@@ -208,7 +208,7 @@ SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(hours=6), # Cambiado a 6 hora
     'REFRESH_TOKEN_LIFETIME': timedelta(days=1), # Duración del token de refresco (puedes ajustar esto si es necesario)
     #'AUTH_HEADER_NAME': 'HTTP_AUTHORIZATION',
-    'USER_ID_FIELD': 'usuario',
+    'USER_ID_FIELD': 'id',
     'USER_ID_CLAIM': 'user_id',
     #'USER_AUTHENTICATION_RULE': 'rest_framework_simplejwt.authentication.default_user_authentication_rule',
     
