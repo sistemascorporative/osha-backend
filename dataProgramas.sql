@@ -22,7 +22,7 @@ VALUES
     --(2056, 'Especialista Hazmat Nivel IV Osha', 'EHIV-OSHA', 260, 0, 1);
 
 
-    (0000, 'NOmbre grado español', 'nombre grado ingles', 'Nombre de diploma español', 'Nombre de diploma en ingles', 'PRUEBA-OSHA', 0, 0, 0),
+    (0000, 'Nombre grado español', 'name of degree in ingles', 'Nombre de diploma español', 'Name of diplomat in ingles', 'PRUEBA-OSHA', 0, 0, 0),
     (1001, 'Entrenador de Seguridad y Salud en el Trabajo del Instituto Osha', 'Occupational Safety and Health Trainer of Osha-Institute', 'Entrenador en  Seguridad y Salud en el  Trabajo de Osha ','Train the Trainer', 'TT-OSHA', 320, 0, 1),
     (1002, 'Entrenador de Trabajos Críticos', ' Critical Work Trainer', 'Supervisor Especialista en Trabajos Criticos', 'Critical Work Specialist Supervisor','TTC-OSHA', 320, 0, 1),
     (1010, 'Entrenador de Materiales Peligrosos OSHA', 'Trainer Hazmat Osha', 'Instructor en Gestión de Materiales Peligrosos', 'Instructor in Integral Management of Hazardous Materials', 'TH-OSHA', 320, 0, 1),

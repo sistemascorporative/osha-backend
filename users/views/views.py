@@ -17,6 +17,5 @@ class PublicUserViewSet(UserViewSet):
 class EstudianteUserByEmailAPIView(APIView):
     def get(self, request, email):
         estudiante = get_object_or_404(EstudianteUser, email=email)
-        print(estudiante)
-        serializer = EstudianteUserSerializer(estudiante)
+        serializer = EstudianteUserSerializerList(estudiante)
         return Response(serializer.data, status=status.HTTP_200_OK)
