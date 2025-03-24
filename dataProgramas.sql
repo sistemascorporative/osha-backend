@@ -29,6 +29,7 @@ VALUES
     (1016, 'Entrenador de Seguridad y salud ocupacional OSHA', 'Occupational Safety and Health Trainer OSHA', 'Gerencia en la Seguridad y Salud en el Trabajo Bajo normas OSHA', 'Management in Occupational Health and Safety Under OSHA Standards', 'TSSO-OSHA', 320, 0, 1),
     (1019, 'Entrenador de Trabajos en Altura Osha','Work at Height Trainer Osha', 'Supervisor de Trabajos en Altura basado a las normas OSHA-EE.UU', 'Supervisor of work at heights based on U.S. OSHA standards', 'TTA-OSHA', 320, 0, 1),
     (1020, "Entrenador de Seguridad y Salud en el Trabajo en la Industria de la Construcción", 'Workplace Safety and Health Trainer in the Construction Industry', 'Gerencia en Seguridad y Salud en el Trabajo en la Industria de la Construcción','Occupational Health and Safety Management in the Construction Industry', "TSSTIC-OSHA", 320, 0, 1),
+    (1021, 'TCM-OSHA', '', ),
 
     (1040, 'Supervisor en Seguridad y Salud en el Trabajo Osha', 'Work Health and Safety Supervisor Osha', 'Supervisión de Seguridad Efectiva basado en las normas OSHA-EE.UU', 'Effective Safety Supervision Based on U.S. OSHA Standards', 'SSST-OSHA', 360, 0, 1),
 

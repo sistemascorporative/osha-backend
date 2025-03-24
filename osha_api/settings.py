@@ -249,4 +249,7 @@ DJOSER = {
     },    
 }
 
+SITE_NAME = "Frontend Osha"
+DOMAIN = os.getenv('URL_FRONTEND', '')
+
 AUTH_USER_MODEL = 'users.EstudianteUser'
