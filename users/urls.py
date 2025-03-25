@@ -2,9 +2,11 @@ from django.urls import path, include
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from .views.views import PublicUserViewSet, EstudianteUserByEmailAPIView
 from .views.views_retrieve import EstudianteUserRetrieveAPIView
+from .views.views_create import RegisterUserView
 
 
 urlpatterns = [
+    path('usuario/register/', RegisterUserView.as_view(), name='register'),
     path('auth/users/', PublicUserViewSet.as_view({'post': 'create'}), name='user-create'),  # Registro
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),

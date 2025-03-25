@@ -3,6 +3,19 @@ from rest_framework import serializers
 from .models import *
 
 
+from rest_framework import serializers
+
+class RegisterUserSerializer(serializers.Serializer):
+    email = serializers.EmailField()
+    password = serializers.CharField(write_only=True)
+    nombre = serializers.CharField(max_length=60)
+    apellido = serializers.CharField(max_length=60)
+    dni = serializers.CharField(max_length=50)
+    pais = serializers.CharField(max_length=50, allow_blank=True, required=False)
+    ciudad = serializers.CharField(max_length=50, allow_blank=True, required=False)
+    direccion = serializers.CharField(max_length=100, allow_blank=True, required=False)
+
+
 class UserCreateSerializer(UserSerializer):
     class Meta:
         model = EstudianteUser
