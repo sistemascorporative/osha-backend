@@ -8,18 +8,19 @@ from ..serializers import RegisterUserSerializer
 
 class RegisterUserView(APIView):
     permission_classes = [permissions.AllowAny]
+    
     def post(self, request):
         serializer = RegisterUserSerializer(data=request.data)
         if serializer.is_valid():
             try:
                 with transaction.atomic():
                     user_simple = UserSimple.objects.create(
-                        usernom=serializer.validated_data['nombre'],
-                        userape=serializer.validated_data['apellido'],
-                        userdocide=serializer.validated_data['dni'],
-                        userpai=serializer.validated_data['pais'],
-                        userciu=serializer.validated_data['ciudad'],
-                        userdir=serializer.validated_data['direccion']
+                        usernom=serializer.validated_data['usernom'],
+                        userape=serializer.validated_data['userape'],
+                        userdocide=serializer.validated_data['userdocide'],
+                        userpai=serializer.validated_data.get('userpai', ''),
+                        userciu=serializer.validated_data.get('userciu', ''),
+                        userdir=serializer.validated_data.get('userdir', '')
                     )
                     estudiante_user = EstudianteUser.objects.create(
                         usuario=user_simple,
