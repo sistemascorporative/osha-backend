@@ -184,8 +184,6 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.IsAuthenticated', #AllowAny IsAuthenticated
     ],
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        #'rest_framework.authentication.BasicAuthentication',
-        #'rest_framework.authentication.SessionAuthentication',
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
     #'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema',
@@ -242,11 +240,11 @@ DJOSER = {
     'ACTIVATION_URL': 'activate/{uid}/{token}',
     'SEND_ACTIVATION_EMAIL': True,
     'SERIALIZERS': {
-        'user_create': 'users.serializers.UserCreateSerializer',
+        'user_create': 'users.serializers.CustomUserCreateSerializer',
         'user': 'users.serializers.UserCreateSerializer',
-        'current_user': 'users.serializers.UserCreateSerializer',
+        'current_user': 'users.serializers.CustomUserCreateSerializer',
         'user_delete': 'djoser.serializers.UserDeleteSerializer',
-    },    
+    },
 }
 
 SITE_NAME = "Osha Institute"

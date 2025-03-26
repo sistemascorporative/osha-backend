@@ -14,14 +14,20 @@ class RegisterUserView(APIView):
         if serializer.is_valid():
             try:
                 with transaction.atomic():
-                    user_simple = UserSimple.objects.create(
-                        usernom=serializer.validated_data['usernom'],
-                        userape=serializer.validated_data['userape'],
+                    user_simple, created = UserSimple.objects.get_or_create(
                         userdocide=serializer.validated_data['userdocide'],
-                        userpai=serializer.validated_data.get('userpai', ''),
-                        userciu=serializer.validated_data.get('userciu', ''),
-                        userdir=serializer.validated_data.get('userdir', '')
+                        defaults={
+                            'usernom': serializer.validated_data['usernom'],
+                            'userape': serializer.validated_data['userape'],
+                            'userpai': serializer.validated_data.get('userpai', ''),
+                            'userciu': serializer.validated_data.get('userciu', ''),
+                            'userdir': serializer.validated_data.get('userdir', '')
+                        }
                     )
+                    
+                    if hasattr(user_simple, 'estudianteuser'):
+                        return Response({"error": "Este usuario ya tiene una cuenta de acceso."}, status=status.HTTP_400_BAD_REQUEST)
+                    
                     estudiante_user = EstudianteUser.objects.create(
                         usuario=user_simple,
                         email=serializer.validated_data['email'],
@@ -29,7 +35,9 @@ class RegisterUserView(APIView):
                     )
                     estudiante_user.set_password(serializer.validated_data['password'])
                     estudiante_user.save()
+                    
                 return Response({"message": "Usuario registrado exitosamente. Esperando activación."}, status=status.HTTP_201_CREATED)
             except Exception as e:
                 return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
+        
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
