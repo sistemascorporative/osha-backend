@@ -92,15 +92,17 @@ WSGI_APPLICATION = 'osha_api.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
+
+print(os.getenv('DATABASE_URL'))
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3', #postgres
-        'NAME': BASE_DIR / 'db.sqlite3', #'auth_system'
+    #'default': {
+    #    'ENGINE': 'django.db.backends.sqlite3', #postgres
+    #    'NAME': BASE_DIR / 'db.sqlite3', #'auth_system'
         #'USER': 'postgres',
         #'PASSWORD': 'password123',
         #'HOST': 'localhost'
-    }
-    #'default': dj_database_url.config(default=os.getenv('DATABASE_URL'))
+    #}
+    'default': dj_database_url.config(default=os.getenv('DATABASE_URL'))
 }
 
 # Email
@@ -167,7 +169,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 #    },
 #}
 
-ALLOWED_HOSTS = ['localhost','web-production-7f42c.up.railway.app']
+ALLOWED_HOSTS = ['localhost','web-production-25253.up.railway.app']
 
 # cors autheization
 CORS_ALLOWED_ORIGINS = [
@@ -177,7 +179,7 @@ CORS_ALLOWED_ORIGINS = [
     'https://httpie.io',
 ]
 
-CSRF_TRUSTED_ORIGINS = ['http://*','https://web-production-d405.up.railway.app']
+CSRF_TRUSTED_ORIGINS = ['http://*','https://web-production-25253.up.railway.app']
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
