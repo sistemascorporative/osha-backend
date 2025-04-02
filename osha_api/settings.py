@@ -167,7 +167,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 #    },
 #}
 
-ALLOWED_HOSTS = ['localhost','web-production-d405.up.railway.app']
+ALLOWED_HOSTS = ['localhost','web-production-7f42c.up.railway.app']
 
 # cors autheization
 CORS_ALLOWED_ORIGINS = [
@@ -240,9 +240,9 @@ DJOSER = {
     'ACTIVATION_URL': 'activate/{uid}/{token}',
     'SEND_ACTIVATION_EMAIL': True,
     'SERIALIZERS': {
-        'user_create': 'users.serializers.CustomUserCreateSerializer',
+        'user_create': 'users.serializers.UserCreateSerializer',
         'user': 'users.serializers.UserCreateSerializer',
-        'current_user': 'users.serializers.CustomUserCreateSerializer',
+        'current_user': 'users.serializers.UserCreateSerializer',
         'user_delete': 'djoser.serializers.UserDeleteSerializer',
     },
 }

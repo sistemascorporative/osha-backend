@@ -44,6 +44,9 @@ class UserSimple(models.Model):
             password=password
         )
         return usuario
+    
+    def __str__(self):
+        return f"{self.userdocide} - {self.usernom} {self.userape}"
 
 
 class EstudianteUser(AbstractBaseUser, PermissionsMixin):
