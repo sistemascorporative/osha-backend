@@ -93,7 +93,7 @@ WSGI_APPLICATION = 'osha_api.wsgi.application'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
 
-print(os.getenv('DATABASE_URL'))
+print(os.getenv('DATABASE_PUBLIC_URL'))
 DATABASES = {
     #'default': {
     #    'ENGINE': 'django.db.backends.sqlite3', #postgres
@@ -102,7 +102,7 @@ DATABASES = {
         #'PASSWORD': 'password123',
         #'HOST': 'localhost'
     #}
-    'default': dj_database_url.config(default=os.getenv('DATABASE_URL'))
+    'default': dj_database_url.config(default=os.getenv('DATABASE_PUBLIC_URL'))
 }
 
 # Email
