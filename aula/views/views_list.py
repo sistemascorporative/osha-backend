@@ -6,6 +6,7 @@ from ..serializers import *
 from ..models import Curso, Programa
 from django.shortcuts import get_object_or_404
 from rest_framework.response import Response
+from rest_framework.permissions import AllowAny
 from rest_framework import status
 from users.models import EstudianteUser
 
@@ -236,6 +237,7 @@ class EstadoRegistroListAPIView(ListAPIView):
 
 
 class ProgramaListAPIView(ListAPIView):
+    permission_classes = [AllowAny]
     queryset = Programa.objects.all()
     serializer_class = ProgramaSerializerList
 

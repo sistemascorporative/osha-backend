@@ -18,7 +18,7 @@ class EstadoExamenRetrieveAPIView(RetrieveAPIView):
 
 class ProgramaRetrieveAPIView(RetrieveAPIView):
     queryset = Programa.objects.all()
-    serializer_class = ProgramaSerializerList
+    serializer_class = ProgramaSerializer
 
 
 class CursoRetrieveAPIView(RetrieveAPIView):
