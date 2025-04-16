@@ -12,6 +12,7 @@ class EstudianteUserRetrieveAPIView(RetrieveAPIView):
     queryset = EstudianteUser.objects.all()
     serializer_class = EstudianteUserSerializerList
 
+
 class UserSimpleRetrieveAPIView(RetrieveAPIView):
     permission_classes = [AllowAny]
     queryset = UserSimple.objects.all()
@@ -23,3 +24,16 @@ class UserSimpleRetrieveAPIView(RetrieveAPIView):
             return super().get_object()
         except Http404:
             raise NotFound(detail="La persona con ese documento no está registrada en el sistema.")
+
+
+class UserSimpleByCodOshRetrieveAPIView(RetrieveAPIView):
+    permission_classes = [AllowAny]
+    queryset = UserSimple.objects.all()
+    serializer_class = UserSimpleSerializerList
+    lookup_field = 'usercodosh'
+    
+    def get_object(self):
+        try:
+            return super().get_object()
+        except Http404:
+            raise NotFound(detail="La persona con ese código osha institute no está registrada en el sistema.")

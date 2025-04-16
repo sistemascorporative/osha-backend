@@ -16,8 +16,17 @@ urlpatterns = [
     path('certificados/curso/matriculado/by-email/<str:estudiante_email>/', CertificadoCursoMatriculadoByEmailListView.as_view(), name='certificado-curso-matriculado-by-email'),
     path('certificados/curso/by-email/<str:estudiante_email>/', CertificadoCursoByEmailListView.as_view(), name='certificado-curso-by-email'),
     
+    # List Obtener credenciales por documento de identidad
+    
     path('credenciales/programa/matriculado/by-doc-identidad/<str:documento_identidad>/', CredencialProgramaMatriculadoByDocIdListView.as_view(), name='credencial-programa-by-documento-identidad'),
     path('credenciales/programa/by-doc-identidad/<str:documento_identidad>/', CredencialProgramaByDocIdListView.as_view(), name='credencial-programa-by-documento-identidad'),
     path('certificados/curso/matriculado/by-doc-identidad/<str:documento_identidad>/', CertificadoCursoMatriculadoByDocIdListView.as_view(), name='certificado-curso-matriculado-by-documento-identidad'),
     path('certificados/curso/by-doc-identidad/<str:documento_identidad>/', CertificadoCursoByDocIdListView.as_view(), name='certificado-curso-by-documento-identidad'),
+    
+    # List Obtener credenciales por código osha
+    
+    path('credenciales/programa/matriculado/by-codosh/<str:usercodosh>/', CredencialProgramaMatriculadoByCodOshListView.as_view(), name='credencial-programa-by-codigo-osha'),
+    path('credenciales/programa/by-codosh/<str:usercodosh>/', CredencialProgramaByCodOshListView.as_view(), name='credencial-programa-by-codigo-osha'),
+    path('certificados/curso/matriculado/by-codosh/<str:usercodosh>/', CertificadoCursoMatriculadoByCodOshListView.as_view(), name='certificado-curso-matriculado-by-codigo-osha'),
+    path('certificados/curso/by-codosh/<str:usercodosh>/', CertificadoCursoByCodOshListView.as_view(), name='certificado-curso-by-codigo-osha'),
 ]

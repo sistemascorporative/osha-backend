@@ -153,3 +153,55 @@ class CertificadoCursoByDocIdListView(ListAPIView):
         docId = self.kwargs.get('documento_identidad')
         estudiante = get_object_or_404(UserSimple, userdocide=docId)
         return CertificadoCurso.objects.filter(cercurestcod=estudiante)
+
+
+"""
+Endpoint para obtener todos los credenciales de programas matriculados por estudiante por codigo osha
+"""
+class CredencialProgramaMatriculadoByCodOshListView(ListAPIView):
+    permission_classes = [AllowAny]
+    serializer_class = CredencialProgramaMatriculadoSerializerListMin
+
+    def get_queryset(self):
+        userCodOsh = self.kwargs.get('usercodosh')
+        estudiante = get_object_or_404(EstudianteUser, usuario__usercodosh=userCodOsh)
+        return CredencialProgramaMatriculado.objects.filter(crepromatprocod__matproestcod=estudiante)
+
+
+"""
+Endpoint para obtener todos los credenciales de programas por estudiante por codigo osha
+"""
+class CredencialProgramaByCodOshListView(ListAPIView):
+    permission_classes = [AllowAny]
+    serializer_class = CredencialProgramaSerializerListMin
+
+    def get_queryset(self):
+        userCodOsh = self.kwargs.get('usercodosh')
+        estudiante = get_object_or_404(UserSimple, usercodosh=userCodOsh)
+        return CredencialPrograma.objects.filter(creproestcod=estudiante)
+
+
+"""
+Endpoint para obtener todos los certificados de cursos matriculados por estudiante por codigo osha
+"""
+class CertificadoCursoMatriculadoByCodOshListView(ListAPIView):
+    permission_classes = [AllowAny]
+    serializer_class = CertificadoCursoMatriculadoSerializerListMin
+
+    def get_queryset(self):
+        userCodOsh = self.kwargs.get('usercodosh')
+        estudiante = get_object_or_404(EstudianteUser, usuario__usercodosh=userCodOsh)
+        return CertificadoCursoMatriculado.objects.filter(cercurmatcurcod__matcurestcod=estudiante)
+
+
+"""
+Endpoint para obtener todos los certificados de cursos por estudiante por codigo osha
+"""
+class CertificadoCursoByCodOshListView(ListAPIView):
+    permission_classes = [AllowAny]
+    serializer_class = CertificadoCursoSerializerListMin
+
+    def get_queryset(self):
+        userCodOsh = self.kwargs.get('usercodosh')
+        estudiante = get_object_or_404(UserSimple, usercodosh=userCodOsh)
+        return CertificadoCurso.objects.filter(cercurestcod=estudiante)
