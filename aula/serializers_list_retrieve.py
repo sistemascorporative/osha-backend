@@ -1,4 +1,5 @@
 from rest_framework import serializers
+from .serializers import ProgramaSerializer
 from .models import *
 from users.serializers_list_retrieve import EstudianteUserSerializerList
 
@@ -23,19 +24,12 @@ class EstadoExamenSerializerList(serializers.ModelSerializer):
 
 
 class ProgramaSerializerList(serializers.ModelSerializer):
-    proestregcod = EstadoRegistroSerializerList()
     class Meta:
         model = Programa
         fields = [
             "procod",
-            "pronom",
-            "pronomeng",
-            "prodip",
-            "prodipeng",
             "procodosh",
-            "pronumhor",
-            "pronumcur",
-            "proestregcod"
+            "pronom",
         ]
 
 
@@ -143,7 +137,7 @@ class RespuestaExamenCursoSerializerList(serializers.ModelSerializer):
 
 
 class MatriculaProgramaSerializerList(serializers.ModelSerializer):
-    matproprocod = ProgramaSerializerList()
+    matproprocod = ProgramaSerializer()
     matproestcod = EstudianteUserSerializerList()
     class Meta:
         model = MatriculaPrograma
@@ -167,7 +161,7 @@ class MatriculaCursoSerializerList(serializers.ModelSerializer):
 
 
 class RegistroExamenProgramaSerializerList(serializers.ModelSerializer):
-    regexaproprocod = ProgramaSerializerList()
+    regexaproprocod = ProgramaSerializer()
     regexaproestcod = EstudianteUserSerializerList()
     regexaproexacod = ExamenSerializerList()
     regexaproestexacod = EstadoExamenSerializerList()

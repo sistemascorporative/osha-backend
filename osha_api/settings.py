@@ -93,14 +93,14 @@ WSGI_APPLICATION = 'osha_api.wsgi.application'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
 
-print(os.getenv('DATABASE_PUBLIC_URL'))
+#print(os.getenv('DATABASE_PUBLIC_URL'))
 DATABASES = {
     #'default': {
     #    'ENGINE': 'django.db.backends.sqlite3', #postgres
     #    'NAME': BASE_DIR / 'db.sqlite3', #'auth_system'
-        #'USER': 'postgres',
-        #'PASSWORD': 'password123',
-        #'HOST': 'localhost'
+    #    'USER': 'postgres',
+    #    'PASSWORD': 'password123',
+    #    'HOST': 'localhost'
     #}
     'default': dj_database_url.config(default=os.getenv('DATABASE_PUBLIC_URL'))
 }
@@ -109,9 +109,10 @@ DATABASES = {
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
+EMAIL_USE_TLS = True
 EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER', '')
 EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD', '')
-EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 
 
@@ -173,10 +174,10 @@ ALLOWED_HOSTS = ['localhost','web-production-25253.up.railway.app']
 
 # cors autheization
 CORS_ALLOWED_ORIGINS = [
-    'http://localhost:5173',
-    'http://127.0.0.1:5173',
-    'http://127.0.0.1:5174',
-    'https://httpie.io',
+    'https://osha.es',
+    'https://oshainstitute.osha.es',
+    'https://classroom.osha.es',
+    #'http://localhost:5173',
 ]
 
 CSRF_TRUSTED_ORIGINS = ['http://*','https://web-production-25253.up.railway.app']

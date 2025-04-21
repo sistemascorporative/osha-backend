@@ -1,7 +1,7 @@
 from django.urls import path, include
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from .views.views import PublicUserViewSet, EstudianteUserByEmailAPIView
-from .views.views_retrieve import EstudianteUserRetrieveAPIView
+from .views.views_retrieve import EstudianteUserRetrieveAPIView, UserSimpleRetrieveAPIView, UserSimpleByCodOshRetrieveAPIView
 from .views.views_create import RegisterUserView
 
 
@@ -17,4 +17,6 @@ urlpatterns = [
     
     #path('estudiante/<int:pk>/', EstudianteUserRetrieveAPIView.as_view(), name='estudiante-detail'),
     path('estudiante/<str:email>/', EstudianteUserByEmailAPIView.as_view(), name='estudiante-detail'),
+    path('usersimple/<str:userdocide>/', UserSimpleRetrieveAPIView.as_view(), name='user-datail-docid'),
+    path('usersimple/by-codosh/<str:usercodosh>/', UserSimpleByCodOshRetrieveAPIView.as_view(), name='user-datail-codosh'),
 ]
