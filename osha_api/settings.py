@@ -10,9 +10,9 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 import os
+from pathlib import Path
 import dj_database_url
 from dotenv import load_dotenv
-from pathlib import Path
 from datetime import timedelta
 
 
@@ -170,7 +170,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 #    },
 #}
 
-ALLOWED_HOSTS = ['localhost','web-production-25253.up.railway.app']
+ALLOWED_HOSTS = ['localhost','osha.up.railway.app']
 
 # cors autheization
 CORS_ALLOWED_ORIGINS = [
@@ -180,7 +180,7 @@ CORS_ALLOWED_ORIGINS = [
     'http://localhost:5173',
 ]
 
-CSRF_TRUSTED_ORIGINS = ['http://*','https://web-production-25253.up.railway.app']
+CSRF_TRUSTED_ORIGINS = ['http://*','https://osha.up.railway.app']
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
