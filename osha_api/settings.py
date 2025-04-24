@@ -177,7 +177,7 @@ CORS_ALLOWED_ORIGINS = [
     'https://osha.es',
     'https://oshainstitute.osha.es',
     'https://classroom.osha.es',
-    #'http://localhost:5173',
+    'http://localhost:5173',
 ]
 
 CSRF_TRUSTED_ORIGINS = ['http://*','https://web-production-25253.up.railway.app']

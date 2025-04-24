@@ -53,10 +53,10 @@ class Curso(models.Model):
 
 class Programa(models.Model):
     procod = models.IntegerField(verbose_name="Código", db_column='ProCod', primary_key=True)
-    pronom = models.CharField(verbose_name="Nombre de Grado", db_column='ProNom', max_length=100, blank=False)
-    pronomeng = models.CharField(verbose_name="Nombre de Grado en inglés", db_column='ProNomEng', max_length=100, blank=True, default='')
-    prodip = models.CharField(verbose_name="Nombre de Diploma", db_column='ProDip', max_length=100, blank=True, default='')
-    prodipeng = models.CharField(verbose_name="Nombre de Diploma en inglés", db_column='ProDipEng', max_length=100, blank=True, default='')
+    pronom = models.CharField(verbose_name="Nombre de Grado", db_column='ProNom',max_length=200, blank=False)
+    pronomeng = models.CharField(verbose_name="Nombre de Grado en inglés", db_column='ProNomEng',max_length=200, blank=True, default='')
+    prodip = models.CharField(verbose_name="Nombre de Diploma", db_column='ProDip',max_length=200, blank=True, default='')
+    prodipeng = models.CharField(verbose_name="Nombre de Diploma en inglés", db_column='ProDipEng',max_length=200, blank=True, default='')
     procodosh = models.CharField(verbose_name="Codigo osha", db_column='ProCodOsh', max_length=30)
     pronumhor = models.IntegerField( verbose_name="Número de horas", db_column='ProNumHor', default=0)
     pronumcur = models.IntegerField( verbose_name="Número de cursos", db_column='ProNumCur', default=0)
