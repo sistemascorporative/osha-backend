@@ -2,7 +2,8 @@
 DELETE FROM curso;
 
 -- Insertar datos en la tabla Curso
-INSERT INTO curso (CurCod, CurNom, CurNomEng, CurNumMod, CurFre, CurEstRegCod)
+--INSERT INTO curso (CurCod, CurNom, CurNomEng, CurNumMod, CurFre, CurEstRegCod)
+INSERT INTO curso ("CurCod", "CurNom", "CurNomEng", "CurNumMod", "CurFre", "CurEstRegCod")
 VALUES
     (105, 'Comunicación de Peligros: Básico', 'Risk communication: Basic', 0, False, 1),
     (107, 'Planes de Actuación de Emergencias y Prevención de Incendios', 'Emergency Action and Fire Prevention Plans', 0, False, 1),
