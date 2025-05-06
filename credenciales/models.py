@@ -14,7 +14,7 @@ class CredencialProgramaMatriculado(models.Model):
     creprocarnet = models.BooleanField(verbose_name="Con carnet", db_column='CreProCarnet', blank=False, null=False, default=True)
     crepromatprocod = models.ForeignKey(MatriculaPrograma, models.PROTECT, verbose_name="Código Matrícula Programa", db_column='CreProMatProCod', blank=True, null=True)
     class Meta:
-        db_table = 'Credencial_programa_matriculado'
+        db_table = 'credencial_programa_matriculado'
         managed = True
         verbose_name = 'Credencial para Programa Matriculado'
         verbose_name_plural = 'Credenciales para Programa Matriculado'
@@ -30,7 +30,7 @@ class CredencialPrograma(models.Model):
     creproestcod = models.ForeignKey(UserSimple, models.PROTECT, verbose_name="Código Estudiante", db_column='CreProEstCod', blank=True, null=True)
     creproprocod = models.ForeignKey(Programa, models.PROTECT, verbose_name="Código Programa", db_column='CreProProCod', blank=True, null=True)
     class Meta:
-        db_table = 'Credencial_programa'
+        db_table = 'credencial_programa'
         managed = True
         verbose_name = 'Credencial para Programa'
         verbose_name_plural = 'Credenciales para Programa'

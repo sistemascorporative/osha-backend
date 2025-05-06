@@ -8,7 +8,8 @@ DELETE FROM modulo;
 -- id del curso XXXX
 -- y el numero del modulo Y
 -- FOMATO: XXXY
-INSERT INTO modulo (ModCod, ModNom, ModCurCod, ModEstRegCod)
+--INSERT INTO modulo (ModCod, ModNom, ModCurCod, ModEstRegCod)
+INSERT INTO modulo ("ModCod", "ModNom", "ModCurCod", "ModEstRegCod")
 VALUES
     (10501, 'Controles y etiquetado', 105, 1),
     (10502, 'Hojas de datos de seguridad (SDS)', 105, 1),
