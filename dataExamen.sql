@@ -1,90 +1,67 @@
+--Eliminar los registros de la tabla
+DELETE FROM examen;
+
 -- EL ID DEL EXAMEN TIENE QUE SER IGUAL QUE EL CURSO
 --INSERT INTO examen(ExaCod, ExaNumPre, ExaEStRegCod)
 INSERT INTO examen("ExaCod", "ExaCurCod", "ExaNumPre", "ExaEStRegCod")
 VALUES
-(12001, 1200, 10, 1);
-
-
-
---INSERT INTO pregunta(PreCod, PreTex, PreExp, PreNumMod, PreExaCod, PreEstRegCod)
-INSERT INTO pregunta("PreCod", "PreTex", "PreExp", "PreNumMod", "PreExaCod", "PreEstRegCod")
-VALUES
--- Pregunta 1
-(1200101, 'El Hidróxido de calcio, Ca(OH)2. ¿Es considerado un Peróxido?', 
-'No se considera un peróxido porque los peróxidos contienen un enlace oxígeno-oxígeno, como H₂O₂, cosa que no ocurre en Ca(OH)₂.', 
-120001, 12001, 1),
--- Pregunta 2
-(1200102, '¿El concepto propio de Química inorgánica es?', 
-'', 
-120001, 12001, 1),
--- Pregunta 3
-(1200103, 'Cuando hablamos de hidróxido de litio estamos hablando específicamente de que:', 
-'', 
-120001, 12001, 1),
--- Pregunta 4
-(1200104, 'El Hidróxido de Sodio es asociado con:', 
-'', 
-120001, 12001, 1),
--- Pregunta 5
-(1200105, 'El Hidróxido de Hierro se Utiliza como antiácido o laxante?', 
-'', 
-120001, 12001, 1),
--- Pregunta 6
-(1200106, 'La química inorgánica estudia todos los mencionados menos una:', 
-'', 
-120001, 12001, 1),
--- Pregunta 7
-(1200107, 'La química orgánica estudia:', 
-'', 
-120001, 12001, 1),
--- Pregunta 8
-(1200108, '¿El hidróxido de aluminio también se emplea como antiácido en las denominadas “sales de fruta”?', 
-'', 
-120001, 12001, 1),
--- Pregunta 9
-(1200109, 'Todos estos Ejemplos de aplicaciones y procesos de la química orgánica pertenecen menos 1 indique cual es la incorrecta.', 
-'', 
-120001, 12001, 1),
--- Pregunta 10
-(1200110, 'Es cierto que La geoquímica (rama de la química inorgánica) estudia la composición y los procesos que ocurren en los suelos y los océanos desde el punto de vista químico?', 
-'', 
-120001, 12001, 1),
-
-
-
-
-
---INSERT INTO alternativa(AltCod, AltTex, AltCor, AltPreCod, AltEstRegCod)
-INSERT INTO alternativa("AltCod", "AltTex", "AltCor", "AltPreCod", "AltEstRegCod")
-VALUES
--- Pregunta 1
-(120010101, 'Sí.', False, 1200101, 1),
-(120010102, 'No.', True, 1200101, 1),
-(120010103, 'Ninguna de los anteriores.', False, 1200101, 1),
-(120010104, 'Dependiendo su composición.', False, 1200101, 1),
-(120010105, 'Si se encuentra en el depósito adecuado.', False, 1200101, 1),
-
--- Pregunta 2
-(120010201, 'Estudia los compuestos químicos, así como las reacciones químicas que se desarrollan en los organismos vivientes.', False, 1200102, 1),
-(120010202, 'Estudia todos los elementos y compuestos cuya estructura no está basada fundamentalmente en el carbono.', True, 1200102, 1),
-(120010203, 'Estudia la materia utilizando la combinación de conceptos físicos y químicos.', False, 1200102, 1),
-(120010204, 'Establece métodos y técnicas para analizar la composición cuantitativa y cualitativa de las sustancias.', False, 1200102, 1),
-
--- Pregunta 3
-(120010301, 'Se asocia a la industria de los jabones y los productos de belleza y cuidado corporal.', True, 1200103, 1),
-(120010302, 'Tiene un papel intermediario en algunos procesos como el de la obtención del carbonato sódico.', False, 1200103, 1),
-(120010303, 'Se usa en la fabricación de cerámica, mientras que el de magnesio se usa como antiácido o laxante.', False, 1200103, 1),
-(120010304, 'En el proceso de fertilización de plantas.', False, 1200103, 1),
-(120010305, 'Ninguna de las anteriores.', False, 1200103, 1),
-
--- Pregunta 4
-(120010401, 'Por ejemplo, se asocia a la industria de los jabones y los productos de belleza y cuidado corporal.', True, 1200104, 1),
-(120010402, 'Tiene un papel intermediario en algunos procesos como el de la obtención del carbonato sódico.', False, 1200104, 1),
-(120010403, 'Se usa en la fabricación de cerámica, mientras que el de magnesio se usa como antiácido o laxante.', False, 1200104, 1),
-(120010404, 'Se utiliza en el proceso de fertilización de plantas.', False, 1200104, 1),
-
--- Pregunta 5
-(120010501, 'Sí.', False, 1200105, 1),
-(120010502, 'No.', True, 1200105, 1),
-(120010503, 'Puede ser.', False, 1200105, 1),
-(120010504, 'Ninguna de las anteriores.', False, 1200105, 1);
+    -- examenes para TT
+    (1121, 112, 20, 1),
+    (1441, 144, 20, 1),
+    (1211, 121, 20, 1),
+    (7031, 703, 20, 1),
+    (1161, 116, 20, 1),
+    (1171, 117, 20, 1),
+    (7001, 700, 20, 1),
+    (1131, 113, 20, 1),
+    (7111, 711, 20, 1),
+    (1231, 123, 20, 1),
+    (1221, 122, 20, 1),
+    (7211, 721, 20, 1),
+    (7231, 723, 20, 1),
+    (1551, 155, 20, 1),
+    (1561, 156, 20, 1),
+    (1571, 157, 20, 1),
+    (1581, 158, 20, 1),
+    (6051, 605, 20, 1),
+    (8141, 814, 20, 1),
+    (8151, 815, 20, 1),
+    (8161, 816, 20, 1),
+    (8171, 817, 20, 1),
+    (8201, 820, 20, 1),
+    (8211, 821, 20, 1),
+    (9081, 908, 20, 1),
+    (9091, 909, 20, 1),
+    (1191, 119, 20, 1),
+    (1151, 115, 20, 1),
+    (7061, 706, 20, 1),
+    (1501, 150, 20, 1),
+    (1511, 151, 20, 1),
+    (1521, 152, 20, 1),
+    (1531, 153, 20, 1),
+    (8501, 850, 20, 1),
+    (8331, 833, 20, 1),
+    (1081, 108, 20, 1),
+    (1381, 138, 20, 1),
+    (1391, 139, 20, 1),
+    (8051, 805, 20, 1),
+    (8061, 806, 20, 1),
+    (8071, 807, 20, 1),
+    (8081, 808, 20, 1),
+    (8091, 809, 20, 1),
+    (9071, 907, 20, 1),
+    (9041, 904, 20, 1),
+    (7131, 713, 20, 1),
+    (1541, 154, 20, 1),
+    (1071, 107, 20, 1),
+    (1051, 105, 20, 1),
+    (1141, 114, 20, 1),
+    (9001, 900, 20, 1),
+    (6601, 660, 20, 1),
+    (6611, 661, 20, 1),
+    (6621, 662, 20, 1),
+    (6631, 663, 20, 1),
+    (6641, 664, 20, 1),
+    (6651, 665, 20, 1),
+    (12001, 1200, 20, 1),
+    (12011, 1201, 20, 1);
