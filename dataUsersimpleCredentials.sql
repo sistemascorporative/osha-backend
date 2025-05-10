@@ -109,7 +109,8 @@ VALUES
     (103, '2024-11-30', '2029-11-30', TRUE, FALSE, FALSE, 4, 1019),
     (104, '2025-01-09', '2030-01-09', TRUE, TRUE, TRUE, 1414, 2010),
     (105, '2021-11-27', '2026-11-27', TRUE, TRUE, TRUE, 5, 2040),
-    (106, '2025-03-07', '2030-03-07', TRUE, TRUE, TRUE, 1421, 2030);
+    (106, '2025-03-07', '2030-03-07', TRUE, TRUE, TRUE, 1421, 2030),
+    (106, '2024-10-06', '2029-10-06', TRUE, TRUE, TRUE, 1422, 2010);
 
 
 INSERT INTO certificado_curso ("CerCurCod", "CerCurFecEmi", "CerCurFecCad", "CerCurCarnet", "CerCurEstCod", "CerCurCurCod")

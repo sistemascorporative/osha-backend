@@ -176,8 +176,10 @@ ALLOWED_HOSTS = ['localhost','osha.up.railway.app']
 # cors autheization
 CORS_ALLOWED_ORIGINS = [
     'https://osha.es',
+    'https://www.osha.es',
     'https://oshainstitute.osha.es',
     'https://classroom.osha.es',
+    'https://www.classroom.osha.es',
     'http://localhost:5173',
 ]
 
