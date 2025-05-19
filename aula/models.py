@@ -87,7 +87,7 @@ class Modulo(models.Model):
         verbose_name_plural = 'Modulos'
     
     def __str__(self):
-        return self.modnom
+        return f"{self.modcurcod} - {self.modnom}"
 
 
 class Examen(models.Model):
@@ -107,8 +107,8 @@ class Examen(models.Model):
 
 class Pregunta(models.Model):
     precod = models.AutoField(verbose_name="Codigo", db_column='preCod', primary_key=True)
-    pretex = models.CharField(verbose_name="Texto",db_column="PreTex", max_length=300)
-    preexp = models.CharField(verbose_name="Explicación",db_column="PreExp", max_length=300, default='')
+    pretex = models.CharField(verbose_name="Texto",db_column="PreTex", max_length=500)
+    preexp = models.CharField(verbose_name="Explicación",db_column="PreExp", max_length=1000, default='')
     prenummod = models.IntegerField(verbose_name="Número de modulo al que pertenece", db_column="PreNumMod", default=0)
     preexacod = models.ForeignKey(Examen, models.PROTECT, verbose_name="Codigo EXamen", db_column='PreExaCod')
     preestregcod = models.ForeignKey(EstadoRegistro, models.PROTECT, verbose_name="Codigo EStReg", db_column='PreEstRegCod')
@@ -222,25 +222,6 @@ class RespuestaExamenCurso(models.Model):
     def __str__(self):
         return f"{self.rescurestcod.usuario.usernom} - {self.rescurprecod} - {self.rescuraltcod}"
 
-
-#class Respuesta(models.Model):
-#    rescod = models.AutoField(verbose_name="Codigo", db_column='ResCod', primary_key=True)
-#    respun = models.DecimalField(verbose_name="Puntuacion", db_column='ResPun', max_digits=5, decimal_places=2)
-#    resestcod = models.ForeignKey(EstudianteUser, models.PROTECT, verbose_name="Codigo Estudiante", db_column='ResEstCod')
-#    resprocod = models.ForeignKey(Programa, models.PROTECT, verbose_name="Codigo Programa", db_column='ResProCod')
-#    resexacod = models.ForeignKey(Examen, on_delete=models.PROTECT, verbose_name="Codigo Examen", db_column='ResExaCod')
-#    resprecod = models.ForeignKey(Pregunta, models.PROTECT, verbose_name="Codigo Pregunta", db_column='ResPreCod')
-#    resaltcod = models.ForeignKey(Alternativa, models.PROTECT, verbose_name="Codigo Alternativa", db_column='ResAltCod')
-#    
-#    class Meta:
-#        db_table = 'respuesta'
-#        managed = True
-#        verbose_name = 'Respuesta'
-#        verbose_name_plural = 'Respuestas'
-#        unique_together = ('resestcod','resprocod', 'resexacod', 'resprecod')
-#    
-#    def __str__(self):
-#        return f"{self.rescod}"
 
 
 class RegistroExamenPrograma(models.Model):

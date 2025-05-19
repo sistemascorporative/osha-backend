@@ -1,4 +1,4 @@
-from django.db.models.signals import m2m_changed, post_save, post_delete
+from django.db.models.signals import m2m_changed, post_save, post_delete, pre_save
 from django.dispatch import receiver
 from .models import *
 import logging
@@ -30,7 +30,7 @@ def update_modulo_count(sender, instance, **kwargs):
 
 
 """
-Actualiza el número de preguntas de la tabla Exmen cuando crea, actualiza o elimina una pregunta
+Actualiza el número de preguntas de la tabla Examen cuando crea, actualiza o elimina una pregunta
 """
 @receiver(post_save, sender=Pregunta)
 @receiver(post_delete, sender=Pregunta)
@@ -40,18 +40,8 @@ def update_pregunta_count(sender, instance, **kwargs):
     examen.save()
 
 
-"""
-Crear y eliminar nota programa
-"""
 
 """
-Crear registro de examen despeus de matricula
-eliminar registros de examen
-"""
-
-
-
-""" ojo
 Signal para crear registros de exámenes para todos los cursos de un programa
 cuando se realiza una matrícula para el programa.
 """
@@ -69,16 +59,42 @@ def crear_registros_examen_por_programa(sender, instance, created, **kwargs):
             try:
                 examen = Examen.objects.get(exacurcod=curso)
                 RegistroExamenPrograma.objects.get_or_create(
-                    regexapromatprocod=instance,
+                    regexaproprocod=programa,
+                    regexaproestcod=estudiante,
                     regexaproexacod=examen,
                     defaults={
                         'regexapropun': 0.00,
                         'regexaproint': 0,
-                        'regexaproestexacod': estado_pendiente  # Asumiendo que 1 es el estado inicial del examen
+                        'regexaproestexacod': estado_pendiente  # Asumiendo que 2 es el estado inicial del examen
                     }
                 )
             except Examen.DoesNotExist:
                 print(f"No existe examen para el curso: {curso.curnom}")
+
+
+"""
+Signal para actualizar el estudiante en los registros de examen programa asociados a una matrícula de programa.
+"""
+@receiver(pre_save, sender=MatriculaPrograma)
+def actualizar_estudiante_en_registro_examen_programa(sender, instance, **kwargs):
+    try:
+        if not instance.pk: # Es una nueva matrícula, no hay estudiante anterior
+            return
+
+        antigua = MatriculaPrograma.objects.get(pk=instance.pk)
+
+        if antigua.matproestcod != instance.matproestcod:
+            registros = RegistroExamenPrograma.objects.filter(
+                regexaproprocod=instance.matproprocod,
+                regexaproestcod=antigua.matproestcod
+            )
+            cantidad = registros.update(regexaproestcod=instance.matproestcod)
+
+            logger.info(f"[Signal] {cantidad} registros de RegistroExamenPrograma actualizados: "
+                        f"estudiante cambiado de {antigua.matproestcod.id} a {instance.matproestcod.id} "
+                        f"para programa {instance.matproprocod.id}.")
+    except Exception as e:
+        logger.error(f"[Signal] Error al actualizar RegistroExamenPrograma al cambiar estudiante en MatriculaPrograma: {e}", exc_info=True)
 
 
 """
@@ -87,25 +103,20 @@ Signal para eliminar los registros de examen asociados a una matrícula de progr
 @receiver(post_delete, sender=MatriculaPrograma)
 def eliminar_registros_examen_programa(sender, instance, **kwargs):
     try:
-        # Obtener todas las matrículas de curso asociadas al programa
-        matriculas_curso = MatriculaCurso.objects.filter(
-            matcurestcod=instance.matproestcod,  # Estudiante asociado
-            matcurcurcod__in=instance.matproprocod.cursos.all()  # Cursos del programa
+        estudiante = instance.matproestcod
+        programa = instance.matproprocod
+
+        registros = RegistroExamenPrograma.objects.filter(
+            regexaproestcod=estudiante,
+            regexaproprocod=programa
         )
-        # Eliminar los registros de examen asociados a las matrículas de curso
-        total_eliminados = 0
-        for matricula_curso in matriculas_curso:
-            registros_eliminados = RegistroExamenCurso.objects.filter(
-                regexacurmatcurcod=matricula_curso
-            ).delete()
-            total_eliminados += registros_eliminados[0]
-        logger.info(
-            f"Se eliminaron {total_eliminados} registro(s) de examen asociados al programa {instance.matproprocod.pronom}."
-        )
+
+        cantidad_eliminada, detalles = registros.delete()
+        logger.info(f"[Signal] Se eliminaron {cantidad_eliminada} registros de RegistroExamenPrograma "
+                    f"relacionados con la matrícula (Est: {estudiante.id}, Prog: {programa.id}).")
+
     except Exception as e:
-        logger.error(
-            f"Error al eliminar los registros de examen para la matrícula de programa {instance.matprocod}: {e}"
-        )
+        logger.error(f"[Signal] Error al eliminar registros de RegistroExamenPrograma: {e}", exc_info=True)
 
 
 """
@@ -123,7 +134,8 @@ def crear_registro_examen_curso(sender, instance, created, **kwargs):
                 regexacurpun=0.0,  # Puntuación inicial
                 regexacurint=0,  # Número de intentos inicial
                 regexacurestexacod=estado_pendiente,
-                regexacurmatcurcod=instance,
+                regexacurcurcod=instance.matcurcurcod,
+                regexacurestcod=instance.matcurestcod,
                 regexacurexacod=examen
             )
         except Examen.DoesNotExist:
@@ -132,26 +144,55 @@ def crear_registro_examen_curso(sender, instance, created, **kwargs):
 
 
 """
+Signal para actualizar el estudiante cuando se haga una modificacion en la matrícula
+"""
+@receiver(pre_save, sender=MatriculaCurso)
+def actualizar_estudiante_en_registro_examen_curso(sender, instance, **kwargs):
+    try:
+        if not instance.pk: # Es una nueva matrícula, no hay estudiante anterior
+            return
+
+        antigua = MatriculaCurso.objects.get(pk=instance.pk)
+
+        if antigua.matcurestcod != instance.matcurestcod:
+            # Filtrar todos los registros del curso con el estudiante anterior
+            registros = RegistroExamenCurso.objects.filter(
+                regexacurcurcod=instance.matcurcurcod,
+                regexacurestcod=antigua.matcurestcod
+            )
+            cantidad = registros.update(regexacurestcod=instance.matcurestcod)
+
+            logger.info(f"[Signal] {cantidad} registros de RegistroExamenCurso actualizados: "
+                        f"estudiante cambiado de {antigua.matcurestcod.id} a {instance.matcurestcod.id} "
+                        f"para curso {instance.matcurcurcod.id}.")
+    except Exception as e:
+        logger.error(f"[Signal] Error actualizando RegistroExamenCurso al cambiar estudiante en MatriculaCurso: {e}", exc_info=True)
+
+
+"""
 Signal para eliminar los registros de examen asociados a una matrícula de curso.
 """
 @receiver(post_delete, sender=MatriculaCurso)
 def eliminar_registros_examen_curso(sender, instance, **kwargs):
     try:
-        # Eliminar los registros de examen asociados a la matrícula
-        registros_eliminados = RegistroExamenCurso.objects.filter(
-            regexacurmatcurcod=instance
-        ).delete()
-        logger.info(
-            f"Se eliminaron {registros_eliminados[0]} registro(s) de examen para la matrícula de curso {instance.matcurcod}."
+        estudiante = instance.matcurestcod
+        curso = instance.matcurcurcod
+
+        registros = RegistroExamenCurso.objects.filter(
+            regexacurestcod=estudiante,
+            regexacurcurcod=curso
         )
+
+        cantidad_eliminada, _ = registros.delete()
+        logger.info(f"[Signal] Se eliminaron {cantidad_eliminada} registros de RegistroExamenCurso "
+                    f"relacionados con la matrícula eliminada (Est: {estudiante.id}, Curso: {curso.id}).")
+
     except Exception as e:
-        logger.error(
-            f"Error al eliminar los registros de examen para la matrícula de curso {instance.matcurcod}: {e}"
-        )
+        logger.error(f"[Signal] Error al eliminar registros de RegistroExamenCurso: {e}", exc_info=True)
 
 
 """
-signal para actualizar porcentaje de avance de u programa
+signal para actualizar porcentaje de avance de un programa
 """
 
 

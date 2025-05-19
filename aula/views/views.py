@@ -1,7 +1,7 @@
 import pdfplumber
 import re
 import os
-import openai
+from openai import OpenAI
 import json
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -95,7 +95,7 @@ class GenerarExamenView(APIView):
                 exacurcod=curso,
                 defaults={
                     "exanumpre": num_questions,
-                    "exaestregcod": EstadoRegistro.objects.get(pk=0)  # Ejemplo de estado activo
+                    "exaestregcod": EstadoRegistro.objects.get(pk=1)  # Ejemplo de estado activo
                 }
             )
             return examen
@@ -145,30 +145,34 @@ class GenerarExamenView(APIView):
         print("num_questions")
         print(num_questions)
         """Genera múltiples preguntas y alternativas usando la API de OpenAI en una sola solicitud"""
-        openai.api_key = "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"  # Asegúrate de configurar tu clave de API
+        client = OpenAI(
+            api_key=os.getenv('OPENAI_KEY', ''),
+            project="proj_PEpuhEugHb1JX5coceQkSmCV"
+        )  # Asegúrate de configurar tu clave de API
 
         # Crear los mensajes en el formato correcto
         messages = [
-            {"role": "system", "content": "Eres un generador de preguntas de opción múltiple en español."},
+            {"role": "system", "content": "Eres un generador de preguntas tipo examen de opción múltiple en idioma español."},
             {"role": "user", "content": (
                 f"Basado en el siguiente contenido:\n{content}\n"
                 f"Genera exactamente {num_questions} pregunta(s) de opción múltiple en formato JSON, "
-                "con cada pregunta teniendo una lista de exactamente 4 alternativas (una correcta) y una explicación en español. "
-                "Cada entrada debe incluir: 'question', 'alternatives' (con 'text' y 'is_correct') y 'explanation'."
+                "cada pregunta debe tener exactamente 4 alternativas (solo una es correcta) y "
+                "aparte de la pregunta debe una explicación de la respuesta correcta."
+                "El formato json incluir: 'question', 'alternatives' (donde cada alternativa tiene 'text'(texto de la alternativa) y 'is_correct' (true o falso por cada alternativa)) y 'explanation'."
             )}
         ]
         try:
-            response = openai.ChatCompletion.create(
+            response = client.chat.completions.create(
                 model="gpt-4o",
                 messages=messages,
-                max_tokens=1500,  # Ajusta según sea necesario
+                max_tokens=2000,  # Ajusta según sea necesario
                 temperature=0.5
             )
             # Verifica que la respuesta tenga contenido
-            if not response.choices or not response.choices[0].message['content'].strip():
+            if not response.choices or not response.choices[0].message.content.strip():
                 raise ValueError("La API no devolvió contenido. Verifica los límites de tokens o el contenido enviado.")
 
-            response_text = response.choices[0].message['content'].strip()
+            response_text = response.choices[0].message.content
             content = response_text.replace('```json\n', '').replace('\n```', '').strip()
             # Intenta cargar la respuesta como JSON
             questions_data = json.loads(content)
@@ -197,20 +201,28 @@ class GenerarExamenView(APIView):
     def save_questions_and_alternatives(self, questions_data, modulo, examen):
         """Guarda preguntas y sus alternativas en la base de datos."""
         total = 0
-        for question_data in questions_data:
+        for index, question_data in enumerate(questions_data, start=1): #for question_data in questions_data:
+            # Combina examen + índice de 2 dígitos, todo como entero
+            pregunta_cod_personalizado = int(f"{examen.exacurcod.curcod}{index:02}")  # ejemplo: examen=12 → 1201, 1202...            
             pregunta = Pregunta.objects.create(
+                precod=pregunta_cod_personalizado,
                 pretex=question_data["question"],
                 preexp=question_data["explanation"],
                 prenummod=modulo.modcod,
                 preexacod=examen,
-                preestregcod=EstadoRegistro.objects.get(pk=0)
+                preestregcod=EstadoRegistro.objects.get(pk=1)
             )
-            for alternative in question_data["alternatives"]:
+
+            # Agrega un contador para las alternativas
+            for alt_index, alternative in enumerate(question_data["alternatives"], start=1):
+                # Código único para cada alternativa basado en la pregunta + número de alternativa
+                alternativa_cod_personalizado = int(f"{pregunta.precod}{alt_index:02}")  # Ej: 120101, 120102, 120201, etc.
                 Alternativa.objects.create(
+                    altcod=alternativa_cod_personalizado,
                     alttex=alternative["text"],
                     altcor=alternative["is_correct"],
                     altprecod=pregunta,
-                    altestregcod=EstadoRegistro.objects.get(pk=0)
+                    altestregcod=EstadoRegistro.objects.get(pk=1)
                 )
             total += 1
         return total
@@ -443,7 +455,7 @@ class ProcessPdfView(APIView):
             return {'error': 'No se encontraron fragmentos de texto para los módulos en el archivo.'}
 
         # Directorio donde se guardarán los archivos txt de los módulos
-        modulos_directory = os.path.join(settings.MEDIA_ROOT, 'modulos_txt')
+        modulos_directory = os.path.join(settings.MEDIA_URL, 'modulos_txt')
         os.makedirs(modulos_directory, exist_ok=True)
 
         modulos_guardados = []
@@ -461,21 +473,20 @@ class ProcessPdfView(APIView):
             )
 
             if modulo_obj:
-                # Crear el archivo para el módulo
-                archivo_modulo_txt = os.path.join(
-                    modulos_directory, 
-                    f'curso-{curso.curcod}_{modulo_obj.modcod}-{modulo_obj.modnom}.txt'
-                )
-                with open(archivo_modulo_txt, 'w', encoding='utf-8') as f:
+                # Nombre del archivo
+                archivo_nombre = f'curso-{curso.curcod}_{modulo_obj.modcod}-{modulo_obj.modnom}.txt'
+                ruta_relativa = os.path.join('modulos_txt', archivo_nombre)
+                ruta_absoluta = os.path.join(settings.MEDIA_ROOT, ruta_relativa)
+                with open(ruta_absoluta, 'w', encoding='utf-8') as f:
                     f.write(f"{encabezado_modulo}\n{contenido_modulo}")
-
-                # Guardar la ruta del archivo en la base de datos
-                modulo_obj.modsrctxt = archivo_modulo_txt
+                
+                # Guardar la ruta relativa en la base de datos
+                modulo_obj.modsrctxt = ruta_relativa  
                 modulo_obj.save()
 
                 modulos_guardados.append({
                     'modulo': encabezado_modulo,
-                    'archivo': archivo_modulo_txt
+                    'archivo': ruta_relativa
                 })
 
         return modulos_guardados
