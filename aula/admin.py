@@ -20,6 +20,7 @@ class EstadoExamenAdmin(admin.ModelAdmin):
         'estexacod',
         'estexanom'
     )
+    search_fields = ('estexanom',)
 
 
 # Registro del modelo Matricula Programa
@@ -94,7 +95,7 @@ class ModuloAdmin(admin.ModelAdmin):
         'modcurcod',
         'modestregcod'
     )
-    search_fields = ('modnom',)
+    search_fields = ('modnom','modcod',)
     list_filter = ('modestregcod','modcurcod',)
 
 
@@ -106,6 +107,7 @@ class ExamenAdmin(admin.ModelAdmin):
         'exanumpre',
         'exaestregcod',
     )
+    search_fields = ('exacurcod',)
     list_filter = ('exaestregcod',)
 
 
@@ -118,8 +120,8 @@ class PreguntaAdmin(admin.ModelAdmin):
         'preexacod',
         'preestregcod',
     )
-    search_fields = ('pretex',)
-    list_filter = ('preestregcod',)
+    search_fields = ('pretex', 'preexacod',)
+    list_filter = ('preestregcod','preexacod', )
 
 
 # Registro del modelo Alternativa
@@ -132,7 +134,7 @@ class AlternativaAdmin(admin.ModelAdmin):
         'altprecod',
         'altestregcod',
     )
-    search_fields = ('alttex',)
+    search_fields = ('alttex','altprecod',)
     list_filter = ('altestregcod',)
 
 
@@ -149,6 +151,8 @@ class RespuestaExamenProgramaAdmin(admin.ModelAdmin):
         'resproaltcod',
         'resprofec',
     )
+    search_fields = ('resproestcod','resproprocod','resproexacod','resproprecod',)
+    list_filter = ('resproexacod',)
 
 
 # Registro del modelo RespuestaExamenCurso
@@ -163,6 +167,8 @@ class RespuestaExamenCursoAdmin(admin.ModelAdmin):
         'rescuraltcod',
         'rescurfec',
     )
+    search_fields = ('rescurestcod','rescurexacod','rescurprecod',)
+    list_filter = ('rescurexacod',)
 
 
 @admin.register(RegistroExamenPrograma)
@@ -176,6 +182,8 @@ class RegistroExamenProgramaAdmin(admin.ModelAdmin):
         'regexaproexacod',
         'regexaproestexacod',
     )
+    search_fields = ('regexaproprocod','regexaproestcod','regexaproexacod',)
+    list_filter = ('regexaproprocod',)
 
 
 @admin.register(RegistroExamenCurso)
@@ -189,5 +197,5 @@ class RegistroExamenCursoAdmin(admin.ModelAdmin):
         'regexacurexacod',
         'regexacurestexacod',
     )
-
-
+    search_fields = ('regexacurcurcod','regexacurestcod','regexacurexacod',)
+    list_filter = ('regexacurcurcod',)

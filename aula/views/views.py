@@ -155,10 +155,10 @@ class GenerarExamenView(APIView):
             {"role": "system", "content": "Eres un generador de preguntas tipo examen de opción múltiple en idioma español."},
             {"role": "user", "content": (
                 f"Basado en el siguiente contenido:\n{content}\n"
-                f"Genera exactamente {num_questions} pregunta(s) de opción múltiple en formato JSON, "
+                f"Genera exactamente {num_questions} pregunta(s) de opción múltiple en formato JSON, por favor no enumeres ni les pongas letras a las alternativas y preguntas, "
                 "cada pregunta debe tener exactamente 4 alternativas (solo una es correcta) y "
-                "aparte de la pregunta debe una explicación de la respuesta correcta."
-                "El formato json incluir: 'question', 'alternatives' (donde cada alternativa tiene 'text'(texto de la alternativa) y 'is_correct' (true o falso por cada alternativa)) y 'explanation'."
+                "aparte de la pregunta debe haber una explicación de la respuesta correcta."
+                "El formato json debe incluir: 'question', 'alternatives' (donde cada alternativa tiene 'text'(texto de la alternativa) y 'is_correct' (true o falso por cada alternativa)) y 'explanation'."
             )}
         ]
         try:

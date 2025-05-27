@@ -209,8 +209,8 @@ SIMPLE_JWT = {
     #'LEEWAY': 0,
     
     'AUTH_HEADER_TYPES': ('JWT',),
-    'ACCESS_TOKEN_LIFETIME': timedelta(hours=6), # Cambiado a 6 hora
-    'REFRESH_TOKEN_LIFETIME': timedelta(days=1), # Duración del token de refresco (puedes ajustar esto si es necesario)
+    'ACCESS_TOKEN_LIFETIME': timedelta(hours=12), # Cambiado a 6 hora
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=7), # Duración del token de refresco (puedes ajustar esto si es necesario)
     #'AUTH_HEADER_NAME': 'HTTP_AUTHORIZATION',
     'USER_ID_FIELD': 'id',
     'USER_ID_CLAIM': 'user_id',

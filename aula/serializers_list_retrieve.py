@@ -100,10 +100,9 @@ class AlternativaSerializerList(serializers.ModelSerializer):
 
 
 class RespuestaExamenProgramaSerializerList(serializers.ModelSerializer):
-    resestcod = EstudianteUserSerializerList()
-    resexacod = ExamenSerializerList()
-    resprecod = PreguntaSerializerList()
-    resaltcod = AlternativaSerializerList()
+    resproexacod = ExamenSerializerList()
+    resproprecod = PreguntaSerializerList()
+    resproaltcod = AlternativaSerializerList()
     class Meta:
         model = RespuestaExamenPrograma
         fields = [
@@ -216,6 +215,7 @@ class XPreguntaSerializerList(serializers.ModelSerializer):
         fields = [
             "precod",
             "pretex",
+            "preexp",
             "preexacod",
             "preestregcod",
             "alternativas"

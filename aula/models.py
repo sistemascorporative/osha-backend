@@ -76,7 +76,7 @@ class Programa(models.Model):
 class Modulo(models.Model):
     modcod = models.AutoField(verbose_name="Codigo", db_column='ModCod', primary_key=True)
     modnom = models.CharField(verbose_name="Nombre", db_column='ModNom', max_length=100, blank=False)
-    modsrctxt = models.FileField(verbose_name="Archivo TXT", db_column='ModSrcTxt', upload_to='modulo_pdf/', blank=True, null=True)
+    modsrctxt = models.FileField(verbose_name="Archivo TXT", db_column='ModSrcTxt', upload_to='modulo_pdf/', max_length=120, blank=True, null=True)
     modcurcod = models.ForeignKey(Curso, models.PROTECT, verbose_name="Codigo Curso", db_column='ModCurCod')
     modestregcod = models.ForeignKey(EstadoRegistro, models.PROTECT, verbose_name="Codigo EstReg", db_column='ModEstRegCod')
     

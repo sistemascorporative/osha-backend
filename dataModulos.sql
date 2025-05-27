@@ -20,10 +20,10 @@ VALUES
     (10801, 'Requisitos generales de EPP y tipos de EPP', 108, 1),
     (10802, 'Tipos de EPP o EPI (continuación)', 108, 1),
     
-    (11201, 'La primera responsabilidad "STAR"', 112, 1),
-    (11202, 'Más responsabilidades "STAR"', 112, 1),
+    (11201, 'La primera responsabilidad STAR', 112, 1),
+    (11202, 'Más responsabilidades STAR', 112, 1),
 
-    (11301, '¿Qué es el liderazgo?', 113, 1),
+    (11301, 'Qué es el liderazgo', 113, 1),
     (11302, 'Liderazgo en acción', 113, 1),
 
     (11401, 'Riesgos de superficie que causan caídas', 114, 1),
@@ -35,7 +35,7 @@ VALUES
     (11601, 'Normas, recursos y medición', 116, 1),
     (11602, 'Consecuencias y evaluación', 116, 1),
 
-    (11701, '¿Qué es el reconocimiento efectivo?', 117, 1),
+    (11701, 'Qué es el reconocimiento efectivo', 117, 1),
     (11702, 'Reglas e ideas', 117, 1),
 
     (11901, 'Peligros de la conducción', 119, 1),
@@ -44,7 +44,7 @@ VALUES
     (12001, 'Peligros', 120, 1),
     (12002, 'Soluciones', 120, 1),
 
-    (12101, '¿Qué es la educación en seguridad?', 121, 1),
+    (12101, 'Qué es la educación en seguridad', 121, 1),
     (12102, 'Cualificaciones de formador y desarrollo de cursos', 121, 1),
 
     (12201, 'Identificación de riesgos', 122, 1),
@@ -150,7 +150,7 @@ VALUES
     (62401, 'Principales riesgos y soluciones', 624, 1),
     (62402, 'Herramientas y recursos', 624, 1),
 
-    (65601, '¿Qué son los patógenos transmitidos por la sangre?', 656, 1),
+    (65601, 'Qué son los patógenos transmitidos por la sangre', 656, 1),
     (65602, 'Patógenos específicos transmitidos por la sangre', 656, 1),
     (65603, 'Transmisión de patógenos sanguíneos', 656, 1),
     (65604, 'Plan de control de la exposición de su empresa', 656, 1),
@@ -354,7 +354,7 @@ VALUES
     (71906, 'Investigación de accidentes', 719, 1),
     (71907, 'Selección y mantenimiento', 719, 1),
 
-    (72101, '¿Es la formación la respuesta?', 721, 1),
+    (72101, 'Es la formación la respuesta', 721, 1),
     (72102, 'Necesidades de formación', 721, 1),
     (72103, 'Metas y objetivos', 721, 1),
     (72104, 'Actividades de aprendizaje', 721, 1),
@@ -428,16 +428,16 @@ VALUES
     (80508, 'Inspección y mantenimiento', 805, 1),
     (80509, 'Rescate en altura', 805, 1),
 
-    (80601, '¿Qué es un riesgo de caída?', 806, 1),
+    (80601, 'Qué es un riesgo de caída', 806, 1),
     (80602, 'Protegerse de los riesgos de caída', 806, 1),
 
-    (80701, '¿Qué son los riesgos intermedios?', 807, 1),
+    (80701, 'Qué son los riesgos intermedios', 807, 1),
     (80702, 'Protéjase de los riesgos de quedar atrapado/entre dos aguas', 807, 1),
     
-    (80801, '¿Qué es un peligro de atropello?', 808, 1),
+    (80801, 'Qué es un peligro de atropello', 808, 1),
     (80802, 'Protegerse de los riesgos de atropello', 808, 1),
 
-    (80901, '¿Qué son los riesgos de electrocución?', 809, 1),
+    (80901, 'Qué son los riesgos de electrocución', 809, 1),
     (80902, 'Cómo protegerse de los riesgos de electrocución', 809, 1),
 
     (81001, 'Reconocer los peligros', 810, 1),

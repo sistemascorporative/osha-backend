@@ -22,7 +22,7 @@ urlpatterns = [
     path('curso/<int:curso_id>/modulos/', ModulosPorCursoListAPIView.as_view(), name='modulos-por-curso'),
     path('programa/<int:programa_id>/estudiante/<str:estudiante_id>/registrosexamenes/', RegistrosExamenesPorProgramaPorEstudianteListAPIView.as_view(), name='registros-de-examenes-por-programa-y-estudiante'),
     path('programa/<int:programa_id>/examenes/', ExamenesPorProgramaListAPIView.as_view(), name='examenes-por-programa'),
-    path('guardar-respuestas-examen/', GuardarRespuestasAPIView.as_view(), name='guardar_respuestas_examen'),
+    path('guardar-respuestas-examen/', GuardarRespuestasExamenProgramaAPIView.as_view(), name='guardar_respuestas_examen'),
     
     path('generar-examen/', GenerarExamenView.as_view(), name='generar_examen'),
     path("modulo/<int:pk>/update-txt/", UpdateModuloTxtContentView.as_view(), name="update-txt"),
@@ -39,6 +39,7 @@ urlpatterns = [
     
     # List
     
+    path('respuestas-examen-programa/<str:estudiante_email>/<int:programa_id>/<int:examen_id>/', RespuestaExamensProgramaListAPIView.as_view(), name='respuestas-examen-programa'),
     path('programas-matriculados/<str:estudiante_email>/', ProgramasMatriculadosPorEstudianteListAPIView.as_view(), name='programas-matriculados-list'),
     path('cursos-matriculados/<str:estudiante_email>/', CursosMatriculadosPorEstudianteListAPIView.as_view(), name='cursos_matriculados-list'),
     path('matriculas-programa/<str:estudiante_email>/', MatriculaProgramaPorEstudianteListView.as_view(), name='matriculas-programa-por-estudiante-list'),
