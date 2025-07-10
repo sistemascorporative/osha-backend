@@ -7,13 +7,14 @@ from .models import *
 @admin.register(UserSimple)
 class UserSimpleAdmin(admin.ModelAdmin):
     list_display = (
+        'id',
         'userdocide',
+        'usercodosh',
         'usernom',
         'userape',
-        'usercodosh',
         'userpai',
     )
-    search_fields = ('usernom', 'userape', 'userdocide', 'usercodosh',)
+    search_fields = ('id', 'usernom', 'userape', 'userdocide', 'usercodosh',)
     list_filter = ('userpai',)
 
 

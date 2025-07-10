@@ -18,6 +18,7 @@ class CredencialProgramaMatriculaAdmin(admin.ModelAdmin):
 @admin.register(CredencialPrograma)
 class CredencialProgramaAdmin(admin.ModelAdmin):
     list_display = (
+        'creprocod',
         'creproestcod',
         'creproprocod',
         'creprofecemi',

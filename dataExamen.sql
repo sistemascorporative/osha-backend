@@ -1,5 +1,5 @@
 --Eliminar los registros de la tabla
-DELETE FROM examen;
+--DELETE FROM examen;
 --ALTER TABLE examen DROP COLUMN ExaCod;
 
 -- EL ID DEL EXAMEN TIENE QUE SER IGUAL QUE EL CURSO
@@ -7,7 +7,7 @@ DELETE FROM examen;
 INSERT INTO examen("ExaCurCod", "ExaNumPre", "ExaEstRegCod")
 VALUES
     -- examenes para TT
-    (112, 20, 1),
+    /*(112, 20, 1),
     (144, 20, 1),
     (121, 20, 1),
     (703, 20, 1),
@@ -65,5 +65,19 @@ VALUES
     (664, 20, 1),
     (665, 20, 1),
     (1200, 20, 1),
-    (1201, 20, 1),
-    (726, 20, 1);
+    (1201, 20, 1);*/
+    
+
+    (176, 20, 1),
+    (183, 20, 1),
+    (704, 20, 1),
+    (705, 20, 1),
+    (709, 20, 1),
+    (710, 20, 1),
+    (717, 20, 1),
+    (718, 20, 1),
+    (757, 20, 1),
+    (802, 20, 1),
+    (804, 20, 1),
+    (810, 20, 1),
+    (813, 20, 1);

@@ -113,7 +113,6 @@ class RespuestaExamenProgramaSerializerList(serializers.ModelSerializer):
             "resproexacod",
             "resproprecod",
             "resproaltcod",
-            "resprofec",
         ]
 
 
@@ -131,7 +130,6 @@ class RespuestaExamenCursoSerializerList(serializers.ModelSerializer):
             "rescurexacod",
             "rescurprecod",
             "rescuraltcod",
-            "rescurfec",
         ]
 
 

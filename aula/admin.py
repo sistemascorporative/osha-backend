@@ -27,11 +27,11 @@ class EstadoExamenAdmin(admin.ModelAdmin):
 @admin.register(MatriculaPrograma)
 class MatriculaProgramaAdmin(admin.ModelAdmin):
     list_display = (
-        'matprocod',
+        'matproestcod',
+        'matproter',
+        'matpropun',
         'matprofecini',
         'matprofecfin',
-        'matproter',
-        'matproestcod',
         'matproprocod',
         'matproestregcod'
     )
@@ -65,7 +65,7 @@ class CursoAdmin(admin.ModelAdmin):
         'curestregcod'
     )
     search_fields = ('curcod', 'curnom')
-    list_filter = ('curfre',)
+    list_filter = ('curfre', 'curestregcod')
     ordering = ('curcod',)
 
 
@@ -80,10 +80,10 @@ class ProgramaAdmin(admin.ModelAdmin):
         'pronumhor',
         'proestregcod'
     )
-    search_fields = ('pronom','procodosh',)
+    search_fields = ('procod','pronom','procodosh',)
     filter_horizontal = ('cursos',)
     list_filter = ('proestregcod',)
-    ordering = ('pronom',)
+    ordering = ('procod',)
 
 
 # Registro del modelo Modulo
@@ -95,7 +95,7 @@ class ModuloAdmin(admin.ModelAdmin):
         'modcurcod',
         'modestregcod'
     )
-    search_fields = ('modnom','modcod',)
+    search_fields = ('modcod','modnom',)
     list_filter = ('modestregcod','modcurcod',)
 
 
@@ -120,8 +120,8 @@ class PreguntaAdmin(admin.ModelAdmin):
         'preexacod',
         'preestregcod',
     )
-    search_fields = ('pretex', 'preexacod',)
-    list_filter = ('preestregcod','preexacod', )
+    search_fields = ('precod','pretex',)
+    list_filter = ('preestregcod','preexacod')
 
 
 # Registro del modelo Alternativa
@@ -129,12 +129,12 @@ class PreguntaAdmin(admin.ModelAdmin):
 class AlternativaAdmin(admin.ModelAdmin):
     list_display = (
         'altcod',
-        'alttex',
         'altcor',
+        'alttex',
         'altprecod',
         'altestregcod',
     )
-    search_fields = ('alttex','altprecod',)
+    search_fields = ('alttex', 'altcod')
     list_filter = ('altestregcod',)
 
 
@@ -149,7 +149,6 @@ class RespuestaExamenProgramaAdmin(admin.ModelAdmin):
         'resproexacod',
         'resproprecod',
         'resproaltcod',
-        'resprofec',
     )
     search_fields = ('resproestcod','resproprocod','resproexacod','resproprecod',)
     list_filter = ('resproexacod',)
@@ -165,7 +164,6 @@ class RespuestaExamenCursoAdmin(admin.ModelAdmin):
         'rescurexacod',
         'rescurprecod',
         'rescuraltcod',
-        'rescurfec',
     )
     search_fields = ('rescurestcod','rescurexacod','rescurprecod',)
     list_filter = ('rescurexacod',)

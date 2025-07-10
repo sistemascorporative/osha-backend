@@ -1,5 +1,5 @@
 --Eliminar los registros de la tabla
-DELETE FROM modulo;
+--DELETE FROM modulo;
 --DELETE FROM programa_cursos;
 --DELETE FROM curso;
 
@@ -11,7 +11,20 @@ DELETE FROM modulo;
 --INSERT INTO modulo (ModCod, ModNom, ModCurCod, ModEstRegCod)
 INSERT INTO modulo ("ModCod", "ModNom", "ModCurCod", "ModEstRegCod")
 VALUES
-    (10501, 'Controles y etiquetado', 105, 1),
+    (62001, 'Tipos de montacargas', 620, 1),
+    (62002, 'Cómo funciona un montacargas', 620, 1),
+    (62003, 'Operación del montacargas', 620, 1),
+    (62004, 'Mantenimiento', 620, 1),
+
+    (62201, 'Tipos de Montacargas', 622, 1),
+    (62202, 'Cómo Funciona un Montacargas', 622, 1),
+    (62203, 'Operación de Montacargas', 622, 1),
+    (62204, 'Mantenimiento de Montacargas', 622, 1),
+    (62205, 'Identificación y Exposición a Peligros', 622, 1),
+    (62206, 'Capacitación de Operadores', 622, 1);
+
+
+    /*(10501, 'Controles y etiquetado', 105, 1),
     (10502, 'Hojas de datos de seguridad (SDS)', 105, 1),
 
     (10701, 'Planes de actuación en caso de emergencia (EAP)', 107, 1),
@@ -645,4 +658,4 @@ VALUES
 
     (558101, 'Bipiridilos', 5581, 1),
 
-    (558201, 'Piretrinas', 5582, 1);
+    (558201, 'Piretrinas', 5582, 1);*/

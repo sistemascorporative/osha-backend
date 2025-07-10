@@ -37,7 +37,7 @@ class Curso(models.Model):
     curnom = models.CharField(verbose_name="Nombre", db_column='CurNom', max_length=80, blank=False)
     curnomeng = models.CharField(verbose_name="Nombre en Inglés", db_column='CurNomEng', max_length=80, blank=False, default="")
     curfre = models.BooleanField(verbose_name="Gratuitos", db_column='CurFre', default=False)
-    curnummod = models.IntegerField( verbose_name="Número de módulos", db_column='CurNumMod', default=0)
+    curnummod = models.IntegerField( verbose_name="N° módulos", db_column='CurNumMod', default=0)
     cursrcpdf = models.FileField(verbose_name="Archivo PDF", db_column='CurSrcPdf', upload_to='cursos_pdf/', blank=True, null=True)
     curestregcod = models.ForeignKey(EstadoRegistro, models.PROTECT, verbose_name="Código EstReg", db_column='CurEstRegCod')
     
@@ -48,7 +48,7 @@ class Curso(models.Model):
         verbose_name_plural = 'Cursos'
     
     def __str__(self):
-        return self.curnom
+        return f"{self.curcod} - {self.curnom}"
 
 
 class Programa(models.Model):
@@ -58,8 +58,8 @@ class Programa(models.Model):
     prodip = models.CharField(verbose_name="Nombre de Diploma", db_column='ProDip',max_length=200, blank=True, default='')
     prodipeng = models.CharField(verbose_name="Nombre de Diploma en inglés", db_column='ProDipEng',max_length=200, blank=True, default='')
     procodosh = models.CharField(verbose_name="Codigo osha", db_column='ProCodOsh', max_length=30)
-    pronumhor = models.IntegerField( verbose_name="Número de horas", db_column='ProNumHor', default=0)
-    pronumcur = models.IntegerField( verbose_name="Número de cursos", db_column='ProNumCur', default=0)
+    pronumhor = models.IntegerField( verbose_name="N° horas", db_column='ProNumHor', default=0)
+    pronumcur = models.IntegerField( verbose_name="N° cursos", db_column='ProNumCur', default=0)
     proestregcod = models.ForeignKey(EstadoRegistro, models.PROTECT, verbose_name="Código EstReg", db_column='ProEstRegCod')
     cursos = models.ManyToManyField(Curso, related_name='programas', verbose_name="Cursos", blank=True)
     
@@ -70,11 +70,11 @@ class Programa(models.Model):
         verbose_name_plural = 'Programas'
     
     def __str__(self):
-        return self.pronom
+        return f"{self.procod} - {self.pronom}"
 
 
 class Modulo(models.Model):
-    modcod = models.AutoField(verbose_name="Codigo", db_column='ModCod', primary_key=True)
+    modcod = models.AutoField(verbose_name="Código", db_column='ModCod', primary_key=True)
     modnom = models.CharField(verbose_name="Nombre", db_column='ModNom', max_length=100, blank=False)
     modsrctxt = models.FileField(verbose_name="Archivo TXT", db_column='ModSrcTxt', upload_to='modulo_pdf/', max_length=120, blank=True, null=True)
     modcurcod = models.ForeignKey(Curso, models.PROTECT, verbose_name="Codigo Curso", db_column='ModCurCod')
@@ -92,7 +92,7 @@ class Modulo(models.Model):
 
 class Examen(models.Model):
     exacurcod = models.OneToOneField(Curso, models.PROTECT, verbose_name="Codigo Curso", db_column='ExaCurCod', primary_key=True)
-    exanumpre = models.IntegerField( verbose_name="Número de preguntas", db_column='ExaNumPre', default=0)
+    exanumpre = models.IntegerField( verbose_name="N° preguntas", db_column='ExaNumPre', default=0)
     exaestregcod = models.ForeignKey(EstadoRegistro, models.PROTECT, verbose_name="Codigo EstReg", db_column='ExaEstRegCod', default=1)
     
     class Meta:
@@ -109,7 +109,7 @@ class Pregunta(models.Model):
     precod = models.AutoField(verbose_name="Codigo", db_column='preCod', primary_key=True)
     pretex = models.CharField(verbose_name="Texto",db_column="PreTex", max_length=500)
     preexp = models.CharField(verbose_name="Explicación",db_column="PreExp", max_length=1000, default='')
-    prenummod = models.IntegerField(verbose_name="Número de modulo al que pertenece", db_column="PreNumMod", default=0)
+    prenummod = models.IntegerField(verbose_name="N° modulo al que pertenece", db_column="PreNumMod", default=0)
     preexacod = models.ForeignKey(Examen, models.PROTECT, verbose_name="Codigo EXamen", db_column='PreExaCod')
     preestregcod = models.ForeignKey(EstadoRegistro, models.PROTECT, verbose_name="Codigo EStReg", db_column='PreEstRegCod')
     
@@ -141,10 +141,10 @@ class Alternativa(models.Model):
 
 
 class MatriculaPrograma(models.Model):
-    matprocod = models.AutoField(verbose_name="Codigo", db_column='MatProCod', primary_key=True)
+    matprocod = models.AutoField(verbose_name="Código", db_column='MatProCod', primary_key=True)
     matprofecini = models.DateField(verbose_name="Fecha de inicio", db_column='MatProFecIni', blank=True, null=True)
     matprofecfin = models.DateField(verbose_name="Fecha de finalización", db_column='MatProFecFin', blank=True, null=True)
-    matproter = models.BooleanField(verbose_name="Programa terminado", db_column='MatProTer', blank=False, null=False, default=False)
+    matproter = models.BooleanField(verbose_name="Finalizado", db_column='MatProTer', blank=False, null=False, default=False)
     matpropun = models.DecimalField(verbose_name="Puntuación", db_column='MatProPun', max_digits=5, decimal_places=2, default=0.00)
     matpropor = models.DecimalField(verbose_name="Porcentaje de avance", db_column='MatProPor', max_digits=5, decimal_places=2, default=0.00)
     matproestcod = models.ForeignKey(EstudianteUser, models.PROTECT, verbose_name="Codigo Estudiante", db_column='MatProEstCod')
@@ -190,7 +190,6 @@ class RespuestaExamenPrograma(models.Model):
     resproexacod = models.ForeignKey(Examen, on_delete=models.PROTECT, verbose_name="Codigo Examen", db_column='ResProExaCod')
     resproprecod = models.ForeignKey(Pregunta, on_delete=models.PROTECT, verbose_name="Pregunta", db_column='ReaProPreCod')
     resproaltcod = models.ForeignKey(Alternativa, on_delete=models.PROTECT, verbose_name="Alternativa seleccionada", db_column='ResProAltCod')
-    resprofec = models.DateTimeField(verbose_name="Fecha de respuesta", db_column='ResProFec', auto_now_add=True)
 
     class Meta:
         db_table = 'respuesta_examen_programa'
@@ -210,7 +209,6 @@ class RespuestaExamenCurso(models.Model):
     rescurexacod = models.ForeignKey(Examen, on_delete=models.PROTECT, verbose_name="Codigo Examen", db_column='ResCurExaCod')
     rescurprecod = models.ForeignKey(Pregunta, on_delete=models.PROTECT, verbose_name="Pregunta", db_column='ResCurPreCod')
     rescuraltcod = models.ForeignKey(Alternativa, on_delete=models.PROTECT, verbose_name="Alternativa seleccionada", db_column='ResCurAltCod')
-    rescurfec = models.DateTimeField(verbose_name="Fecha de respuesta", db_column='ResCurFec', auto_now_add=True)
 
     class Meta:
         db_table = 'respuesta_examen_curso'
@@ -227,9 +225,10 @@ class RespuestaExamenCurso(models.Model):
 class RegistroExamenPrograma(models.Model):
     regexaprocod = models.AutoField(verbose_name="Código", db_column='RegExaProCod', primary_key=True)
     regexapropun = models.DecimalField(verbose_name="Puntuación", db_column='RegExaProPun', max_digits=5, decimal_places=2, default=0.00)
-    regexaproint = models.IntegerField(verbose_name="Número de intentos", db_column='RegExaProInt', default=0)
+    regexaproint = models.IntegerField(verbose_name="N° intentos", db_column='RegExaProInt', default=0)
+    regexaprofec = models.DateTimeField(verbose_name="Última actualización", db_column='RegExaProFec', auto_now=True)
     regexaproprocod = models.ForeignKey(Programa, models.PROTECT, verbose_name="Matrícula del Programa", db_column='RegExProProCod')
-    regexaproestcod = models.ForeignKey(EstudianteUser, models.PROTECT, verbose_name="Matrícula del Programa", db_column='RegExProEstCod')
+    regexaproestcod = models.ForeignKey(EstudianteUser, models.PROTECT, verbose_name="Estudiante", db_column='RegExProEstCod')
     regexaproexacod = models.ForeignKey(Examen, models.PROTECT, verbose_name="Código del Examen", db_column='RegExProExaCod')
     regexaproestexacod = models.ForeignKey(EstadoExamen, models.PROTECT, verbose_name="Estado del Examen", db_column='RegExProEstExaCod')
 
@@ -247,7 +246,8 @@ class RegistroExamenPrograma(models.Model):
 class RegistroExamenCurso(models.Model):
     regexacurcod = models.AutoField(verbose_name="Código", db_column='RegExaCurCod', primary_key=True)
     regexacurpun = models.DecimalField(verbose_name="Puntuación", db_column='RegExaCurPun', max_digits=5, decimal_places=2, default=0.00)
-    regexacurint = models.IntegerField(verbose_name="Número de intentos", db_column='RegExaCurInt', default=0)
+    regexacurint = models.IntegerField(verbose_name="N° intentos", db_column='RegExaCurInt', default=0)
+    regexacurfec = models.DateTimeField(verbose_name="Última actualización", db_column='RegExaCurFec', auto_now=True)
     regexacurcurcod = models.ForeignKey(Curso, models.PROTECT, verbose_name="Matrícula del Curso", db_column='RegExaCurCurCod')
     regexacurestcod = models.ForeignKey(EstudianteUser, models.PROTECT, verbose_name="Matrícula del Programa", db_column='RegExaProEstCod')
     regexacurexacod = models.ForeignKey(Examen, models.PROTECT, verbose_name="Código del Examen", db_column='RegExaCurExaCod')

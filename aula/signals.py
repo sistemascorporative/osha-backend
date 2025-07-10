@@ -1,6 +1,12 @@
 from django.db.models.signals import m2m_changed, post_save, post_delete, pre_save
+from django.db.models import Avg, Count
+from decimal import Decimal, ROUND_HALF_UP
 from django.dispatch import receiver
-from .models import *
+from .models import (
+    Programa, Modulo, Examen, Pregunta, EstadoExamen,
+    MatriculaPrograma, MatriculaCurso,
+    RespuestaExamenPrograma, RegistroExamenPrograma, RegistroExamenCurso
+)
 import logging
 
 
@@ -9,7 +15,52 @@ logger = logging.getLogger(__name__)
 
 
 """
-Actualizar numero de cursos en la tabla Programa
+Actualizar el promedio de matricula de un programa y si ha finalizado el programa
+"""
+@receiver(post_save, sender=RespuestaExamenPrograma)
+def update_matricula_programa(sender, instance, **kwargs):
+    estudiante = instance.resproestcod
+    programa = instance.resproprocod
+
+    # Obtener todas las respuestas del estudiante en ese programa
+    respuestas = RespuestaExamenPrograma.objects.filter(
+        resproestcod=estudiante,
+        resproprocod=programa
+    )
+
+    # Calcular el promedio de puntajes (ignorando los nulos)
+    promedio = respuestas.aggregate(promedio=Avg('respropun'))['promedio'] or 0.00
+    promedio_decimal = Decimal(promedio).quantize(Decimal("0.01"), rounding=ROUND_HALF_UP)
+
+    # Número de respuestas del estudiante en el programa
+    num_respuestas = respuestas.count()
+
+    # Número de cursos en el programa
+    num_cursos = programa.cursos.count()
+
+    # Obtener la matrícula del programa
+    try:
+        matricula = MatriculaPrograma.objects.get(
+            matproestcod=estudiante,
+            matproprocod=programa
+        )
+
+        # Actualizar el promedio
+        matricula.matpropun = promedio_decimal
+
+        # Verificar si el estudiante ha terminado el programa
+        if promedio_decimal >= Decimal("70.00") and num_respuestas == num_cursos:
+            matricula.matproter = True
+
+        matricula.save()
+
+    except MatriculaPrograma.DoesNotExist:
+        pass
+
+
+
+"""
+Actualizar número de cursos en la tabla Programa
 """
 @receiver(m2m_changed, sender=Programa.cursos.through)
 def update_curso_count(sender, instance, action, **kwargs):
